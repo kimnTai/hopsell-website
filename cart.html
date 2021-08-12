@@ -46,60 +46,59 @@
             </a>
         </div>
     </div>
-    <!--輪播圖-->
-
-
-
+  
     <!-- 內容 下 -->
-    <div class="bg-secondary" id="app">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-10">
-                    <div class="" id="CartList">
-                        <h3 class="text-center text-light p-3">購物車清單</h3>
-                        <table class="table table-sm text-light">
-                            <thead class="">
-                                <tr>
-                                    <th width="60"></th>
-                                    <th width="200" class="d-none d-sm-table-cell">Coffee Name</th>
-                                    <th>商品名稱</th>
-                                    <th width="60">數量</th>
-                                    <th width="140" class="text-right">小計</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- v-for -->
-                                <tr v-for="item in CartList">
-                                    <td class="align-middle ">
-                                        <button class="btn btn-outline-danger btn-sm" data-bs-toggle="modal"
-                                            data-bs-target="#removeModal" @click="delFromCart(item.id)">
-                                            <i class="bi bi-trash"></i></button>
-                                    </td>
-                                    <td class="align-middle d-none d-sm-table-cell p-3"><img :src="item.image"
-                                            width="160" alt="" class="img-thumbnail"></td>
-                                    <td class="align-middle">
-                                        {{item.name}}
-                                    </td>
-                                    <td class="align-middle">{{item.quantity}} 杯</td>
-                                    <td class="align-middle text-right">${{item.quantity*item.price*discount}}</td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr class="d-none d-sm-table-row">
-                                    <td colspan="4" class="h3 text-right">總計</td>
-                                    <td class="h3 text-right p-3"><strong>${{total(discount)}}</strong></td>
-                                </tr>
-                            </tfoot>
-                        </table>
+    <body>
+        <div id="app">
+            <div id="app" class="container my-3">
+                <div>
+                    <h1>Todo List</h1>
+                </div>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">待辦事項</span>
+                    <input class="form-control" type="text" id="newTodo" placeholder="準備要做的任務" v-model="newTodo"
+                        @keyup.enter="addList">
+                    <button class="btn btn-primary" type="button" id="addTodo" @click="addList">新增</button>
+                </div>
+                <div class="card text-center">
+                    <ul class="list-group list-group-flush text-left" id="todoList" v-for="item in filterList"
+                        :key="item.id">
+                        <li class="list-group-item">
+                            <div class="d-flex">
+                                <div class="form-check">
+                                    <input v-if="cacheList.id === item.id" v-model="cacheList.text" class="form-control"
+                                        type="text" />
+                                    <div v-else>
+                                        <input :id="item.id" type="checkbox" class="form-check-input"
+                                            @click="item.completed = !item.completed" :checked="item.completed">
+                                        <label :for="item.id"
+                                            :class="item.completed ? 'completed' : '' ">{{item.text}}</label>
+                                    </div>
+                                </div>
+                                <div class="btn-group ms-auto">
+                                    <button v-if="cacheList.id === item.id" type="button" class="btn btn-success me-3"
+                                        @click="doneEdit">編輯完成</button>
+                                    <button v-else type="button" class="btn btn-primary me-3"
+                                        @click="editList(item)">編輯任務</button>
+                                    <button type="button" class="btn btn-danger ms-auto remove"
+                                        @click="removeList(item)">刪除</button>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="card-footer d-flex justify-content-between">
+                        <span>有 <span class="h4" id="taskCount">{{todoList.length}}</span> 筆任務</span>
+                        <span>有 <span class="h4" id="taskCount">{{completedLength}}</span> 筆已完成</span>
+                        <div>
+                            <a href="#" class="btn btn-outline-primary me-3" @click="visibility = 'all' ">全部</a>
+                            <a href="#" class="btn btn-outline-secondary me-3" @click="visibility = 'undone' ">未完成</a>
+                            <a href="#" class="btn btn-outline-success me-3" @click="visibility = 'completed' ">已完成</a>
+                            <a href="#" class="btn btn-outline-danger" @click='removeAllList'>清除所有任務</a>
+                        </div>
                     </div>
-                    
-                    <a href="#" class="btn btn-warning btn-block btn-lg card-btn my-3">
-                        <i class="bi bi-person"></i>建立訂單
-                    </a>
                 </div>
             </div>
         </div>
-    </div>
 
     <!-- 刪除 -->
     <div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="removeModal" aria-hidden="true">
@@ -119,16 +118,6 @@
         </div>
     </div>
 
-    <!-- 置底 -->
-    <footer class="footer bg-aero text-light">
-        <div class="container">
-            <div class="copyright p-3">
-                <p>At vero eos et accusamus et iusto odio dignissimos.</p>
-                <p>facilis est et expedita distinctio.</p>
-            </div>
-        </div>
-    </footer>
-
 
 
 
@@ -144,15 +133,87 @@
     <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
     <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
-
+    <script src="./js/data.js"></script>
+    
     <script>
-        Vue.createApp({
-            data(){
-                return{
-                    CartList: [],
+  Vue.createApp({
+            data() {
+                return {
+                    newTodo: '',
+                    visibility: 'all',
+                    todoList: [],
+                    cacheList: [],
+                }
+            },
+            methods: {
+                // 新增資料
+                addList() {
+                    // 如果空白 return
+                    if (this.newTodo == '') { return };
+                    this.todoList.push({
+                        // id: this.todoList.length + 1,    // 數值
+                        id: Date.now(),                     // 時間
+                        text: this.newTodo,
+                        completed: false,
+                    });
+                    localStorage.setItem('歷史任務', JSON.stringify(this.todoList));
+                    this.newTodo = "";
+                },
+                // 移除資料
+                removeList(item) {
+                    const index = this.todoList.findIndex(obj => obj.id === item.id);
+                    console.log(item.id);
+                    this.todoList.splice(index, 1);
+                },
+                // 移除所有資料 
+                removeAllList() {
+                    if (window.confirm('你確定要刪除全部 Todo?')) {
+                        localStorage.removeItem('歷史任務');
+                        this.todoList = [];
+                    }
+                },
+                // 編輯資料
+                editList(item) {
+                    if (item.completed == true) { return; } //已完成就不能編輯
+                    this.cacheList = { ...item };
+                },
+                // 編輯完成
+                doneEdit() {
+                    const index = this.todoList.findIndex(obj => obj.id === this.cacheList.id);
+                    // 把資料寫回索引
+                    this.todoList[index] = this.cacheList;
+                    // 清空緩存
+                    this.cacheList = [];
+                }
+            },
+            computed: {
+                // 過濾列表
+                filterList() {
+                    switch (this.visibility) {
+                        case 'all': return this.todoList;
+                        case 'undone': return this.todoList.filter((item) => !item.completed);
+                        case 'completed': return this.todoList.filter((item) => item.completed);
+                    };
+                },
+                // 已完成數量
+                completedLength() {
+                    return this.todoList.filter((item) => item.completed).length;
+                },
+            },
+            mounted() {
+                this.todoList = JSON.parse(localStorage.getItem('歷史任務')) || [];
+            },
+            // 監聽 todoList
+            watch: {
+                todoList: {
+                    handler() {
+                        localStorage.setItem('歷史任務', JSON.stringify(this.todoList));
+                    },
+                    deep: true,
                 }
             }
-        }).mount('#app')
+        }).mount('#app');
+    </script>
 
     </script>
 
