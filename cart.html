@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="home.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
     <link rel="stylesheet" href="scss/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
@@ -13,41 +12,41 @@
 </head>
 
 <body>
-
-    <!-- 導覽列 -->
-    <div id="nav">
-        <a href="home.html">
-            <img src="images/icon_1.png" alt="hopsellIcon" id="hopsellIcon">
-        </a>
-        <a href="#">
-            <div id="registerDiv">
-                <p id="registerText">註冊</p>
-            </div>
-        </a>
-        <a href="#">
-            <div id="loginDiv">
-                <p id="loginText">登入</p>
-            </div>
-        </a>
-    </div>
-    <!-- 搜尋列 -->
-    <div id="searchNav">
-        <a href="home.html"></a>
-        <img src="images/logo_1.png" alt="hopsellLogo" id="hopsellLogo">
-        </a>
-        <div id="searchBar">
-            <input placeholder="搜尋商品" type="search" id="searchPlaceholder">
-            <div id="searchButton">
-                <i class="fi-rr-search" id="fi-rr-search"></i>
-            </div>
-            <a href="#">
-                <div id="sellButton">
-                    <p id="sellText">出售</p>
+    <header class="bg-secondary sticky-top">
+        <div class="container">
+            <!-- 導覽列 -->
+            <div class="navbar">
+                <div class="container-fluid "></div>
+                <a href="home.html"><img src="images/icon_1.png" alt="hopsellIcon" height="32"></a>
+                <div class="d-flex">
+                    <a class="btn bi-cart-fill btn-warning rounded-pill px-4 me-2" href="#CartList"></a>
+                    <button class="btn fw-bold btn-warning rounded-pill px-4 me-2" data-bs-toggle="modal"
+                        data-bs-target="#loginModal">登入</button>
+                    <button class="btn fw-bold btn-light rounded-pill px-4 d-none d-sm-block" data-bs-toggle="modal"
+                        data-bs-target="#signupModal">註冊</button>
                 </div>
-            </a>
-        </div>
-    </div>
+            </div>
 
+            <!-- 搜尋列 -->
+            <div >
+                <a href="home.html"></a>
+                <img src="images/logo_1.png" alt="hopsellLogo" height="32">
+                </a>
+                <div >
+                    <input placeholder="搜尋商品" type="search">
+                    <div id="searchButton">
+                        <i class="fi-rr-search" ></i>
+                    </div>
+                    <a href="#">
+                        <div>
+                            <p>出售</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </header>
     <!-- 內容 下 -->
 
 

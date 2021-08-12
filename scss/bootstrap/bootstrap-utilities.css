@@ -18,10 +18,10 @@
 }
 
 .link-secondary {
-  color: #1c2a33;
+  color: #67b825;
 }
 .link-secondary:hover, .link-secondary:focus {
-  color: #162229;
+  color: #85c651;
 }
 
 .link-success {
@@ -71,6 +71,13 @@
 }
 .link-aero:hover, .link-aero:focus {
   color: #2c3042;
+}
+
+.link-danger_2 {
+  color: #FB0000;
+}
+.link-danger_2:hover, .link-danger_2:focus {
+  color: #fc3333;
 }
 
 .ratio {
@@ -425,7 +432,7 @@
 }
 
 .border-secondary {
-  border-color: #1c2a33 !important;
+  border-color: #67b825 !important;
 }
 
 .border-success {
@@ -454,6 +461,10 @@
 
 .border-aero {
   border-color: #373c52 !important;
+}
+
+.border-danger_2 {
+  border-color: #FB0000 !important;
 }
 
 .border-white {
@@ -1258,7 +1269,7 @@
 }
 
 .text-secondary {
-  color: #1c2a33 !important;
+  color: #67b825 !important;
 }
 
 .text-success {
@@ -1287,6 +1298,10 @@
 
 .text-aero {
   color: #373c52 !important;
+}
+
+.text-danger_2 {
+  color: #FB0000 !important;
 }
 
 .text-white {
@@ -1318,7 +1333,7 @@
 }
 
 .bg-secondary {
-  background-color: #1c2a33 !important;
+  background-color: #67b825 !important;
 }
 
 .bg-success {
@@ -1347,6 +1362,10 @@
 
 .bg-aero {
   background-color: #373c52 !important;
+}
+
+.bg-danger_2 {
+  background-color: #FB0000 !important;
 }
 
 .bg-body {
