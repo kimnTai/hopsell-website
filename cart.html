@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="home.css">
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <title>旋轉購物</title>
+    <link rel="stylesheet" href="scss/all.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <title>旋轉購物車</title>
 </head>
 
 <body>
@@ -46,59 +47,61 @@
             </a>
         </div>
     </div>
-  
+
     <!-- 內容 下 -->
-    <body>
-        <div id="app">
-            <div id="app" class="container my-3">
-                <div>
-                    <h1>Todo List</h1>
-                </div>
-                <div class="input-group mb-3">
-                    <span class="input-group-text">待辦事項</span>
-                    <input class="form-control" type="text" id="newTodo" placeholder="準備要做的任務" v-model="newTodo"
-                        @keyup.enter="addList">
-                    <button class="btn btn-primary" type="button" id="addTodo" @click="addList">新增</button>
-                </div>
-                <div class="card text-center">
-                    <ul class="list-group list-group-flush text-left" id="todoList" v-for="item in filterList"
-                        :key="item.id">
-                        <li class="list-group-item">
-                            <div class="d-flex">
-                                <div class="form-check">
-                                    <input v-if="cacheList.id === item.id" v-model="cacheList.text" class="form-control"
-                                        type="text" />
-                                    <div v-else>
-                                        <input :id="item.id" type="checkbox" class="form-check-input"
-                                            @click="item.completed = !item.completed" :checked="item.completed">
-                                        <label :for="item.id"
-                                            :class="item.completed ? 'completed' : '' ">{{item.text}}</label>
-                                    </div>
-                                </div>
-                                <div class="btn-group ms-auto">
-                                    <button v-if="cacheList.id === item.id" type="button" class="btn btn-success me-3"
-                                        @click="doneEdit">編輯完成</button>
-                                    <button v-else type="button" class="btn btn-primary me-3"
-                                        @click="editList(item)">編輯任務</button>
-                                    <button type="button" class="btn btn-danger ms-auto remove"
-                                        @click="removeList(item)">刪除</button>
+
+
+    <div id="app">
+        <div id="app" class="container my-3">
+            <div>
+                <h1>Todo List</h1>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">待辦事項</span>
+                <input class="form-control" type="text" id="newTodo" placeholder="準備要做的任務" v-model="newTodo"
+                    @keyup.enter="addList">
+                <button class="btn btn-primary" type="button" id="addTodo" @click="addList" alt="測試">新增</button>
+
+            </div>
+            <div class="card text-center">
+                <ul class="list-group list-group-flush text-left" id="todoList" v-for="item in filterList"
+                    :key="item.id">
+                    <li class="list-group-item">
+                        <div class="d-flex">
+                            <div class="form-check">
+                                <input v-if="cacheList.id === item.id" v-model="cacheList.text" class="form-control"
+                                    type="text" />
+                                <div v-else>
+                                    <input :id="item.id" type="checkbox" class="form-check-input"
+                                        @click="item.completed = !item.completed" :checked="item.completed">
+                                    <label :for="item.id"
+                                        :class="item.completed ? 'completed' : '' ">{{item.text}}</label>
                                 </div>
                             </div>
-                        </li>
-                    </ul>
-                    <div class="card-footer d-flex justify-content-between">
-                        <span>有 <span class="h4" id="taskCount">{{todoList.length}}</span> 筆任務</span>
-                        <span>有 <span class="h4" id="taskCount">{{completedLength}}</span> 筆已完成</span>
-                        <div>
-                            <a href="#" class="btn btn-outline-primary me-3" @click="visibility = 'all' ">全部</a>
-                            <a href="#" class="btn btn-outline-secondary me-3" @click="visibility = 'undone' ">未完成</a>
-                            <a href="#" class="btn btn-outline-success me-3" @click="visibility = 'completed' ">已完成</a>
-                            <a href="#" class="btn btn-outline-danger" @click='removeAllList'>清除所有任務</a>
+                            <div class="btn-group ms-auto">
+                                <button v-if="cacheList.id === item.id" type="button" class="btn btn-success me-3"
+                                    @click="doneEdit">編輯完成</button>
+                                <button v-else type="button" class="btn btn-primary me-3"
+                                    @click="editList(item)">編輯任務</button>
+                                <button type="button" class="btn btn-danger ms-auto remove"
+                                    @click="removeList(item)">刪除</button>
+                            </div>
                         </div>
+                    </li>
+                </ul>
+                <div class="card-footer d-flex justify-content-between">
+                    <span>有 <span class="h4" id="taskCount">{{todoList.length}}</span> 筆任務</span>
+                    <span>有 <span class="h4" id="taskCount">{{completedLength}}</span> 筆已完成</span>
+                    <div>
+                        <a href="#" class="btn btn-outline-primary me-3" @click="visibility = 'all' ">全部</a>
+                        <a href="#" class="btn btn-outline-secondary me-3" @click="visibility = 'undone' ">未完成</a>
+                        <a href="#" class="btn btn-outline-success me-3" @click="visibility = 'completed' ">已完成</a>
+                        <a href="#" class="btn btn-outline-danger" @click='removeAllList'>清除所有任務</a>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     <!-- 刪除 -->
     <div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="removeModal" aria-hidden="true">
@@ -134,9 +137,12 @@
     <script src="bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
     <script src="https://unpkg.com/vue@next"></script>
     <script src="./js/data.js"></script>
-    
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
-  Vue.createApp({
+
+
+        Vue.createApp({
             data() {
                 return {
                     newTodo: '',
@@ -167,6 +173,7 @@
                 },
                 // 移除所有資料 
                 removeAllList() {
+                    swal('任何一个傻瓜都会用电脑')
                     if (window.confirm('你確定要刪除全部 Todo?')) {
                         localStorage.removeItem('歷史任務');
                         this.todoList = [];
