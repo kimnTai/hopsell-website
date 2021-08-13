@@ -11101,6 +11101,10 @@ textarea.form-control-lg {
   background-color: rgba(245, 245, 245, 0.4);
 }
 
+.input-group {
+  width: 50%;
+}
+
 #nav {
   padding-right: calc((100vw - 1440px)/2 + 64px);
   padding-left: calc((100vw - 1440px)/2 + 64px);

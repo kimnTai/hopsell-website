@@ -5,23 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--ICON CDN--> 
+    <!--ICON CDN-->
     <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-    <!--CSS--> 
+    <!--CSS-->
     <link rel="stylesheet" href="scss/all.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <title>旋轉購物車</title>
 </head>
 
 <body>
-    <header class="bg-secondary sticky-top">
+    <header class="bg-secondary">
         <div class="container ">
             <!-- 導覽列 -->
             <div class="navbar">
                 <div class="container-fluid ">
                     <a href="home.html"><img src="images/icon_1.png" alt="hopsellIcon" height="32"></a>
                     <div class="d-flex">
-                        <a class="btn bi-cart-fill btn-warning rounded-pill px-4 me-2" href="#CartList"></a>
+
                         <button class="btn fw-bold btn-warning rounded-pill px-4 me-2" data-bs-toggle="modal"
                             data-bs-target="#loginModal">登入</button>
                         <button class="btn fw-bold btn-light rounded-pill px-4 d-none d-sm-block" data-bs-toggle="modal"
@@ -32,54 +32,55 @@
         </div>
 
     </header>
-    <!-- 輪播 -->
-    <div class="bg-white">
-        <div class="container">
-            <div id="carouselExampleCaptions" class="carousel slide p-2" data-bs-ride="carousel">
-                <div class="carousel-indicators">
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
-                        class="active"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></button>
-                    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></button>
+
+    <div class="bg-warning sticky-top">
+        <div class="container ">
+            <!-- 搜尋列 -->
+            <div class="navbar">
+                <div class="container-fluid width-50%">
+                    <a href="home.html"><img src="https://upload.cc/i1/2021/08/13/xDSmVg.png" alt="hopsellIcon"
+                            height="32"></a>
+                    <div>
+                        <div class="container-fluid">
+                            <form class="d-flex">
+                                <input class="form-control me-2" type="search" placeholder="搜尋商品" aria-label="Search">
+                                <button class="btn btn-outline-success" type="submit">Searchg</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="d-flex">
+
+                        <button class="btn fw-bold btn-danger rounded-pill px-4 me-2" data-bs-toggle="modal"
+                            data-bs-target="#loginModal">出售</button>
+                    </div>
                 </div>
-                <ul class="carousel-inner">
-                    <li class="carousel-item active">
-                        <img src="https://picsum.photos/1300/450" class="d-block w-100">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h4><mark>Duis sollicitudin malesuada.</mark></h4>
-                            <p>喜的有沒有終前道，我覺得我的所有人？好好的怎麼樣開過來回是什麼。那到我要先真的好。</p>
-                        </div>
-                    </li>
-                    <li class="carousel-item">
-                        <img src="https://picsum.photos/1300/450" class="d-block w-100">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h4><mark>Praesent pulvinar vitae ligula.</mark></h4>
-                            <p>走我是不好戀愛可愛男性，人什麼快樂不是都畫如果是，子我可以覺不沒問題來如此。</p>
-                        </div>
-                    </li>
-                    <li class="carousel-item">
-                        <img src="https://picsum.photos/1300/450" class="d-block w-100">
-                        <div class="carousel-caption d-none d-md-block">
-                            <h4><mark>Etiam vel auctor felis Aenean.</mark></h4>
-                            <p>然後果沒問題我，象他就法這麼多的或是這樣的好：來我雷我真了這感覺房間時我。</p>
-                        </div>
-                    </li>
-                </ul>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon"></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon"></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
             </div>
         </div>
     </div>
 
     <!-- 內容 下 -->
+
+    <div class="container container-fluid mt-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-4">
+
+                        <img alt="Bootstrap 圖像預覽" src="https://upload.cc/i1/2021/08/13/IlYc4K.jpg" class=""
+                            height="431" />
+                    </div>
+                    <div class="col-md-4">
+                        <img alt="Bootstrap 圖像預覽" src="https://upload.cc/i1/2021/08/13/V7zYiM.jpg" class=""
+                            height="431" />
+                    </div>
+                    <div class="col-md-4">
+                        <img alt="Bootstrap 圖像預覽" src="https://upload.cc/i1/2021/08/13/gWvoPQ.jpg" class=""
+                            height="431" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -173,7 +174,7 @@
     <!-- Vue CDN -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
- <!-- Vue APP -->
+    <!-- Vue APP -->
     <script>
         Vue.createApp({
             data() {
