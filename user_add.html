@@ -10,7 +10,7 @@
    <!--CSS-->
    <link rel="stylesheet" href="scss/all.css">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-   
+
    <title>追蹤商品</title>
 </head>
 
@@ -142,37 +142,116 @@
          </div>
       </div>
    </div>
-   <div class="container pt-1">
-      <div class="d-flex align-items-center">
-         <button class="btn btn-outline-dark mx-4">X</button>
-         <p class="h2 pt-2">你今天想賣出什麼商品？</p>
-      </div>
-   </div>
 
-   <div class="container border border-dark">
-      <div class="row" id="product">
-         <!-- v-for -->
-         <div class="col-md-4 mb-4 px-3" >
-            上傳
+
+
+
+
+   <div class="container pt-1 ">
+      <div class="d-flex justify-content-center align-items-center">
+         <button class="btn btn-outline-dark m-4">X</button>
+         <div>
+            <p class="h2 pt-2 ">你今天想賣出什麼商品？</p>
          </div>
-         <div class="col-md-6 mb-4 px-3" >
-            表單
-         </div>
-
-
-
-         
-
-
-
 
       </div>
    </div>
 
+   <div class="container ">
+      <div class="row d-flex justify-content-center" id="product">
+         <div class="col-md-4 mb-4 px-3">
+            <div>
+               <label for="formFileLg" class="form-label fs-4">選擇照片</label>
+               <input class="form-control form-control-lg" id="formFileLg" type="file">
+            </div>
+         </div>
+         <div class="col-md-6">
+            <hr class="d-block d-md-none my-6 my-md-0">
+            <h2 class="h4 fw-bold mb-4 mb-md-6">商品內容</h2>
+            <!--form-->
+            <form novalidate="">
+               <div class="mb-3">
+                  <div class="mb-3">
+                     <label for="" class="form-label  h6 text-secondary">選擇交易方式<span class="text-danger ms-1">*</span>
+                     </label>
+                     <select id="" class="form-select" name="分類">
+                        <option value="" disabled="">選擇交易方式</option>
+                        <option>7-Eleven 取貨付款</option>
+                        <option>郵寄及宅配</option>
+                        <option>面交</option>
+                     </select>
+                     <!---->
+                  </div>
+                  <label for="" class="form-label  h6 text-secondary">選擇分類<span class="text-danger ms-1">*</span>
+                  </label>
+                  <select id="" class="form-select" name="分類">
+                     <option value="" disabled="">選擇分類</option>
+                     <option>她的時尚</option>
+                     <option>名牌精品</option>
+                     <option>手機平板</option>
+                  </select>
+                  <!---->
+               </div>
+               <div class="mb-3">
+                  <label for="" class="form-label h6 text-secondary">商品名稱 <span class="text-danger ms-1">*</span>
+                  </label>
+                  <input id="" type="text" class="form-control" placeholder="請輸入商品名稱" name="商品名稱">
+                  <!---->
+               </div>
+               <h2 class="h4 fw-bold mb-4 mb-md-6">關於此商品</h2>
+               <div class="mb-3">
+                  <label for="name" class="form-label h6 text-secondary"> 新舊程度 <span class="text-danger ms-1">*</span>
+                  </label>
+                  <input id="" type="text" class="form-control" placeholder="新舊程度" name="新舊程度">
+                  <!---->
+               </div>
+               <div class="mb-3"><label for="" class="form-label h6 text-secondary">價格<span
+                        class="text-danger ms-1">*</span></label><input id="" type="number" class="form-control"
+                     placeholder="NT$ 設定價位" name="價格">
+                  <!---->
+               </div>
+               <div class="mb-3 ">
+                  <label for="message" class="form-label h6 text-secondary">商品描述</label>
+                  <!--textarea 不能換行-->
+                  <textarea name="" id="message" class="form-control" style="height: 200px"
+                     placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
+               </div>
+
+
+               <div class="text-end">
+                  <button type="submit" class="btn btn-success">立即刊登</button>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
 
 
 
 
+   <!-- 置底 -->
+   <div class="bg-secondary text-light mt-5">
+      <div class="container">
+         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3  border-top ">
+            <p class="col-md-4 mb-0 text-reset">© 2021 Company, Inc</p>
+
+            <a href="/"
+               class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+               <svg class="bi me-2" width="40" height="32">
+                  <use xlink:href="#bootstrap"></use>
+               </svg>
+            </a>
+
+            <ul class="nav col-md-4 justify-content-end">
+               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
+               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
+               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Pricing</a></li>
+               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
+               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
+            </ul>
+         </footer>
+      </div>
+   </div>
 
 
 
