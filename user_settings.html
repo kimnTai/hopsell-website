@@ -11,7 +11,7 @@
    <link rel="stylesheet" href="scss/all.css">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-   <title>追蹤商品</title>
+   <title>用戶設定</title>
 </head>
 
 <body>
@@ -145,86 +145,106 @@
 
 
 
+   <div class="container pt-4">
+      <div class="row d-flex justify-content-center" id="userPage">
+         <!--左邊選項-->
+         <div class="col-md-4 mt-4 px-5">
+            <div class="list-group sticky-top mb-3 d-none d-sm-block" style="top: 82px;">
+               <a type="button" @click='toChangeInfo' class="list-group-item list-group-item-action">編輯檔案</a>
+               <a type="button" @click='toChangePassword' class="list-group-item list-group-item-action">更改密碼</a>
 
-
-   <div class="container pt-1 ">
-      <div class="d-flex justify-content-center align-items-center">
-         <button class="btn btn-outline-dark m-4" onclick="history.back()">X</button>
-         <div>
-            <p class="h2 pt-2 ">你今天想賣出什麼商品？</p>
-         </div>
-
-      </div>
-   </div>
-
-   <div class="container ">
-      <div class="row d-flex justify-content-center" id="product">
-         <div class="col-md-4 mb-4 px-3">
-            <div>
-               <label for="formFileLg" class="form-label fs-4">選擇照片</label>
-               <input class="form-control form-control-lg" id="formFileLg" type="file">
             </div>
          </div>
-         <div class="col-md-6">
+         <!--右邊表單-->
+         <div v-if="visibility === 'changeInfo'" class="col-md-6 border pt-4 pb-4">
             <hr class="d-block d-md-none my-6 my-md-0">
-            <h2 class="h4 fw-bold mb-4 mb-md-6">商品內容</h2>
+            <h2 class="h1 fw-bold mb-4 mb-md-6">編輯檔案</h2>
+            <hr>
             <!--form-->
             <form novalidate="">
                <div class="mb-3">
-                  <label for="" class="form-label  h6 text-secondary">選擇交易方式<span class="text-danger ms-1">*</span>
+                  <img class="rounded-circle px-4 mb-4"
+                     src="https://media.karousell.com/media/photos/profiles/2021/07/21/chaclaire_1626880624.jpg" alt="">
+                  <label for="formFileLg" class="form-label fs-4">個人頭像</label>
+                  <input class="form-control form-control-lg" id="formFileLg" type="file">
+                  <!---->
+               </div>
+               <h2 class="h3 fw-bold mb-4 mb-md-6">個人資料</h2>
+               <div class="mb-3">
+                  <label for="name" class="form-label h6 text-secondary"> 使用者名稱 <span class="text-danger ms-1">*</span>
                   </label>
-                  <select id="" class="form-select" name="分類">
-                     <option value="" disabled="">選擇交易方式</option>
-                     <option>7-Eleven 取貨付款</option>
-                     <option>郵寄及宅配</option>
-                     <option>面交</option>
+                  <input id="" type="text" class="form-control" placeholder="使用者名稱" name="使用者名稱">
+                  <!---->
+               </div>
+               <div class="mb-3">
+                  <label for="name" class="form-label h6 text-secondary"> 姓名 <span class="text-danger ms-1">*</span>
+                  </label>
+                  <input id="" type="text" class="form-control" placeholder="姓名" name="姓名">
+                  <!---->
+               </div>
+               <div class="mb-3">
+                  <label for="name" class="form-label h6 text-secondary"> Email <span class="text-danger ms-1">*</span>
+                  </label>
+                  <input id="" type="email" class="form-control" placeholder="Email" name="Email">
+                  <div id="emailHelp" class="form-text">除非獲得您的明確許可，否則我們不會與其他用戶共享這些信息。</div>
+                  <!---->
+               </div>
+               <div class="mb-3">
+                  <label for="" class="form-label  h6 text-secondary">位置<span class="text-danger ms-1">*</span>
+                  </label>
+                  <select id="" required="required" class="form-select" name="位置">
+                     <option value disabled="disabled">位置</option>
+                     <option>中彰投</option>
+                     <option>北北基</option>
+                     <option>外島</option>
+                     <option>宜花東</option>
+                     <option>桃竹苗</option>
+                     <option>雲嘉南</option>
+                     <option>高屏</option>
                   </select>
-                  <!---->
-               </div>
-               <div class="mb-3">
-                  <label for="" class="form-label  h6 text-secondary">選擇分類<span class="text-danger ms-1">*</span>
-                  </label>
-                  <select id="" class="form-select" name="分類">
-                     <option value="" disabled="">選擇分類</option>
-                     <option>她的時尚</option>
-                     <option>名牌精品</option>
-                     <option>手機平板</option>
-                  </select>
-                  <!---->
-               </div>
-               <div class="mb-3">
-                  <label for="" class="form-label h6 text-secondary">商品名稱 <span class="text-danger ms-1">*</span>
-                  </label>
-                  <input id="" type="text" class="form-control" placeholder="請輸入商品名稱" name="商品名稱">
-                  <!---->
-               </div>
-               <h2 class="h4 fw-bold mb-4 mb-md-6">關於此商品</h2>
-               <div class="mb-3">
-                  <label for="name" class="form-label h6 text-secondary"> 新舊程度 <span class="text-danger ms-1">*</span>
-                  </label>
-                  <input id="" type="text" class="form-control" placeholder="新舊程度" name="新舊程度">
-                  <!---->
-               </div>
-               <div class="mb-3"><label for="" class="form-label h6 text-secondary">價格<span
-                        class="text-danger ms-1">*</span></label><input id="" type="number" class="form-control"
-                     placeholder="NT$ 設定價位" name="價格">
                   <!---->
                </div>
                <div class="mb-3 ">
-                  <label for="message" class="form-label h6 text-secondary">商品描述</label>
+                  <label for="message" class="form-label h6 text-secondary">個人簡介</label>
                   <!--textarea 不能換行-->
                   <textarea name="" id="message" class="form-control" style="height: 200px"
-                     placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
+                     placeholder="個人簡介"></textarea>
                </div>
-
-
                <div class="text-end">
-                  <button type="submit" class="btn btn-success">立即刊登</button>
+                  <button type="submit" class="btn btn-success">儲存更改</button>
                </div>
             </form>
          </div>
+
+         <div v-else class="col-md-6 border pt-4 pb-4" style="height: 700px;">
+            <hr class="d-block d-md-none my-6 my-md-0">
+            <h2 class="h1 fw-bold mb-4 mb-md-6">更改密碼</h2>
+            <hr>
+            <div class="mb-3">
+               <label for="name" class="form-label h6 text-secondary"> 目前密碼 <span class="text-danger ms-1">*</span>
+               </label>
+               <input id="" type="password" class="form-control" placeholder="目前密碼" name="目前密碼">
+               <!---->
+            </div>
+            <div class="mb-3">
+               <label for="name" class="form-label h6 text-secondary"> 新密碼 <span class="text-danger ms-1">*</span>
+               </label>
+               <input id="" type="password" class="form-control" placeholder="新密碼" name="新密碼">
+               <!---->
+            </div>
+            <div class="mb-3">
+               <label for="name" class="form-label h6 text-secondary"> 確認新密碼 <span class="text-danger ms-1">*</span>
+               </label>
+               <input id="" type="password" class="form-control" placeholder="確認新密碼" name="確認新密碼">
+               <!---->
+            </div>
+            <div class="text-end">
+               <button type="submit" class="btn btn-success">儲存更改</button>
+            </div>
+         </div>
       </div>
    </div>
+
 
 
 
@@ -272,12 +292,19 @@
       Vue.createApp({
          data() {
             return {
+               visibility: 'changeInfo',
 
-               data: [1, 2, 3, 4, 5, 6],
             }
          },
-      }).mount('#product')
-
+         methods: {
+            toChangeInfo() {
+               this.visibility = 'changeInfo';
+            },
+            toChangePassword() {
+               this.visibility = 'changePassword';
+            }
+         },
+      }).mount('#userPage')
    </script>
 
 
