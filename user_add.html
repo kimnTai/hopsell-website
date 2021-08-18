@@ -22,7 +22,6 @@
             <div class="container-fluid ">
                <a href="home.html"><img src="images/icon_1.png" alt="hopsellIcon" height="32"></a>
                <div class="d-flex">
-
                   <button class="btn fw-bold btn-warning  px-4 me-2" data-bs-toggle="modal"
                      data-bs-target="#loginModal">登入</button>
                   <button class="btn fw-bold btn-light  px-4 d-none d-sm-block" data-bs-toggle="modal"
@@ -48,9 +47,7 @@
                   </div>
                </div>
                <div class="d-flex">
-
-                  <button class="btn fw-bold btn-danger px-4 me-2" data-bs-toggle="modal"
-                     data-bs-target="#出售">出售</button>
+                  <a class="btn fw-bold btn-danger px-4 me-2" href="user_add.html">出售</a>
                </div>
             </div>
          </div>
@@ -157,12 +154,13 @@
       </div>
    </div>
 
-   <div class="container ">
-      <div class="row d-flex justify-content-center" id="product">
+   <div class="container">
+      <div class="row d-flex justify-content-center" id="productAdd">
          <div class="col-md-4 mb-4 px-3">
-            <div>
+            <div class="mx-5">
                <label for="formFileLg" class="form-label fs-4">選擇照片</label>
-               <input class="form-control form-control-lg" id="formFileLg" type="file">
+               <input class="form-control form-control-lg" id="formFileLg" type="file" @change="fileSelected">
+               <img class="mt-3" v-if="image" :src="image" width="350">
             </div>
          </div>
          <div class="col-md-6">
@@ -173,7 +171,7 @@
                <div class="mb-3">
                   <label for="" class="form-label  h6 text-secondary">選擇交易方式<span class="text-danger ms-1">*</span>
                   </label>
-                  <select id="" class="form-select" name="分類">
+                  <select class="form-select" name="分類">
                      <option value="" disabled="">選擇交易方式</option>
                      <option>7-Eleven 取貨付款</option>
                      <option>郵寄及宅配</option>
@@ -184,7 +182,7 @@
                <div class="mb-3">
                   <label for="" class="form-label  h6 text-secondary">選擇分類<span class="text-danger ms-1">*</span>
                   </label>
-                  <select id="" class="form-select" name="分類">
+                  <select class="form-select" name="分類">
                      <option value="" disabled="">選擇分類</option>
                      <option>她的時尚</option>
                      <option>名牌精品</option>
@@ -192,17 +190,20 @@
                   </select>
                   <!---->
                </div>
-               <div class="mb-3">
+               <v-form @submit="onSubmit" v-slot="{errors}" class="mb-3">
                   <label for="" class="form-label h6 text-secondary">商品名稱 <span class="text-danger ms-1">*</span>
                   </label>
-                  <input id="" type="text" class="form-control" placeholder="請輸入商品名稱" name="商品名稱">
+                  <v-field type="text" class="form-control" placeholder="請輸入商品名稱" name="商品名稱" :rules="isRequired">
+                  </v-field>
                   <!---->
-               </div>
+                  <error-message name="商品名稱"></error-message>
+                  <button>Submit</button>
+               </v-form>
                <h2 class="h4 fw-bold mb-4 mb-md-6">關於此商品</h2>
                <div class="mb-3">
                   <label for="name" class="form-label h6 text-secondary"> 新舊程度 <span class="text-danger ms-1">*</span>
                   </label>
-                  <input id="" type="text" class="form-control" placeholder="新舊程度" name="新舊程度">
+                  <input type="text" class="form-control" placeholder="新舊程度" name="新舊程度">
                   <!---->
                </div>
                <div class="mb-3"><label for="" class="form-label h6 text-secondary">價格<span
@@ -216,8 +217,6 @@
                   <textarea name="" id="message" class="form-control" style="height: 200px"
                      placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
                </div>
-
-
                <div class="text-end">
                   <button type="submit" class="btn btn-success">立即刊登</button>
                </div>
@@ -268,15 +267,50 @@
    <script src="https://unpkg.com/vue@next"></script>
    <script src="./js/data.js"></script>
    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   <script>
-      Vue.createApp({
+   <!-- VeeValidate CDN -->
+   <script src="https://unpkg.com/vee-validate@next"></script>
+   <script type="module">
+      console.log(VeeValidate);
+      const app = Vue.createApp({
+         components: {
+            VForm: VeeValidate.Form,
+            VField: VeeValidate.Field,
+            ErrorMessage: VeeValidate.ErrorMessage,
+         },
+
+
+
          data() {
             return {
+               image: '',
 
-               data: [1, 2, 3, 4, 5, 6],
             }
          },
-      }).mount('#product')
+         methods: {
+            // 新增圖片
+            fileSelected(evt) {
+               const file = evt.target.files.item(0);
+               console.log(file);
+               const reader = new FileReader();
+               reader.addEventListener('load', this.imageLoaded);
+               reader.readAsDataURL(file);
+            },
+            imageLoaded(evt) {
+               this.image = evt.target.result;
+            },
+            onSubmit(value) {
+               console.log(value)
+            },
+            isRequired(value) {
+               if (!value) {
+                  return '此欄是必填'
+               }
+               return true;
+            }
+         }
+      });
+
+      app.mount('#productAdd')
 
    </script>
 
