@@ -159,8 +159,14 @@
          <div class="col-md-4 mb-4 px-3">
             <div class="mx-5">
                <label for="formFileLg" class="form-label fs-4">選擇照片</label>
-               <input class="form-control form-control-lg" id="formFileLg" type="file" @change="fileSelected">
-               <img class="mt-3" v-if="image" :src="image" width="350">
+               <!-- <input class="form-control form-control-lg" id="formFileLg" type="file" @change="fileSelected">
+               <img class="mt-3" v-if="image" :src="image" width="350"> -->
+               <el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccess">
+                  <el-button type="primary">點擊上傳</el-button>
+               </el-upload>
+               <el-image :src="form.productImgA" :preview-src-list="[form.productImgA]"></el-image>
+
+
             </div>
          </div>
          <div class="col-md-6">
@@ -171,29 +177,30 @@
                <div class="mb-3">
                   <label for="" class="form-label  h6 text-secondary">選擇交易方式<span class="text-danger ms-1">*</span>
                   </label>
-                  <select class="form-select" name="分類">
-                     <option value="" disabled="">選擇交易方式</option>
-                     <option>7-Eleven 取貨付款</option>
-                     <option>郵寄及宅配</option>
-                     <option>面交</option>
+                  <select v-model="form.productTrade" class="form-select" name="分類">
+                     <option disabled="">選擇交易方式</option>
+                     <option value="1">7-Eleven 取貨付款</option>
+                     <option value="2">郵寄及宅配</option>
+                     <option value="3">面交</option>
                   </select>
                   <!---->
                </div>
                <div class="mb-3">
                   <label for="" class="form-label  h6 text-secondary">選擇分類<span class="text-danger ms-1">*</span>
                   </label>
-                  <select class="form-select" name="分類">
-                     <option value="" disabled="">選擇分類</option>
-                     <option>她的時尚</option>
-                     <option>名牌精品</option>
-                     <option>手機平板</option>
+                  <select v-model="form.categoryId" class="form-select" name="分類">
+                     <option disabled="">選擇分類</option>
+                     <option value="1">她的時尚</option>
+                     <option value="2">名牌精品</option>
+                     <option value="3">手機平板</option>
                   </select>
                   <!---->
                </div>
                <v-form @submit="onSubmit" v-slot="{errors}" class="mb-3">
                   <label for="" class="form-label h6 text-secondary">商品名稱 <span class="text-danger ms-1">*</span>
                   </label>
-                  <v-field type="text" class="form-control" placeholder="請輸入商品名稱" name="商品名稱" :rules="isRequired">
+                  <v-field v-model="form.productName" type="text" class="form-control" placeholder="請輸入商品名稱" name="商品名稱"
+                     :rules="isRequired">
                   </v-field>
                   <!---->
                   <error-message name="商品名稱"></error-message>
@@ -203,22 +210,31 @@
                <div class="mb-3">
                   <label for="name" class="form-label h6 text-secondary"> 新舊程度 <span class="text-danger ms-1">*</span>
                   </label>
-                  <input type="text" class="form-control" placeholder="新舊程度" name="新舊程度">
+                  <select v-model="form.productCondition" class="form-select" name="新舊程度">
+                     <option disabled="">選擇分類</option>
+                     <option value="1">全新</option>
+                     <option value="2">幾乎全新</option>
+                     <option value="3">狀況良好</option>
+                     <option value="4">狀況尚可</option>
+                  </select>
                   <!---->
                </div>
-               <div class="mb-3"><label for="" class="form-label h6 text-secondary">價格<span
-                        class="text-danger ms-1">*</span></label><input id="" type="number" class="form-control"
-                     placeholder="NT$ 設定價位" name="價格">
+               <div class="mb-3">
+                  <label for="" class="form-label h6 text-secondary">
+                     價格<span class="text-danger ms-1">*</span>
+                  </label>
+                  <input v-model="form.productPrice" type="number" class="form-control" placeholder="NT$ 設定價位"
+                     name="價格">
                   <!---->
                </div>
                <div class="mb-3 ">
                   <label for="message" class="form-label h6 text-secondary">商品描述</label>
                   <!--textarea 不能換行-->
-                  <textarea name="" id="message" class="form-control" style="height: 200px"
-                     placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
+                  <textarea v-model="form.productContent" name="" id="message" class="form-control"
+                     style="height: 200px" placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
                </div>
                <div class="text-end">
-                  <button type="submit" class="btn btn-success">立即刊登</button>
+                  <button type="submit" class="btn btn-success" @click="addProduct">立即刊登</button>
                </div>
             </form>
          </div>
@@ -269,6 +285,15 @@
    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <!-- VeeValidate CDN -->
    <script src="https://unpkg.com/vee-validate@next"></script>
+   <!-- axios -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <!-- 引入样式 -->
+   <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
+   <!-- 引入组件库 -->
+   <script src="https://unpkg.com/element-plus/lib/index.full.js"></script>
+
    <script type="module">
       console.log(VeeValidate);
       const app = Vue.createApp({
@@ -283,6 +308,7 @@
          data() {
             return {
                image: '',
+               form: {}
 
             }
          },
@@ -306,10 +332,29 @@
                   return '此欄是必填'
                }
                return true;
-            }
+            },
+            addProduct() {
+               axios.post('http://localhost:9090/product', this.form)
+                  .then((res) => {
+                     console.log(res);
+                  })
+                  .catch((err) => {
+                     console.log(err);
+                  });
+               this.form = {};
+            },
+            filesUploadSuccess(res) {
+               console.log(res.data)
+               sessionStorage.setItem("upload", JSON.stringify(res.data))  // 緩存用戶資料
+               this.form.productImgA = res.data
+            },
+         },
+         mounted() {
+            let url = sessionStorage.getItem("upload") || "{}"
+            this.form.productImgA = JSON.parse(url)
          }
       });
-
+      app.use(ElementPlus);
       app.mount('#productAdd')
 
    </script>
