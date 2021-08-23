@@ -25,6 +25,7 @@ public class FileController {
     private String port;
 
     private static final String ip = "http://localhost";
+    private static String sysPath = "/src/main/resources/files/";
 
     /**
      * 上傳接口
@@ -41,7 +42,7 @@ public class FileController {
         String flag = IdUtil.fastSimpleUUID();                  // 定義文件的唯一標示 (前綴)
 
         String rootFilePath = System.getProperty("user.dir")    // 獲取Filej文件夾路徑
-                + "/springboot/src/main/resources/files/"
+                + sysPath
                 + flag + "_" + originalFilename;
 
         FileUtil.writeBytes(file.getBytes(), rootFilePath);     // 透過 hutool 工具類 寫入檔案 (記得 要拋出異常)
@@ -62,7 +63,7 @@ public class FileController {
         String originalFilename = file.getOriginalFilename();    // 獲取傳來的檔案名稱
         String flag = IdUtil.fastSimpleUUID();                  // 定義文件的唯一標示 (前綴)
         String rootFilePath = System.getProperty("user.dir")    // 獲取Filej文件夾路徑
-                + "/springboot/src/main/resources/files/"
+                + sysPath
                 + flag + "_" + originalFilename;
         FileUtil.writeBytes(file.getBytes(), rootFilePath);     // 透過 hutool 工具類 寫入檔案 (記得 要拋出異常)
 
@@ -89,7 +90,7 @@ public class FileController {
     public void getFiles(@PathVariable String flag, HttpServletResponse response) {
         OutputStream os;  // 新建一個輸出流對象
         String basePath = System.getProperty("user.dir")
-                + "/springboot/src/main/resources/files/";              // 於文件上傳的根路徑
+                + sysPath;              // 於文件上傳的根路徑
         List<String> fileNames = FileUtil.listFileNames(basePath);      // 獲取所有的文件名稱
         String fileName = fileNames.stream()
                 .filter(name -> name.contains(flag)).findAny().orElse("");

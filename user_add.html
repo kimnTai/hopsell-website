@@ -308,8 +308,8 @@
          data() {
             return {
                image: '',
-               form: {}
-
+               form: {"sellerId": 1,},
+               baseUrl:'http://localhost:9090/product',
             }
          },
          methods: {
@@ -334,7 +334,7 @@
                return true;
             },
             addProduct() {
-               axios.post('http://localhost:9090/product', this.form)
+               axios.post(this.baseUrl, this.form)
                   .then((res) => {
                      console.log(res);
                   })

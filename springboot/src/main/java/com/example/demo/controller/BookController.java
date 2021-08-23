@@ -66,10 +66,10 @@ public class BookController {
      * @param userId
      * @return
      */
-//    @GetMapping("/{userId}")
-//    public Result<?> getByUserId(@PathVariable Integer userId) {
-//        return Result.success(bookMapper.findByUserId(userId));
-//    }
+    @GetMapping("/user/{userId}")
+    public Result<?> getByUserId(@PathVariable Integer userId) {
+        return Result.success(bookMapper.findByUserId(userId));
+    }
 
     // 分頁查詢
     @GetMapping
