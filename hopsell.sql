@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:3306
--- 產生時間： 2021-08-23 09:33:07
+-- 產生時間： 2021-08-23 10:31:35
 -- 伺服器版本： 5.7.24
 -- PHP 版本： 7.4.1
 
@@ -21,34 +21,6 @@ SET time_zone = "+00:00";
 --
 -- 資料庫： `hopsell`
 --
-
--- --------------------------------------------------------
-
---
--- 資料表結構 `book`
---
-
-CREATE TABLE `book` (
-  `id` int(11) NOT NULL COMMENT 'ID',
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '名称',
-  `price` decimal(10,2) DEFAULT NULL COMMENT '价格',
-  `author` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '作者',
-  `create_time` datetime DEFAULT NULL COMMENT '出版日期',
-  `cover` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '封面地址',
-  `user_id` int(11) DEFAULT NULL COMMENT '用户id'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
---
--- 傾印資料表的資料 `book`
---
-
-INSERT INTO `book` (`id`, `name`, `price`, `author`, `create_time`, `cover`, `user_id`) VALUES
-(1, '明朝那些事', '60.00', 'xxx', '2010-07-01 00:00:00', 'http://localhost:9090/files/fbe66a2571d2499886b306801f484f9e', NULL),
-(2, '衣服', '70.00', 'xxx', '2021-08-21 00:00:00', 'http://localhost:9090/files/7caab0dabb7c4229a4d84e8055c7600d', NULL),
-(3, '庫子', '50.00', '60', '2021-08-11 00:00:00', 'http://localhost:9090/files/04f179db2710406d852557be5add9157', NULL),
-(4, '測試', '123.00', '123', '2021-08-01 00:00:00', 'http://localhost:9090/files/9e9745cd22bc49acbe2725c133b330a9', NULL),
-(5, 'ddddddd', '90.00', 'dddd', '2021-08-04 00:00:00', 'http://localhost:9090/files/0cf42e5443f44d3cb731b71512ed261a', NULL),
-(6, '6666', '6666.00', '55555', '2021-08-04 00:00:00', 'http://localhost:9090/files/35be384bbbc64079b7657705e21f6b44', NULL);
 
 -- --------------------------------------------------------
 
@@ -78,32 +50,6 @@ INSERT INTO `comm` (`comm_id`, `product_id`, `product_name`, `seller_id`, `buyer
 -- --------------------------------------------------------
 
 --
--- 資料表結構 `news`
---
-
-CREATE TABLE `news` (
-  `id` int(11) NOT NULL COMMENT 'ID',
-  `title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '标题',
-  `content` text COLLATE utf8mb4_unicode_ci COMMENT '内容',
-  `author` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '作者',
-  `time` datetime DEFAULT NULL COMMENT '发布时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=DYNAMIC;
-
---
--- 傾印資料表的資料 `news`
---
-
-INSERT INTO `news` (`id`, `title`, `content`, `author`, `time`) VALUES
-(4, '4444', '<p>444444</p><p><br/></p><p>44444</p><p><br/></p><p><br/></p><p>555555<img src=\"https://img1.baidu.com/it/u=4110196045,3829597861&amp;fm=26&amp;fmt=auto&amp;gp=0.jpg\" contenteditable=\"false\" style=\"font-size: 14px; max-width: 100%;\"/></p>', '管理员', '2021-07-17 18:55:27'),
-(5, '77777', '<p>7777</p><p><br/></p><p><img src=\"http://localhost:9090/files/c536f6f2f0e94983951240d73d740601\" style=\"max-width:100%;\" contenteditable=\"false\" width=\"388\" height=\"388\"/><br/></p><p>8888</p><p><br/></p><p><img src=\"http://localhost:9090/files/b344314319f047cf9192ce64ca454674\" style=\"max-width:100%;\" contenteditable=\"false\"/></p>', '管理员', '2021-07-17 19:14:14'),
-(8, '66666', '444444', NULL, NULL),
-(9, '編輯測試', '<h1 id=\"hrjvv\"><b style=\"background-color: rgb(70, 172, 200);\"><i>編輯測事</i></b></h1><table border=\"0\" width=\"100%\" cellpadding=\"0\" cellspacing=\"0\"><tbody><tr><th>111111</th></tr><tr><td>1111111</td></tr></tbody></table><ul class=\"w-e-todo\"><li><span contenteditable=\"false\"><input type=\"checkbox\" checked=\"true\"/></span>真的很爛</li></ul>', NULL, NULL),
-(10, '時間測試', '<p>時間測試啦</p>', '管理员', '2021-08-22 15:08:30'),
-(11, '新增測事', '<p>新增<img src=\"http://localhost:9090/files/b0241c2405bd4ef6a2df8fc307f672bb\" contenteditable=\"false\" style=\"color: var(--el-text-color-regular); font-size: var(--el-dialog-content-font-size); font-family: var(--bs-body-font-family); font-weight: var(--bs-body-font-weight); text-align: var(--bs-body-text-align); max-width: 100%;\" width=\"100%\"/></p><p><br/></p><p>111111111111111</p>', '123', '2021-08-22 17:12:04');
-
--- --------------------------------------------------------
-
---
 -- 資料表結構 `product`
 --
 
@@ -111,10 +57,10 @@ CREATE TABLE `product` (
   `product_id` int(11) NOT NULL COMMENT '商品_主鍵',
   `product_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品_名稱',
   `seller_id` int(11) DEFAULT NULL COMMENT '賣家 id',
-  `category_id` int(11) DEFAULT NULL COMMENT '分類 id',
+  `category_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '分類',
   `product_content` text COLLATE utf8mb4_unicode_ci COMMENT '商品_內容',
-  `product_trade` int(11) DEFAULT NULL COMMENT '購買方式:0 - 711，2 - 郵寄，3 - 宅配',
-  `product_condition` int(11) DEFAULT NULL COMMENT '新舊程度',
+  `product_trade` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '購買方式: 711、 郵寄、宅配',
+  `product_condition` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '新舊程度',
   `product_price` int(11) DEFAULT NULL COMMENT '商品價格',
   `product_img_a` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品圖片A',
   `product_img_b` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品圖片B',
@@ -129,11 +75,12 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `seller_id`, `category_id`, `product_content`, `product_trade`, `product_condition`, `product_price`, `product_img_a`, `product_img_b`, `product_img_c`, `product_status`, `create_time`, `update_time`) VALUES
-(3, '我的衣服', 1, 4, '我的衣服郵寄，狀況尚可，100元', 2, 3, 100, 'http://localhost:9090/files/13a73a3193a14a4894a416320f6c1a2e', NULL, NULL, NULL, NULL, NULL),
-(4, '我的手機', 1, 3, '我的手機500元', 3, 4, 500, 'https://media.karousell.com/media/photos/products/2021/8/23/bear_two__1629710111_15080e6f_progressive_thumbnail.jpg', NULL, NULL, NULL, NULL, NULL),
-(5, '我的皮夾', 1, 1, '我的皮夾7-11付款、它的時尚、全新、500元', 1, 1, 500, 'https://media.karousell.com/media/photos/products/2021/8/3/_jp__kraft_______t_t_xl_1627963190_d4de3ab1_progressive_thumbnail.jpg', NULL, NULL, NULL, '2021-08-22 23:09:14', NULL),
-(6, '我的大頭貼', 1, 3, '我的手機平板', 3, 4, 500, 'https://media.karousell.com/media/photos/products/2021/8/22/t_1629643463_c3b62581_progressive_thumbnail.jpg', NULL, NULL, NULL, '2021-08-23 11:18:07', NULL),
-(7, '測試上傳', 1, 2, '上傳測試', 1, 1, 150, 'http://localhost:9090/files/15a9af2ad7f74e89ba3860fa6b197793', NULL, NULL, NULL, '2021-08-23 17:14:58', NULL);
+(3, '我的衣服', 1, '4', '我的衣服郵寄，狀況尚可，100元', '2', '3', 100, 'http://localhost:9090/files/13a73a3193a14a4894a416320f6c1a2e', NULL, NULL, NULL, NULL, NULL),
+(4, '我的手機', 1, '3', '我的手機500元', '3', '4', 500, 'https://media.karousell.com/media/photos/products/2021/8/23/bear_two__1629710111_15080e6f_progressive_thumbnail.jpg', NULL, NULL, NULL, NULL, NULL),
+(5, '我的皮夾', 1, '1', '我的皮夾7-11付款、它的時尚、全新、500元', '1', '1', 500, 'https://media.karousell.com/media/photos/products/2021/8/3/_jp__kraft_______t_t_xl_1627963190_d4de3ab1_progressive_thumbnail.jpg', NULL, NULL, NULL, '2021-08-22 23:09:14', NULL),
+(6, '我的大頭貼', 1, '3', '我的手機平板', '3', '4', 500, 'https://media.karousell.com/media/photos/products/2021/8/22/t_1629643463_c3b62581_progressive_thumbnail.jpg', NULL, NULL, NULL, '2021-08-23 11:18:07', NULL),
+(7, '測試上傳', 1, '2', '上傳測試', '1', '1', 150, 'http://localhost:9090/files/15a9af2ad7f74e89ba3860fa6b197793', NULL, NULL, NULL, '2021-08-23 17:14:58', NULL),
+(8, '我的包包', 1, '她的時尚', '我的包包800元', '7-Eleven 取貨付款', '狀況尚可', 800, 'http://localhost:9090/files/f01b4a3173e043ec9693ce6d55836496', NULL, NULL, NULL, '2021-08-23 17:48:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -169,22 +116,10 @@ INSERT INTO `user` (`id`, `username`, `password`, `nick_name`, `age`, `sex`, `ad
 --
 
 --
--- 資料表索引 `book`
---
-ALTER TABLE `book`
-  ADD PRIMARY KEY (`id`) USING BTREE;
-
---
 -- 資料表索引 `comm`
 --
 ALTER TABLE `comm`
   ADD PRIMARY KEY (`comm_id`);
-
---
--- 資料表索引 `news`
---
-ALTER TABLE `news`
-  ADD PRIMARY KEY (`id`) USING BTREE;
 
 --
 -- 資料表索引 `product`
@@ -203,28 +138,16 @@ ALTER TABLE `user`
 --
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `book`
---
-ALTER TABLE `book`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID', AUTO_INCREMENT=7;
-
---
 -- 使用資料表自動遞增(AUTO_INCREMENT) `comm`
 --
 ALTER TABLE `comm`
   MODIFY `comm_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '評價_主鍵', AUTO_INCREMENT=2;
 
 --
--- 使用資料表自動遞增(AUTO_INCREMENT) `news`
---
-ALTER TABLE `news`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID', AUTO_INCREMENT=12;
-
---
 -- 使用資料表自動遞增(AUTO_INCREMENT) `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品_主鍵', AUTO_INCREMENT=8;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品_主鍵', AUTO_INCREMENT=9;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `user`

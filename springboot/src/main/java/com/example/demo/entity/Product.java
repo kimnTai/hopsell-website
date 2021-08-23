@@ -17,10 +17,10 @@ public class Product {
     private Integer productId;          // 商品_主鍵
     private String productName;         // 商品_名稱
     private Integer sellerId;           // 賣家 id
-    private Integer categoryId;         // 分類 id
+    private String categoryId;         // 分類 id
     private String productContent;      // 商品_內容
-    private Integer productTrade;       // 購買方式: 1-711、2-郵寄、3-宅配
-    private Integer productCondition;   // 新舊程度: 1-全新、2-幾乎全新、3-狀況良好、4-狀況尚可
+    private String productTrade;       // 購買方式: 711、郵寄、宅配
+    private String productCondition;   // 新舊程度: 全新、幾乎全新、狀況良好、狀況尚可
     private Integer productPrice;       // 商品價格
     private String productImgA;         // 商品圖片A
     private String productImgB;
