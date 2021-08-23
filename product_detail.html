@@ -148,30 +148,29 @@
 
 
     <!-- 內容 圖片 -->
-
-    <div class="container container-fluid mt-3">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-4 product-img">
-                        <img alt="Bootstrap 圖像預覽" src="https://upload.cc/i1/2021/08/13/IlYc4K.jpg" class="img-thumbnail"
-                            height="431" />
-                    </div>
-                    <div class="col-md-4">
-                        <img alt="Bootstrap 圖像預覽" src="https://upload.cc/i1/2021/08/13/V7zYiM.jpg" class="img-thumbnail"
-                            height="431" />
-                    </div>
-                    <div class="col-md-4">
-                        <img alt="Bootstrap 圖像預覽" src="https://upload.cc/i1/2021/08/13/gWvoPQ.jpg" class="img-thumbnail"
-                            height="431" />
+    <div id="product">
+        <div class="container container-fluid mt-3">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <el-image :src="data.productImgA" :preview-src-list="[data.productImgA]"
+                                style="height: 440px; width: 100%;" fit="cover"></el-image>
+                        </div>
+                        <div class="col-md-4">
+                            <el-image :src="data.productImgB" :preview-src-list="[data.productImgA]"
+                                style="height: 440px; width: 100%;" fit="cover"></el-image>
+                        </div>
+                        <div class="col-md-4">
+                            <el-image :src="data.productImgC" :preview-src-list="[data.productImgA]"
+                                style="height: 440px; width: 100%;" fit="cover"></el-image>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+        <!-- 內容 文字 -->
 
-    <!-- 內容 文字 -->
-    <div>
         <div class="container">
             <div class="row pt-5 ">
                 <div class="col-md-12">
@@ -180,27 +179,14 @@
                         <div class="col-md-8 ">
                             <!-- 商品訊息 -->
                             <div>
-                                <h3>實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套</h3>
-                                <p class="fs-1 text-danger">NT$860</p>
-                                <i class="bi bi-emoji-sunglasses fs-3 m-3"> 新品</i>
-                                <i class="bi bi-people-fill fs-3 m-3">郵寄</i>
+                                <h3>{{data.productName}}</h3>
+                                <p class="fs-1 text-danger">NT${{data.productPrice}}</p>
+                                <i class="bi bi-emoji-sunglasses fs-3 m-3"> {{data.productCondition}}</i>
+                                <i class="bi bi-people-fill fs-3 m-3">{{data.productTrade}}</i>
                                 <i class="bi bi-geo-alt-fill fs-3 m-3">南投縣 (Nantou)</i>
                                 <hr class="bg-dark border-4 border-top border-dark">
-                                <i class="bi bi-calendar-event-fill fs-3 m-3">發布日期: 2021-8-13</i>
-                                <p class="fs-4 mt-3">商品定價：代購約2500-3000
-                                    商品尺寸：S號 版型偏大
-                                    肩寬48胸寬56衣長72cm
-                                    商品狀況：95%
-
-                                    台灣沒有發售這個配色
-
-                                    商品照片皆為本人實體拍攝
-                                    提供商品實體測量數據參考
-                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️
-
-                                    喜歡的各位可點選本賣場首頁《追蹤》
-                                    才不會遺漏最新上架的商品
-                                </p>
+                                <i class="bi bi-calendar-event-fill fs-3 m-3">發布日期: {{data.createTim}}</i>
+                                <p class="fs-4 mt-3">{{data.productContent}}</p>
                                 <div class="pb-3">
                                     <button class="btn btn-success">立即購買</button>
                                 </div>
@@ -249,8 +235,6 @@
                                     </tbody>
                                 </table>
                             </div>
-
-
                         </div>
                         <!-- 右功能 -->
                         <div class="col-md-4 px-5">
@@ -275,8 +259,6 @@
                                         <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
                                             placeholder="留下給賣家的訊息"></textarea>
                                     </div>
-
-
                                     <div class="card-footer bg-secondary">
                                         <button type="button" data-bs-toggle="modal" data-bs-target="#addModal"
                                             class="btn btn-danger btn-block card-btn rounded-pill px-4 fs-6">
@@ -307,7 +289,7 @@
                         <div class="col-md-8">
                             <h3><i class="bi bi-suit-heart-fill">你可能也喜歡</i></h3>
                             <hr class="bg-dark border-4 border-top border-dark">
-                            <div class="row" id="product">
+                            <div class="row" id="maybeLike">
                                 <!-- v-for -->
                                 <div v-for="item in data" class="col-md-3 mb-3">
                                     <div class="card p-1">
@@ -342,11 +324,6 @@
                                         </div>
                                     </div>
                                 </div>
-
-
-
-
-
                             </div>
                             <!-- 右邊留白 -->
                         </div>
@@ -358,6 +335,7 @@
                 </div>
             </div>
         </div>
+    </div>
 
 
 
@@ -365,30 +343,29 @@
 
 
 
+    <!-- 置底 -->
+    <div class="bg-secondary text-light mt-5">
+        <div class="container">
+            <footer class="d-flex flex-wrap justify-content-between align-items-center py-3  border-top ">
+                <p class="col-md-4 mb-0 text-reset">© 2021 Company, Inc</p>
 
-        <!-- 置底 -->
-        <div class="bg-secondary text-light mt-5">
-            <div class="container">
-                <footer class="d-flex flex-wrap justify-content-between align-items-center py-3  border-top ">
-                    <p class="col-md-4 mb-0 text-reset">© 2021 Company, Inc</p>
+                <a href="/"
+                    class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
 
-                    <a href="/"
-                        class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-                        <svg class="bi me-2" width="40" height="32">
-                            <use xlink:href="#bootstrap"></use>
-                        </svg>
-                    </a>
-
-                    <ul class="nav col-md-4 justify-content-end">
-                        <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Pricing</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
-                    </ul>
-                </footer>
-            </div>
+                <ul class="nav col-md-4 justify-content-end">
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Pricing</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
+                </ul>
+            </footer>
         </div>
+    </div>
 
 
 
@@ -399,27 +376,74 @@
 
 
 
-        <!-- bootstrap JS CDN-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-            crossorigin="anonymous"></script>
-        <script src="https://unpkg.com/vue@next"></script>
-        <script src="./js/data.js"></script>
-        <!-- Vue CDN -->
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- bootstrap JS CDN-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="./js/data.js"></script>
+    <!-- Vue CDN -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- axios -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+        integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-plus/lib/index.full.js"></script>
+    <!-- Vue APP -->
+    <script>
+        const app2 = Vue.createApp({
+            data() {
+                return {
+                    text: "測試",
+                    data: {
+                        productName: "實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套",
+                        productPrice: "860",
+                        productCondition: "全新",
+                        categoryId: "她的時尚",
+                        productTrade: "郵寄及宅配",
+                        productImgA: "https://upload.cc/i1/2021/08/13/IlYc4K.jpg",
+                        productImgB: "https://upload.cc/i1/2021/08/13/V7zYiM.jpg",
+                        productImgC: "https://upload.cc/i1/2021/08/13/gWvoPQ.jpg",
+                        productContent: `商品定價：代購約2500-3000
+                                    商品尺寸：S號 版型偏大
+                                    肩寬48胸寬56衣長72cm
+                                    商品狀況：95%
 
-        <!-- Vue APP -->
-        <script>
-            Vue.createApp({
-                data() {
-                    return {
-                        data: [1, 2, 3, 4, 5, 6],
+                                    台灣沒有發售這個配色
 
+                                    商品照片皆為本人實體拍攝
+                                    提供商品實體測量數據參考
+                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️
+
+                                    喜歡的各位可點選本賣場首頁《追蹤》
+                                    才不會遺漏最新上架的商品`,
+                        createTim: "2021-08-23"
                     }
-                },
-            }).mount('#product')
+                }
+            },
+        })
+        app2.use(ElementPlus);
+        app2.mount('#product')
+    </script>
 
-        </script>
+    <!-- Vue APP -->
+    <script>
+        const app = Vue.createApp({
+            data() {
+                return {
+                    data: [1, 2, 3, 4, 5, 6],
+
+                }
+            },
+        })
+        app.use(ElementPlus);
+        app.mount('#maybeLike')
+    </script>
+
+
 
 
 

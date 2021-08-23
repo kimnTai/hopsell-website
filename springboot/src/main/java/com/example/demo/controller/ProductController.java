@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.common.Result;
 import com.example.demo.entity.Product;
+import com.example.demo.entity.User;
 import com.example.demo.mapper.ProductMapper;
 import org.springframework.web.bind.annotation.*;
 
