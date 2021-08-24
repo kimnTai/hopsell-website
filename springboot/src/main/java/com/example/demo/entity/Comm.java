@@ -17,10 +17,11 @@ public class Comm {
     private Integer productId;          // 商品_主鍵
     private String productName;       // 商品_名稱
     private Integer sellerId;          // 賣家 id
-    private Integer buyerId;            // 買家 id
+    private String buyerName;            // 買家 id
+    private String buyerImg;            // 買家 id
     private Integer commLevel;         // 評價等級
     private String commContent;       // 評價內容
-    private String commImgs;          // 評價_附圖
+    private String commImg;          // 評價_附圖
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")      // 時間
     private Date commTime;             // 評價時間
 

@@ -87,12 +87,12 @@ public class CommController {
     public Result<?> findPage(@RequestParam(defaultValue = "1") Integer pageNum,
                               @RequestParam(defaultValue = "10") Integer pageSize,
                               @RequestParam(defaultValue = "") String sellerId,
-                              @RequestParam(defaultValue = "") String buyerId) {
+                              @RequestParam(defaultValue = "") String buyerName) {
         // 查詢 用GET ，分頁查詢
         LambdaQueryWrapper<Comm> wrapper = Wrappers.<Comm>lambdaQuery();
-        if (StrUtil.isNotBlank(buyerId)) {
+        if (StrUtil.isNotBlank(buyerName)) {
             // 判斷 search 不為空
-            wrapper.like(Comm::getBuyerId, buyerId);
+            wrapper.like(Comm::getBuyerName, buyerName);
             // 避免 search 是 null
         }
         if (StrUtil.isNotBlank(sellerId)) {

@@ -233,27 +233,23 @@
                                        <th scope="col">評價</th>
                                     </tr>
                                  </thead>
-                                 <tbody v-for="item in data">
+                                 <tbody v-for="item in commList">
                                     <tr>
-                                       <th scope="row">6 天前</th>
-                                       <td><img src="https://media.karousell.com/media/photos/profiles/default.png"
-                                             class="rounded-circle" alt="" height="50">
-                                          @nxuan07</td>
-                                       <td>Nautica 長谷川昭雄 刺繡 黑色 燈芯絨 老帽
-                                          NT$800</td>
-                                       <td>出貨超快 5星好賣家🤩</td>
+                                       <th scope="row">{{item.commTime}}</th>
+                                       <td>
+                                          <img :src="item.buyerImg" class="rounded-circle" alt="" height="50"
+                                             width="50">
+                                          {{item.buyerName}}
+                                       </td>
+                                       <td>{{item.productName}}</td>
+                                       <td>{{item.commContent}}</td>
                                     </tr>
 
                                  </tbody>
                               </table>
                            </div>
                         </div>
-
-
                      </div>
-
-
-
                   </div>
                </div>
             </div>
@@ -313,18 +309,21 @@
                data: [1, 2],
                sellerId: 1,
                storeList: [],
-               baseUrl: 'http://localhost:9090/product',
+               commList: [],
+               baseUrl: 'http://localhost:9090',
             }
          },
          methods: {
             toProduct() {
                this.visibility = 'productPage';
+               // this.storeLoad();
             },
             toEvaluation() {
                this.visibility = 'evaluationPage';
+               // this.commLoad();
             },
             storeLoad() {
-               axios.get(this.baseUrl, {
+               axios.get(`${this.baseUrl}/product`, {
                   params: {
                      sellerId: this.sellerId
                   }
@@ -335,10 +334,24 @@
                   console.log(err);
                });
 
-            }
+            },
+            commLoad() {
+               axios.get(`${this.baseUrl}/comm`, {
+                  params: {
+                     sellerId: this.sellerId
+                  }
+               }).then(res => {
+                  console.log(res.data.data.records);
+                  this.commList = res.data.data.records;
+               }).catch(err => {
+                  console.log(err);
+               });
+
+            },
          },
          mounted() {
-            this.storeLoad()
+            this.storeLoad();
+            this.commLoad();
          },
 
       })
