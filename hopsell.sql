@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:3306
--- 產生時間： 2021-08-23 10:31:35
+-- 產生時間： 2021-08-24 07:20:43
 -- 伺服器版本： 5.7.24
 -- PHP 版本： 7.4.1
 
@@ -33,10 +33,11 @@ CREATE TABLE `comm` (
   `product_id` int(11) DEFAULT NULL COMMENT '商品_主鍵',
   `product_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品_名稱',
   `seller_id` int(11) DEFAULT NULL COMMENT '賣家 id',
-  `buyer_id` int(11) DEFAULT NULL COMMENT '買家 id',
+  `buyer_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '買家 id',
+  `buyer_img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `comm_level` int(11) DEFAULT NULL COMMENT '評價等級',
   `comm_content` text COLLATE utf8mb4_unicode_ci COMMENT '評價內容',
-  `comm_imgs` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '評價_附圖',
+  `comm_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '評價_附圖',
   `comm_time` datetime DEFAULT NULL COMMENT '評價時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -44,8 +45,9 @@ CREATE TABLE `comm` (
 -- 傾印資料表的資料 `comm`
 --
 
-INSERT INTO `comm` (`comm_id`, `product_id`, `product_name`, `seller_id`, `buyer_id`, `comm_level`, `comm_content`, `comm_imgs`, `comm_time`) VALUES
-(1, 1, '我的鞋子', 1, 2, 5, '非常滿意', NULL, '2021-08-23 16:04:01');
+INSERT INTO `comm` (`comm_id`, `product_id`, `product_name`, `seller_id`, `buyer_name`, `buyer_img`, `comm_level`, `comm_content`, `comm_img`, `comm_time`) VALUES
+(1, 1, 'Nautica 長谷川昭雄 刺繡 黑色 燈芯絨 老帽 NT$800', 1, '@nxuan07', 'https://media.karousell.com/media/photos/profiles/default.png', 5, '出貨超快 5星好賣家🤩', NULL, '2021-08-23 16:04:01'),
+(2, 2, '🎌JP 日本 Carnival Joy 日系 古著 淺灰x黑色 魔鬼粘 山脈 運動涼鞋 休閒涼鞋 LL', 1, '@mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', 5, '買家超讚東西超讚出貨超快💕', NULL, '2021-08-24 14:12:48');
 
 -- --------------------------------------------------------
 
@@ -141,7 +143,7 @@ ALTER TABLE `user`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `comm`
 --
 ALTER TABLE `comm`
-  MODIFY `comm_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '評價_主鍵', AUTO_INCREMENT=2;
+  MODIFY `comm_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '評價_主鍵', AUTO_INCREMENT=3;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `product`
