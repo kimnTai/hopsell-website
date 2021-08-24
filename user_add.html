@@ -240,32 +240,14 @@
                      style="height: 200px" placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
                </div>
                <div class="text-end">
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                     data-bs-target="#pushModal">立即刊登</button>
+                  <button type="button" class="btn btn-primary" @click="addProduct">立即刊登</button>
                </div>
             </form>
          </div>
       </div>
    </div>
 
-   <!-- Modal -->
-   <div class="modal fade " id="pushModal" tabindex="-1" aria-labelledby="pushModalModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="pushModal">請確認</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               商品刊登
-            </div>
-            <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-               <button type="button" class="btn btn-primary" @click="addProduct">確認刊登</button>
-            </div>
-         </div>
-      </div>
-   </div>
+
 
 
 
@@ -306,29 +288,30 @@
       crossorigin="anonymous"></script>
    <!-- Vue CDN -->
    <script src="https://unpkg.com/vue@next"></script>
-   <script src="./js/data.js"></script>
-   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <!-- VeeValidate CDN -->
    <script src="https://unpkg.com/vee-validate@next"></script>
    <!-- axios -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
       integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   <!-- 引入样式 -->
-   <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
-   <!-- 引入组件库 -->
-   <script src="https://unpkg.com/element-plus/lib/index.full.js"></script>
+   <!-- Element 引入樣式 -->
+   <link rel="stylesheet" href="https://unpkg.com/element-plus@1.0.2-beta.71/lib/theme-chalk/index.css">
+   <!-- Element 引入组件庫 -->
+   <script src="https://unpkg.com/element-plus@1.0.2-beta.71/lib/index.full.js"></script>
+   <!-- sweetalert2 -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 
    <script type="module">
       console.log(VeeValidate);
       const app = Vue.createApp({
+
+         // 驗證套件
          components: {
             VForm: VeeValidate.Form,
             VField: VeeValidate.Field,
             ErrorMessage: VeeValidate.ErrorMessage,
          },
-
-
 
          data() {
             return {
@@ -338,17 +321,7 @@
             }
          },
          methods: {
-            // 新增圖片
-            fileSelected(evt) {
-               const file = evt.target.files.item(0);
-               console.log(file);
-               const reader = new FileReader();
-               reader.addEventListener('load', this.imageLoaded);
-               reader.readAsDataURL(file);
-            },
-            imageLoaded(evt) {
-               this.image = evt.target.result;
-            },
+            // 驗證測試
             onSubmit(value) {
                console.log(value)
             },
@@ -358,22 +331,35 @@
                }
                return true;
             },
+            // 刊登商品
             addProduct() {
-               axios.post(this.baseUrl, this.form)
-                  .then((res) => {
-                     console.log(res);
-                  })
-                  .catch((err) => {
-                     console.log(err);
-                  });
-               this.form = {};
+               Swal.fire({
+                  title: '確定要刊登嗎',
+                  showCancelButton: true,
+                  confirmButtonText: `Save`,
+               }).then((result) => {
+
+                  if (result.isConfirmed) {
+                     axios.post(this.baseUrl, this.form)
+                        .then((res) => {
+                            Swal.fire('商品已刊登', '', 'success') 
+                           })
+                        .catch((err) => {
+                           console.log(err);
+                           Swal.fire('失敗', '', 'info')
+                        });
+                     this.form = {};
+                  }
+               })
             },
+            // 存圖片url
             filesUploadSuccess(res) {
                console.log(res.data)
                sessionStorage.setItem("upload", JSON.stringify(res.data))  // 緩存用戶資料
                this.form.productImgA = res.data
             },
          },
+         // 
          mounted() {
             let url = sessionStorage.getItem("upload") || "{}"
             this.form.productImgA = JSON.parse(url)
