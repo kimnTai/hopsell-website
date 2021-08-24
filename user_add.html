@@ -22,6 +22,7 @@
             <div class="container-fluid ">
                <a href="home.html"><img src="images/icon_1.png" alt="hopsellIcon" height="32"></a>
                <div class="d-flex">
+
                   <button class="btn fw-bold btn-warning  px-4 me-2" data-bs-toggle="modal"
                      data-bs-target="#loginModal">登入</button>
                   <button class="btn fw-bold btn-light  px-4 d-none d-sm-block" data-bs-toggle="modal"
@@ -47,7 +48,9 @@
                   </div>
                </div>
                <div class="d-flex">
-                  <a class="btn fw-bold btn-danger px-4 me-2" href="user_add.html">出售</a>
+
+                  <button class="btn fw-bold btn-danger px-4 me-2" data-bs-toggle="modal"
+                     data-bs-target="#出售">出售</button>
                </div>
             </div>
          </div>
@@ -154,25 +157,12 @@
       </div>
    </div>
 
-   <div class="container">
-      <div class="row d-flex justify-content-center" id="productAdd">
+   <div class="container ">
+      <div class="row d-flex justify-content-center" id="product">
          <div class="col-md-4 mb-4 px-3">
-            <div class="mx-5">
-               <label for="formFileLg" class="form-label fs-4">選擇照片A</label>
-               <el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccess">
-                  <el-button type="primary">點擊上傳</el-button>
-               </el-upload>
-               <el-image :src="form.productImgA" :preview-src-list="[form.productImgA]"></el-image>
-            </div>
-            <div class="mx-5">
-               <label for="formFileLg" class="form-label fs-4">選擇照片B</label>
-               <input v-model="form.productImgB" type="text" class="form-control" placeholder="請輸入圖片url" name="價格">
-               <el-image :src="form.productImgB" :preview-src-list="[form.productImgB]"></el-image>
-            </div>
-            <div class="mx-5">
-               <label for="formFileLg" class="form-label fs-4">選擇照片C</label>
-               <input v-model="form.productImgC" type="text" class="form-control" placeholder="請輸入圖片url" name="價格">
-               <el-image :src="form.productImgC" :preview-src-list="[form.productImgC]"></el-image>
+            <div>
+               <label for="formFileLg" class="form-label fs-4">選擇照片</label>
+               <input class="form-control form-control-lg" id="formFileLg" type="file">
             </div>
          </div>
          <div class="col-md-6">
@@ -183,89 +173,59 @@
                <div class="mb-3">
                   <label for="" class="form-label  h6 text-secondary">選擇交易方式<span class="text-danger ms-1">*</span>
                   </label>
-                  <select v-model="form.productTrade" class="form-select" name="分類">
-                     <option disabled="">選擇交易方式</option>
-                     <option value="7-Eleven 取貨付款">7-Eleven 取貨付款</option>
-                     <option value="郵寄及宅配">郵寄及宅配</option>
-                     <option value="面交">面交</option>
+                  <select id="" class="form-select" name="分類">
+                     <option value="" disabled="">選擇交易方式</option>
+                     <option>7-Eleven 取貨付款</option>
+                     <option>郵寄及宅配</option>
+                     <option>面交</option>
                   </select>
                   <!---->
                </div>
                <div class="mb-3">
                   <label for="" class="form-label  h6 text-secondary">選擇分類<span class="text-danger ms-1">*</span>
                   </label>
-                  <select v-model="form.categoryId" class="form-select" name="分類">
-                     <option disabled="">選擇分類</option>
-                     <option value="她的時尚">她的時尚</option>
-                     <option value="名牌精品">名牌精品</option>
-                     <option value="手機平板">手機平板</option>
+                  <select id="" class="form-select" name="分類">
+                     <option value="" disabled="">選擇分類</option>
+                     <option>她的時尚</option>
+                     <option>名牌精品</option>
+                     <option>手機平板</option>
                   </select>
                   <!---->
                </div>
-               <v-form @submit="onSubmit" v-slot="{errors}" class="mb-3">
+               <div class="mb-3">
                   <label for="" class="form-label h6 text-secondary">商品名稱 <span class="text-danger ms-1">*</span>
                   </label>
-                  <v-field v-model="form.productName" type="text" class="form-control" placeholder="請輸入商品名稱" name="商品名稱"
-                     :rules="isRequired">
-                  </v-field>
+                  <input id="" type="text" class="form-control" placeholder="請輸入商品名稱" name="商品名稱">
                   <!---->
-                  <error-message name="商品名稱"></error-message>
-                  <button>Submit</button>
-               </v-form>
+               </div>
                <h2 class="h4 fw-bold mb-4 mb-md-6">關於此商品</h2>
                <div class="mb-3">
                   <label for="name" class="form-label h6 text-secondary"> 新舊程度 <span class="text-danger ms-1">*</span>
                   </label>
-                  <select v-model="form.productCondition" class="form-select" name="新舊程度">
-                     <option disabled="">選擇分類</option>
-                     <option value="全新">全新</option>
-                     <option value="幾乎全新">幾乎全新</option>
-                     <option value="狀況良好">狀況良好</option>
-                     <option value="狀況尚可">狀況尚可</option>
-                  </select>
+                  <input id="" type="text" class="form-control" placeholder="新舊程度" name="新舊程度">
                   <!---->
                </div>
-               <div class="mb-3">
-                  <label for="" class="form-label h6 text-secondary">
-                     價格<span class="text-danger ms-1">*</span>
-                  </label>
-                  <input v-model="form.productPrice" type="number" class="form-control" placeholder="NT$ 設定價位"
-                     name="價格">
+               <div class="mb-3"><label for="" class="form-label h6 text-secondary">價格<span
+                        class="text-danger ms-1">*</span></label><input id="" type="number" class="form-control"
+                     placeholder="NT$ 設定價位" name="價格">
                   <!---->
                </div>
                <div class="mb-3 ">
                   <label for="message" class="form-label h6 text-secondary">商品描述</label>
                   <!--textarea 不能換行-->
-                  <textarea v-model="form.productContent" name="" id="message" class="form-control"
-                     style="height: 200px" placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
+                  <textarea name="" id="message" class="form-control" style="height: 200px"
+                     placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
                </div>
+
+
                <div class="text-end">
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                     data-bs-target="#pushModal">立即刊登</button>
+                  <button type="submit" class="btn btn-success">立即刊登</button>
                </div>
             </form>
          </div>
       </div>
    </div>
 
-   <!-- Modal -->
-   <div class="modal fade " id="pushModal" tabindex="-1" aria-labelledby="pushModalModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered">
-         <div class="modal-content">
-            <div class="modal-header">
-               <h5 class="modal-title" id="pushModal">請確認</h5>
-               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-               商品刊登
-            </div>
-            <div class="modal-footer">
-               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-               <button type="button" class="btn btn-primary" @click="addProduct">確認刊登</button>
-            </div>
-         </div>
-      </div>
-   </div>
 
 
 
@@ -308,79 +268,15 @@
    <script src="https://unpkg.com/vue@next"></script>
    <script src="./js/data.js"></script>
    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-   <!-- VeeValidate CDN -->
-   <script src="https://unpkg.com/vee-validate@next"></script>
-   <!-- axios -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
-      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   <!-- 引入样式 -->
-   <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
-   <!-- 引入组件库 -->
-   <script src="https://unpkg.com/element-plus/lib/index.full.js"></script>
-
-   <script type="module">
-      console.log(VeeValidate);
-      const app = Vue.createApp({
-         components: {
-            VForm: VeeValidate.Form,
-            VField: VeeValidate.Field,
-            ErrorMessage: VeeValidate.ErrorMessage,
-         },
-
-
-
+   <script>
+      Vue.createApp({
          data() {
             return {
-               image: '',
-               form: { "sellerId": 1, },
-               baseUrl: 'http://localhost:9090/product',
+
+               data: [1, 2, 3, 4, 5, 6],
             }
          },
-         methods: {
-            // 新增圖片
-            fileSelected(evt) {
-               const file = evt.target.files.item(0);
-               console.log(file);
-               const reader = new FileReader();
-               reader.addEventListener('load', this.imageLoaded);
-               reader.readAsDataURL(file);
-            },
-            imageLoaded(evt) {
-               this.image = evt.target.result;
-            },
-            onSubmit(value) {
-               console.log(value)
-            },
-            isRequired(value) {
-               if (!value) {
-                  return '此欄是必填'
-               }
-               return true;
-            },
-            addProduct() {
-               axios.post(this.baseUrl, this.form)
-                  .then((res) => {
-                     console.log(res);
-                  })
-                  .catch((err) => {
-                     console.log(err);
-                  });
-               this.form = {};
-            },
-            filesUploadSuccess(res) {
-               console.log(res.data)
-               sessionStorage.setItem("upload", JSON.stringify(res.data))  // 緩存用戶資料
-               this.form.productImgA = res.data
-            },
-         },
-         mounted() {
-            let url = sessionStorage.getItem("upload") || "{}"
-            this.form.productImgA = JSON.parse(url)
-         }
-      });
-      app.use(ElementPlus);
-      app.mount('#productAdd')
+      }).mount('#product')
 
    </script>
 
