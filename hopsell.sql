@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:3306
--- 產生時間： 2021-08-24 17:34:12
+-- 產生時間： 2021-08-24 07:20:43
 -- 伺服器版本： 5.7.24
 -- PHP 版本： 7.4.1
 
@@ -67,7 +67,7 @@ CREATE TABLE `product` (
   `product_img_a` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品圖片A',
   `product_img_b` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品圖片B',
   `product_img_c` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品圖片C',
-  `product_status` int(11) DEFAULT '1' COMMENT '商品狀態:正常 1 ，刪除 -1，0 下架',
+  `product_status` int(11) DEFAULT NULL COMMENT '商品狀態:正常 1 ，刪除 -1，0 下架',
   `create_time` datetime DEFAULT NULL COMMENT '創建時間',
   `update_time` datetime DEFAULT NULL COMMENT '更新時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -77,13 +77,12 @@ CREATE TABLE `product` (
 --
 
 INSERT INTO `product` (`product_id`, `product_name`, `seller_id`, `category_id`, `product_content`, `product_trade`, `product_condition`, `product_price`, `product_img_a`, `product_img_b`, `product_img_c`, `product_status`, `create_time`, `update_time`) VALUES
-(3, '我的衣服', 1, '4', '我的衣服郵寄，狀況尚可，100元', '2', '3', 100, 'http://localhost:9090/files/13a73a3193a14a4894a416320f6c1a2e', NULL, NULL, 1, NULL, NULL),
-(4, '我的手機', 1, '3', '我的手機500元', '3', '4', 500, 'https://media.karousell.com/media/photos/products/2021/8/23/bear_two__1629710111_15080e6f_progressive_thumbnail.jpg', NULL, NULL, 1, NULL, NULL),
-(5, '我的皮夾', 1, '1', '我的皮夾7-11付款、它的時尚、全新、500元', '1', '1', 500, 'https://media.karousell.com/media/photos/products/2021/8/3/_jp__kraft_______t_t_xl_1627963190_d4de3ab1_progressive_thumbnail.jpg', NULL, NULL, 1, '2021-08-22 23:09:14', NULL),
-(6, '我的大頭貼', 1, '3', '我的手機平板', '3', '4', 500, 'https://media.karousell.com/media/photos/products/2021/8/22/t_1629643463_c3b62581_progressive_thumbnail.jpg', NULL, NULL, 1, '2021-08-23 11:18:07', NULL),
-(7, '測試上傳', 1, '2', '上傳測試', '1', '1', 150, 'http://localhost:9090/files/15a9af2ad7f74e89ba3860fa6b197793', NULL, NULL, 1, '2021-08-23 17:14:58', NULL),
-(8, '我的包包', 1, '她的時尚', '我的包包800元', '7-Eleven 取貨付款', '狀況尚可', 800, 'http://localhost:9090/files/f01b4a3173e043ec9693ce6d55836496', NULL, NULL, 1, '2021-08-23 17:48:59', NULL),
-(9, 'Nike+ Jordan sticker together', 1, '名牌精品', '西洋棋一組\n塑膠製品\n附上說明書\n無原本的外包裝盒，用其他盒子代替', '7-Eleven 取貨付款', '幾乎全新', 210, 'http://localhost:9090/files/ef6946d2dff64f19b53c2574e6a1b8ce', 'https://media.karousell.com/media/photos/products/2021/8/24/nike_jordan_sticker_together_1629823928_cec7b3ae_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/nike_jordan_sticker_together_1629823928_daecfcd3_progressive.jpg', 1, '2021-08-25 00:55:41', NULL);
+(3, '我的衣服', 1, '4', '我的衣服郵寄，狀況尚可，100元', '2', '3', 100, 'http://localhost:9090/files/13a73a3193a14a4894a416320f6c1a2e', NULL, NULL, NULL, NULL, NULL),
+(4, '我的手機', 1, '3', '我的手機500元', '3', '4', 500, 'https://media.karousell.com/media/photos/products/2021/8/23/bear_two__1629710111_15080e6f_progressive_thumbnail.jpg', NULL, NULL, NULL, NULL, NULL),
+(5, '我的皮夾', 1, '1', '我的皮夾7-11付款、它的時尚、全新、500元', '1', '1', 500, 'https://media.karousell.com/media/photos/products/2021/8/3/_jp__kraft_______t_t_xl_1627963190_d4de3ab1_progressive_thumbnail.jpg', NULL, NULL, NULL, '2021-08-22 23:09:14', NULL),
+(6, '我的大頭貼', 1, '3', '我的手機平板', '3', '4', 500, 'https://media.karousell.com/media/photos/products/2021/8/22/t_1629643463_c3b62581_progressive_thumbnail.jpg', NULL, NULL, NULL, '2021-08-23 11:18:07', NULL),
+(7, '測試上傳', 1, '2', '上傳測試', '1', '1', 150, 'http://localhost:9090/files/15a9af2ad7f74e89ba3860fa6b197793', NULL, NULL, NULL, '2021-08-23 17:14:58', NULL),
+(8, '我的包包', 1, '她的時尚', '我的包包800元', '7-Eleven 取貨付款', '狀況尚可', 800, 'http://localhost:9090/files/f01b4a3173e043ec9693ce6d55836496', NULL, NULL, NULL, '2021-08-23 17:48:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -150,7 +149,7 @@ ALTER TABLE `comm`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品_主鍵', AUTO_INCREMENT=10;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品_主鍵', AUTO_INCREMENT=9;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `user`
