@@ -108,7 +108,7 @@ public class UserController {
         LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery();
         if (StrUtil.isNotBlank(search)) {
             // 判斷 search 不為空
-            wrapper.like(User::getNickName, search);
+            wrapper.like(User::getUsername, search);
             // 避免 search 是 null
         }
         Page<User> userPage = userMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);

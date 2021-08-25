@@ -13,9 +13,9 @@ public class User {
     private Integer id;
     private String username;
     private String password;
-    private String nickName;
-    private Integer age;
-    private String sex;
+    private String realName;
+    private Integer email;
     private String address;
+    private String introduce;
     private Integer role;
 }
