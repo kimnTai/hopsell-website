@@ -210,7 +210,8 @@
                                        <p class="">{{item.productCondition}}</p>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                       <button type="button" class="btn btn-outline-danger rounded-pill btn-sm">
+                                       <button @click="addFavorite(item)" type="button"
+                                          class="btn btn-outline-danger rounded-pill btn-sm">
                                           <i class="bi bi-heart-fill "></i>
                                        </button>
                                        <button type="button" class="btn btn-outline-dark  btn-sm"><i
@@ -229,6 +230,7 @@
                                        <th width="100" scope="col">日期</th>
                                        <th width="200" class="" scope="col">買家</th>
                                        <th scope="col">購買商品</th>
+                                       <th scope="col">評等</th>
                                        <th scope="col">評價</th>
                                     </tr>
                                  </thead>
@@ -241,6 +243,10 @@
                                           {{item.buyerName}}
                                        </td>
                                        <td>{{item.productName}}</td>
+                                       <td>
+                                          <el-rate v-model="item.commLevel" disabled show-score text-color="#ff9900">
+                                          </el-rate>
+                                       </td>
                                        <td>{{item.commContent}}</td>
                                     </tr>
 
@@ -254,12 +260,13 @@
             </div>
          </div>
       </div>
+      <footer></footer>
    </div>
 
    <!-- 置底 -->
    <div class="bg-secondary text-light mt-5">
       <div class="container">
-         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3  border-top ">
+         <div class="d-flex flex-wrap justify-content-between align-items-center py-3  border-top ">
             <p class="col-md-4 mb-0 text-reset">© 2021 Company, Inc</p>
 
             <a href="/"
@@ -268,7 +275,6 @@
                   <use xlink:href="#bootstrap"></use>
                </svg>
             </a>
-
             <ul class="nav col-md-4 justify-content-end">
                <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
                <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
@@ -276,9 +282,9 @@
                <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
                <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
             </ul>
-         </footer>
+         </div>
       </div>
-   </div>
+   </div>`
 
 
 
@@ -288,71 +294,94 @@
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>
-   <script src="https://unpkg.com/vue@next"></script>
-   <script src="./js/data.js"></script>
    <!-- Vue CDN -->
-   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <script src="https://unpkg.com/vue@next"></script>
    <!-- axios -->
    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
       integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   <!-- 引入样式 -->
-   <link rel="stylesheet" href="https://unpkg.com/element-plus/lib/theme-chalk/index.css">
-   <!-- 引入组件库 -->
-   <script src="https://unpkg.com/element-plus/lib/index.full.js"></script>
-   <script>
+   <!-- 引入樣式 -->
+   <link rel="stylesheet" href="https://unpkg.com/element-plus@1.0.2-beta.71/lib/theme-chalk/index.css">
+   <!-- 引入組件庫 -->
+   <script src="https://unpkg.com/element-plus@1.0.2-beta.71/lib/index.full.js"></script>
+   <!-- sweetalert2 -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+   <script type="module">
       const app = Vue.createApp({
          data() {
             return {
                visibility: 'productPage',
-               data: [1, 2],
                sellerId: 1,
                storeList: [],
                commList: [],
+               favoriteList: [],
                baseUrl: 'http://localhost:9090',
             }
          },
          methods: {
-            toProduct() {
-               this.visibility = 'productPage';
-               // this.storeLoad();
-            },
-            toEvaluation() {
-               this.visibility = 'evaluationPage';
-               // this.commLoad();
-            },
+            // 頁面跳轉
+            toProduct() { this.visibility = 'productPage'; },
+            toEvaluation() { this.visibility = 'evaluationPage'; },
+            // 讀取商品資料
             storeLoad() {
                axios.get(`${this.baseUrl}/product`, {
                   params: {
                      sellerId: this.sellerId
                   }
                }).then(res => {
-                  console.log(res.data.data.records);
+                  // console.log(res.data.data.records);
                   this.storeList = res.data.data.records;
                }).catch(err => {
                   console.log(err);
                });
-
             },
+            // 讀取評價資料
             commLoad() {
                axios.get(`${this.baseUrl}/comm`, {
                   params: {
                      sellerId: this.sellerId
                   }
                }).then(res => {
-                  console.log(res.data.data.records);
+                  // console.log(res.data.data.records);
                   this.commList = res.data.data.records;
                }).catch(err => {
                   console.log(err);
                });
-
+            },
+            // 加入最愛
+            addFavorite(item) {
+               // 先看清單中 是否有該商品
+               const index = this.favoriteList.find(obj => obj.productId === item.productId)
+               if (index) {
+                  Swal.fire('已經加到最愛囉!')
+                  return
+               }
+               this.favoriteList.push(item);
+               Swal.fire({
+                  position: 'top-end',
+                  icon: 'success',
+                  title: '幫你加到最愛囉!',
+                  showConfirmButton: false,
+                  timer: 1500
+               })
             },
          },
          mounted() {
             this.storeLoad();
             this.commLoad();
+            this.favoriteList = JSON.parse(localStorage.getItem('最愛清單')) || [];
          },
-
+         // 監聽 favoriteList
+         watch: {
+            favoriteList: {
+               handler() {
+                  localStorage.setItem('最愛清單', JSON.stringify(this.favoriteList));
+               },
+               deep: true,
+            }
+         }
       })
       app.use(ElementPlus);
       app.mount('#userPage')
