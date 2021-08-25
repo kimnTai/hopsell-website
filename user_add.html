@@ -336,9 +336,9 @@
                Swal.fire({
                   title: '確定要刊登嗎',
                   showCancelButton: true,
-                  confirmButtonText: `Save`,
+                  confirmButtonText: `確認`,
+                  cancelButtonText: '取消',
                }).then((result) => {
-
                   if (result.isConfirmed) {
                      axios.post(this.baseUrl, this.form)
                         .then((res) => {
