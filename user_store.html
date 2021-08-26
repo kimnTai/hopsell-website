@@ -255,11 +255,10 @@
                      sellerId: this.sellerId
                   }
                }).then(res => {
-                  // console.log(res.data.data.records);
-                  this.storeList = res.data.data.records;
-               }).catch(err => {
-                  console.log(err);
-               });
+                  // 過濾 刪除 & 下架
+                  const arr = res.data.data.records.filter(item => item.productStatus > 0)
+                  this.storeList = arr;
+               }).catch(err => console.log(err));
             },
             // 讀取評價資料
             commLoad() {
@@ -270,9 +269,7 @@
                }).then(res => {
                   // console.log(res.data.data.records);
                   this.commList = res.data.data.records;
-               }).catch(err => {
-                  console.log(err);
-               });
+               }).catch(err => console.log(err));
             },
             // 加入最愛
             addFavorite(item) {

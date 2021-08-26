@@ -283,7 +283,6 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"></script>
    <script src="https://unpkg.com/vue@next"></script>
-   <script src="./js/data.js"></script>
    <!-- Vue CDN -->
    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
    <!-- axios -->
@@ -341,11 +340,10 @@
                      sellerId: this.sellerId
                   }
                }).then(res => {
-                  // console.log(res.data.data.records)
-                  this.storeList = res.data.data.records;
-               }).catch(err => {
-                  console.log(err);
-               });
+                  // 過濾 刪除 & 下架
+                  const arr = res.data.data.records.filter(item => item.productStatus > 0)
+                  this.storeList = arr;
+               }).catch(err => console.log(err));
             },
             // 加入最愛
             addFavorite(item) {

@@ -42,6 +42,7 @@ public class ProductController {
     // 修改
     @PutMapping
     public Result<?> update(@RequestBody Product product) {
+        product.setUpdateTime(new Date());
         productMapper.updateById(product);
         return Result.success();
 
