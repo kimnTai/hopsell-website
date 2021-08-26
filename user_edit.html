@@ -268,7 +268,7 @@
                   cancelButtonText: '取消',
                }).then((result) => {
                   if (result.isConfirmed) {
-                     if (!this.form.productId) { return }
+                     if (!this.form.productId) { Swal.fire('失敗', '', 'info'); return }
                      axios.put(this.baseUrl, this.form)
                         .then((res) => {
                            Swal.fire('商品已更新', '', 'success')
