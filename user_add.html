@@ -161,7 +161,10 @@
                   <textarea v-model="form.productContent" name="" id="message" class="form-control"
                      style="height: 200px" placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
                </div>
-               <div class="text-end">
+               <div class="text-end d-flex justify-content-between">
+                  <div>
+                     <button type="button" class="btn btn-primary" @click="addList">一鍵輸入</button>
+                  </div>
                   <button type="button" class="btn btn-primary" @click="addProduct">立即刊登</button>
                </div>
             </form>
@@ -280,6 +283,31 @@
                sessionStorage.setItem("upload", JSON.stringify(res.data))  // 緩存用戶資料
                this.form.productImgA = res.data
             },
+            addList() {
+               const list = {
+                  sellerId: 1,
+                  productName: "實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套",
+                  productPrice: "860",
+                  productCondition: "全新",
+                  categoryId: "時尚衣裝",
+                  productTrade: "郵寄及宅配",
+                  productImgA: "https://upload.cc/i1/2021/08/13/IlYc4K.jpg",
+                  productImgB: "https://upload.cc/i1/2021/08/13/V7zYiM.jpg",
+                  productImgC: "https://upload.cc/i1/2021/08/13/gWvoPQ.jpg",
+                  productContent: `商品定價：代購約2500-3000
+                                    商品尺寸：S號 版型偏大
+                                    肩寬48胸寬56衣長72cm
+                                    商品狀況：95%
+                                    台灣沒有發售這個配色
+                                    商品照片皆為本人實體拍攝
+                                    提供商品實體測量數據參考
+                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️
+                                    喜歡的各位可點選本賣場首頁《追蹤》
+                                    才不會遺漏最新上架的商品`,
+                  createTim: "2021-08-23"
+               };
+               this.form = list;
+            }
          },
          // 
          mounted() {
