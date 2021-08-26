@@ -81,20 +81,23 @@
                      <el-image class="card-img-top img-thumbnail-like p-1" alt="" :src="item.productImgA"
                         :preview-src-list="[item.productImgA]" fit="cover"></el-image>
                   </div>
-                  <div class="card-block">
-                     <div class="mt-3">
-                        <p class="card-text fs-6">
+                  <div class="card-block p-2">
+                     <div class="mt-1">
+                        <p class="card-text fs-6 text-truncate">
                            {{item.productName}}
                         </p>
                      </div>
-                     <div class="px-2">
+                     <div class="">
                         <p class="fs-4"><strong>NT$ {{item.productPrice}}</strong></p>
                         <p class="">{{item.productCondition}}</p>
                      </div>
                      <div class="d-flex justify-content-between">
-                        <button @click="removeFavorite(item)" type="button" class="btn btn-outline-danger fs-6 btn-sm">
-                           <i class="bi bi-trash-fill "></i>刪除
+                        <button @click="removeFavorite(item)" type="button"
+                           class="btn bi bi-heart rounded-pill btn-danger btn-sm">
                         </button>
+                        <a @click="toProduct(item)" type="button"
+                           class="btn btn-outline-primary btn-sm bi bi bi-search">
+                           詳情</a>
                         <button type="button" class="btn btn-outline-dark fs-6 btn-sm"><i
                               class="bi bi-x-octagon-fill"></i>
                            檢舉</button>
@@ -196,6 +199,12 @@
                      this.favoriteList = [];
                   }
                })
+            },
+            // 商品詳情跳轉
+            toProduct(item) {
+               console.log(item.productId)
+               sessionStorage.setItem('詳情',item.productId)
+               window.location.href="product_detail.html"
             },
          },
          mounted() {

@@ -219,7 +219,7 @@
                                           <i class="bi bi-heart-fill "></i>
                                        </button>
                                        <a href="#top" @click="toProduct(item)" type="button"
-                                          class="btn btn-outline-primary  btn-sm"><i class="bi bi bi-search"></i>
+                                          class="btn btn-outline-primary  btn-sm bi bi bi-search">
                                           詳情</a>
                                        <button type="button" class="btn btn-outline-dark  btn-sm"><i
                                              class="bi bi-x-octagon-fill"></i> 檢舉</button>
@@ -366,10 +366,11 @@
             toProduct(item) {
                console.log(item.productId)
                this.data = item;
-               // sessionStorage.setItem("當前商品", item.productId)
+               sessionStorage.setItem("詳情", item.productId)
             },
          },
          mounted() {
+            this.productId = sessionStorage.getItem('詳情') || 10;
             this.productLoad();
             this.commLoad();
             this.storeLoad();

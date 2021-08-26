@@ -121,7 +121,7 @@
                                  </div>
                                  <div class="card-block">
                                     <div class="mt-3">
-                                       <p class="card-text fs-6">
+                                       <p class="card-text fs-6 text-truncate">
                                           {{item.productName}}
                                        </p>
                                     </div>
@@ -131,9 +131,12 @@
                                     </div>
                                     <div class="d-flex justify-content-between">
                                        <button @click="addFavorite(item)" type="button"
-                                          class="btn btn-outline-danger rounded-pill btn-sm">
-                                          <i class="bi bi-heart-fill "></i>
+                                          class="btn bi bi-heart rounded-pill btn-sm"
+                                          :class="item.like ? 'btn-danger':'btn-outline-danger' ">
                                        </button>
+                                       <a  @click="toProduct(item)" type="button"
+                                          class="btn btn-outline-primary btn-sm bi bi bi-search">
+                                          詳情</a>
                                        <button type="button" class="btn btn-outline-dark  btn-sm"><i
                                              class="bi bi-x-circle"></i> 檢舉</button>
                                     </div>
@@ -169,7 +172,6 @@
                                        </td>
                                        <td>{{item.commContent}}</td>
                                     </tr>
-
                                  </tbody>
                               </table>
                            </div>
@@ -275,6 +277,7 @@
                // 先看清單中 是否有該商品
                const index = this.favoriteList.find(obj => obj.productId === item.productId)
                if (index) {
+                  item.like = !item.like;
                   Swal.fire('已經加到最愛囉!')
                   return
                }
@@ -286,6 +289,12 @@
                   timer: 1500
                })
             },
+            // 商品詳情跳轉
+            toProduct(item) {
+               console.log(item.productId)
+               sessionStorage.setItem('詳情', item.productId)
+               window.location.href = "product_detail.html"
+            }
          },
          mounted() {
             this.storeLoad();
