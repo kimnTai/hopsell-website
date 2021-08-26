@@ -11,7 +11,7 @@
    <link rel="stylesheet" href="scss/all.css">
    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
-   <title>新增商品</title>
+   <title>編輯商品</title>
 </head>
 
 <body>
@@ -67,7 +67,7 @@
       <div class="d-flex justify-content-center align-items-center" style="height: 50px;">
          <button class="btn btn-outline-dark m-4" onclick="history.back()">X</button>
          <div>
-            <p class="h2 pt-2 fw-bold">你今天想賣出什麼商品？</p>
+            <p class="h2 pt-2 fw-bold">更新商品</p>
          </div>
 
       </div>
@@ -88,12 +88,14 @@
             <div class="mx-5">
                <label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片B</label>
                <input v-model="form.productImgB" type="text" class="form-control" placeholder="請輸入圖片url" name="價格">
-               <el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgB" :preview-src-list="[form.productImgB]" fit="cover"></el-image>
+               <el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgB"
+                  :preview-src-list="[form.productImgB]" fit="cover"></el-image>
             </div>
             <div class="mx-5">
                <label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片C</label>
                <input v-model="form.productImgC" type="text" class="form-control" placeholder="請輸入圖片url" name="價格">
-               <el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgC" :preview-src-list="[form.productImgC]" fit="cover"></el-image>
+               <el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgC"
+                  :preview-src-list="[form.productImgC]" fit="cover"></el-image>
             </div>
          </div>
          <div class="col-md-6">
@@ -164,9 +166,9 @@
                </div>
                <div class="text-end d-flex justify-content-between">
                   <div>
-                     <button type="button" class="btn btn-secondary" @click="addList">一鍵輸入</button>
+                     <!-- <button type="button" class="btn btn-primary" @click="addList">一鍵輸入</button> -->
                   </div>
-                  <button type="button" class="btn btn-secondary" @click="addProduct">立即刊登</button>
+                  <button type="button" class="btn btn-secondary" @click="addProduct">更新商品</button>
                </div>
             </form>
          </div>
@@ -260,21 +262,25 @@
             // 刊登商品
             addProduct() {
                Swal.fire({
-                  title: '確定要刊登嗎',
+                  title: '確定要更新嗎',
                   showCancelButton: true,
                   confirmButtonText: `確認`,
                   cancelButtonText: '取消',
                }).then((result) => {
                   if (result.isConfirmed) {
-                     axios.post(this.baseUrl, this.form)
+                     if (!this.form.productId) { return }
+                     axios.put(this.baseUrl, this.form)
                         .then((res) => {
-                           Swal.fire('商品已刊登', '', 'success')
+                           Swal.fire('商品已更新', '', 'success')
                         })
                         .catch((err) => {
                            console.log(err);
                            Swal.fire('失敗', '', 'info')
                         });
                      this.form = {};
+                     setTimeout(() => {
+                        window.location.href = "user_store.html"
+                     }, 2000)
                   }
                })
             },
@@ -284,36 +290,21 @@
                sessionStorage.setItem("upload", JSON.stringify(res.data))  // 緩存用戶資料
                this.form.productImgA = res.data
             },
-            addList() {
-               const list = {
-                  sellerId: 1,
-                  productName: "實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套",
-                  productPrice: "860",
-                  productCondition: "全新",
-                  categoryId: "時尚衣裝",
-                  productTrade: "郵寄及宅配",
-                  productImgA: "https://upload.cc/i1/2021/08/13/IlYc4K.jpg",
-                  productImgB: "https://upload.cc/i1/2021/08/13/V7zYiM.jpg",
-                  productImgC: "https://upload.cc/i1/2021/08/13/gWvoPQ.jpg",
-                  productContent: `商品定價：代購約2500-3000
-                                    商品尺寸：S號 版型偏大
-                                    肩寬48胸寬56衣長72cm
-                                    商品狀況：95%
-                                    台灣沒有發售這個配色
-                                    商品照片皆為本人實體拍攝
-                                    提供商品實體測量數據參考
-                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️
-                                    喜歡的各位可點選本賣場首頁《追蹤》
-                                    才不會遺漏最新上架的商品`,
-                  createTim: "2021-08-23"
-               };
-               this.form = list;
-            }
          },
          // 
          mounted() {
             let url = sessionStorage.getItem("upload") || "{}"
-            this.form.productImgA = JSON.parse(url)
+            // this.form.productImgA = JSON.parse(url) || "";
+            this.form = JSON.parse(sessionStorage.getItem('編輯')) || [];
+         },
+         // 監聽 form
+         watch: {
+            form: {
+               handler() {
+                  sessionStorage.setItem('編輯', JSON.stringify(this.form));
+               },
+               deep: true,
+            }
          }
       });
       app.use(ElementPlus);
