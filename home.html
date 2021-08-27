@@ -26,12 +26,12 @@
         </a>
         <!--商品分類-->
         <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-2 text-white">商品分類1</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">商品分類2</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">商品分類3</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">商品分類4</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">商品分類5</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">商品分類6</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">時尚衣裝</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">精品配件</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">3C家電</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">書籍雜誌</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">娛樂休閒</a></li>
+          <li><a href="#" class="nav-link px-2 text-white">居家生活</a></li>
         </ul>
         <!--登入按鈕-->
         <div class="text-end">
@@ -96,42 +96,46 @@
     </button>
   </div>
   <!--卡片 用v-for渲染 -->
-  <div class="container border border-mutd rounded my-5">
+  <div class="container border border-mutd rounded my-5" id="shopitem">
+    <!-- 標題 -->
     <h3 class="m-4">最新上架</h3>
-    <div class="card container my-3" style="width: 18rem;" id="shopitem">
-      <div class="m-3 d-flex align-items-start">
-        <img class="rounded-circle mr-2 " src="https://picsum.photos/40/40" alt="">
-        <div class="flex-column">
-          <span class="m-3">@帳號</span><br>
-          <span class="m-3">上架時間</span>
+    <!-- 格線系統 -->
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <div class="col-lg-3 col-md-6" v-for="item in people">
+            <!-- 卡片內容 -->
+            <!-- 卡片頭 -->
+            <div class="card container" style="width: 19rem; height: 31rem;">
+              <div class="m-3 d-flex align-items-start">
+                <img class="rounded-circle mr-2 " :src="item.accImg" alt="">
+                <div class="flex-column">
+                  <span class="m-3">{{item.account}}</span><br>
+                  <span class="m-3">上架時間</span>
+                </div>
+              </div>
+              <!-- 卡片圖 -->
+              <img src="https://picsum.photos/300/250" class="card-img-top" alt="...">
+              <!-- 卡片尾 -->
+              <div class="card-body">
+                <h4 class="card-title">{{item.itemTitle}}</h4>
+                <p class="card-text">{{item.itemDis}}</p>
+                <h5>NT${{item.price}}</h5>
+                <h6>{{item.status}}</h6>
+                <!-- 愛心 -->
+                <i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm"
+                :class="item.like ? 'btn bg-white text-danger bi bi-heart-fill':'btn bi bi-heart' "></i>
+                <!-- <i class="btn bg-white text-danger bi bi-heart-fill" v-else=""></i> -->
+      
+              </div>
+            </div>
+          </div>
         </div>
-
       </div>
-
-      <img src="https://picsum.photos/300/250" class="card-img-top" alt="...">
-      <div class="card-body">
-        <h4 class="card-title">商品標題</h4>
-        <p class="card-text">商品描述</p>
-        <h5>價格</h5>
-        <h6>全新or二手</h6>
-        <i class="btn bi bi-heart" v-if=""></i>
-        <i class="btn bg-white text-danger bi bi-heart-fill" v-else=""></i>
-
-      </div>
-
-
-
     </div>
   </div>
 
-
-
-
-
-
-
-
-
+  
   <!-- bootstrap JS CDN-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -144,6 +148,122 @@
   <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
   <!-- homeVue.js -->
   <!-- <script src="homeVue.js"></script> -->
+
+
+<!-- vue.js -->
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          text: 'yee',
+          people: [
+            {
+              account: 'ac1',
+              accImg: 'https://picsum.photos/40/40',
+              itemImg: 'https://picsum.photos/300/250',
+              itemTitle: '毛毛球',
+              itemDis: '毛線球',
+              price: 350,
+              status:'全新'
+            },
+            {
+              account: 'ac2',
+              accImg: 'https://picsum.photos/40/40',
+              itemImg: 'https://picsum.photos/300/250',
+              itemTitle: '毛毛球2',
+              itemDis: '毛線球2',
+              price: 360,
+              status:'二手'
+            },
+            {
+              account: 'ac3',
+              accImg: 'https://picsum.photos/40/40',
+              itemImg: 'https://picsum.photos/300/250',
+              itemTitle: '毛毛球3',
+              itemDis: '毛線球3',
+              price: 370,
+              status:'全新'
+            },
+            {
+              account: 'ac4',
+              accImg: 'https://picsum.photos/40/40',
+              itemImg: 'https://picsum.photos/300/250',
+              itemTitle: '毛毛球4',
+              itemDis: '毛線球4',
+              price: 380,
+              status:'二手'
+            },
+            {
+              account: 'ac5',
+              accImg: 'https://picsum.photos/40/40',
+              itemImg: 'https://picsum.photos/300/250',
+              itemTitle: '毛毛球5',
+              itemDis: '毛線球5',
+              price: 390,
+              status:'二手'
+            },
+            {
+              account: 'ac6',
+              accImg: 'https://picsum.photos/40/40',
+              itemImg: 'https://picsum.photos/300/250',
+              itemTitle: '毛毛球6',
+              itemDis: '毛線球6',
+              price: 300,
+              status:'二手'
+            },
+            {
+              account: 'ac7',
+              accImg: 'https://picsum.photos/40/40',
+              itemImg: 'https://picsum.photos/300/250',
+              itemTitle: '毛毛球7',
+              itemDis: '毛線球7',
+              price: 310,
+              status:'二手'
+            },
+            {
+              account: 'ac8',
+              accImg: 'https://picsum.photos/40/40',
+              itemImg: 'https://picsum.photos/300/250',
+              itemTitle: '毛毛球8',
+              itemDis: '毛線球8',
+              price: 320,
+              status:'二手'
+            },
+          ]
+        };
+      },
+      methods: {
+        addFavorite(item) {
+					// 先看清單中 是否有該商品
+					const index = this.favoriteList.find(obj => obj.productId === item.productId)
+					item.like = true;
+					console.log(item.like);
+					if (index) {
+						Swal.fire('已經加到最愛囉!')
+						return
+					}
+					this.favoriteList.push(item);
+					Swal.fire({
+						icon: 'success',
+						title: '幫你加到最愛囉!',
+						showConfirmButton: false,
+						timer: 1500
+					})
+				}
+      },
+      mounted() {
+
+      },
+    });
+    app.mount('#shopitem');
+
+
+
+    
+
+  </script>
+
 </body>
 
 </html>
