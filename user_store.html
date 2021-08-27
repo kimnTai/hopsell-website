@@ -105,8 +105,8 @@
 						</div>
 						<div class="col-md-9">
 							<div>
-								<button class="btn btn-outline-success mx-2" @click='toProduct'>商品</button>
-								<button class="btn btn-outline-success mx-2" @click='toEvaluation'>評價</button>
+								<button class="btn btn-secondary mx-2" @click='toProductPage'>商品</button>
+								<button class="btn btn-secondary mx-2" @click='toEvaluation'>評價</button>
 							</div>
 							<hr class="bg-dark border-4 border-top border-dark">
 							<div>
@@ -135,10 +135,10 @@
 														:class="item.like ? 'btn bg-white text-danger bi bi-heart-fill':'btn bi bi-heart' ">
 													</i>
 													<a @click="toProduct(item)" type="button"
-														class="btn btn-outline-secondary btn-sm bi bi bi-search">
+														class="btn bg-white btn-sm bi bi bi-search">
 														詳情</a>
 													<button type="button" @click="toEdit(item)"
-														class="btn btn-outline-dark bi bi-pencil-square btn-sm">
+														class="btn bg-white bi bi-pencil-square btn-sm">
 														編輯</button>
 												</div>
 											</div>
@@ -246,7 +246,7 @@
 			},
 			methods: {
 				// 頁面跳轉
-				toProduct() { this.visibility = 'productPage'; },
+				toProductPage() { this.visibility = 'productPage'; },
 				toEvaluation() { this.visibility = 'evaluationPage'; },
 				// 讀取商品資料
 				storeLoad() {
