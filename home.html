@@ -51,7 +51,7 @@
         <div class="container-fluid">
           <form class="d-flex">
             <input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search">
-            <button class="btn btn-outline-success px- me-2" type="submit">Search</button>
+            <button class="btn btn-outline-secondary px- me-2" type="submit">Search</button>
           </form>
         </div>
       </div>
@@ -130,14 +130,13 @@
                   <!-- 愛心 -->
                   <i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm"
                     :class="item.like ? 'btn bg-white text-danger bi bi-heart-fill':'btn bi bi-heart' "></i>
-                  <a @click="toProduct(item)" type="button" class="btn btn-outline-secondary btn-sm bi bi bi-search">
+                  <a @click="toProduct(item)" type="button" class="btn bg-white btn-sm bi bi bi-search">
                     詳情</a>
                 </div>
 
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
