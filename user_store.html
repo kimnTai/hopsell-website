@@ -114,7 +114,7 @@
 									<!-- v-for -->
 									<p class="fs-1">商品</p>
 									<div class="col-md-3 mb-4" v-for="item in storeList">
-										<div class="card  p-1" >
+										<div class="card  p-1">
 											<div>
 												<el-image class="card-img-top img-thumbnail-like p-1" alt="" :src="item.productImgA"
 													:preview-src-list="[item.productImgA]" fit="cover"></el-image>
@@ -131,11 +131,11 @@
 													<p class="">{{item.productCondition}}</p>
 												</div>
 												<div class="d-flex justify-content-between">
-													<i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm"
-														:class="item.like ? 'btn bg-white text-danger bi bi-heart-fill':'btn bi bi-heart' ">
+													<i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm bi"
+														:class="item.like ? 'bg-white text-danger bi-heart-fill':'bi-heart' ">
 													</i>
 													<a @click="toProduct(item)" type="button"
-														class="btn bg-white btn-sm bi bi bi-search">
+														class="btn bg-white btn-sm bi bi-search">
 														詳情</a>
 													<button type="button" @click="toEdit(item)"
 														class="btn bg-white bi bi-pencil-square btn-sm">

@@ -65,14 +65,16 @@
 		<div class="row d-flex justify-content-center" id="userPage">
 			<!--左邊選項-->
 			<div class="col-md-4 mt-4 px-5">
-				<div class="list-group sticky-top mb-3 d-none d-sm-block" style="top: 82px;">
-					<a type="button" @click='toChangeInfo' class="list-group-item list-group-item-action">編輯檔案</a>
-					<a type="button" @click='toChangePassword' class="list-group-item list-group-item-action">更改密碼</a>
+				<div class="list-group sticky-top mb-3 d-none d-sm-block shadow" style="top: 82px;">
+					<a href="#top" type="button" @click='toChangeInfo' class="list-group-item list-group-item-action"
+						:class="visibility === 'changeInfo' ? 'active':''   ">編輯檔案</a>
+					<a href="#top" type="button" @click='toChangePassword' class="list-group-item list-group-item-action"
+						:class="visibility === 'changePassword' ? 'active':''   ">更改密碼</a>
 
 				</div>
 			</div>
 			<!--右邊表單-->
-			<div v-if="visibility === 'changeInfo'" class="col-md-6 border pt-4 pb-4">
+			<div v-if="visibility === 'changeInfo'" class="col-md-6 border pt-4 pb-4 shadow">
 				<hr class="d-block d-md-none my-6 my-md-0">
 				<h2 class="h1 fw-bold mb-4 mb-md-6">編輯檔案</h2>
 				<hr>
@@ -80,30 +82,26 @@
 				<form novalidate="">
 					<div class="mb-3">
 						<img class="rounded-circle px-4 mb-4"
-							src="https://media.karousell.com/media/photos/profiles/2021/07/21/chaclaire_1626880624.jpg"
-							alt="">
+							src="https://media.karousell.com/media/photos/profiles/2021/07/21/chaclaire_1626880624.jpg" alt="">
 						<label for="formFileLg" class="form-label fs-4">個人頭像</label>
 						<input class="form-control form-control-lg" id="formFileLg" type="file">
 						<!---->
 					</div>
 					<h2 class="h3 fw-bold mb-4 mb-md-6">個人資料</h2>
 					<div class="mb-3">
-						<label for="name" class="form-label h6 text-secondary"> 使用者名稱 <span
-								class="text-danger ms-1">*</span>
+						<label for="name" class="form-label h6 text-secondary"> 使用者名稱 <span class="text-danger ms-1">*</span>
 						</label>
 						<input id="" type="text" class="form-control" placeholder="使用者名稱" name="使用者名稱">
 						<!---->
 					</div>
 					<div class="mb-3">
-						<label for="name" class="form-label h6 text-secondary"> 姓名 <span
-								class="text-danger ms-1">*</span>
+						<label for="name" class="form-label h6 text-secondary"> 姓名 <span class="text-danger ms-1">*</span>
 						</label>
 						<input id="" type="text" class="form-control" placeholder="姓名" name="姓名">
 						<!---->
 					</div>
 					<div class="mb-3">
-						<label for="name" class="form-label h6 text-secondary"> Email <span
-								class="text-danger ms-1">*</span>
+						<label for="name" class="form-label h6 text-secondary"> Email <span class="text-danger ms-1">*</span>
 						</label>
 						<input id="" type="email" class="form-control" placeholder="Email" name="Email">
 						<div id="emailHelp" class="form-text">除非獲得您的明確許可，否則我們不會與其他用戶共享這些信息。</div>
@@ -131,12 +129,12 @@
 							placeholder="個人簡介"></textarea>
 					</div>
 					<div class="text-end">
-						<button type="submit" class="btn btn-success">儲存更改</button>
+						<button type="submit" class="btn btn-secondary">儲存更改</button>
 					</div>
 				</form>
 			</div>
 			<!-- 更改密碼頁面 -->
-			<div v-else class="col-md-6 border pt-4 pb-4" style="height: 700px;">
+			<div v-else class="col-md-6 border pt-4 pb-4 shadow" style="height: 700px;">
 				<hr class="d-block d-md-none my-6 my-md-0">
 				<h2 class="h1 fw-bold mb-4 mb-md-6">更改密碼</h2>
 				<hr>
@@ -153,14 +151,13 @@
 					<!---->
 				</div>
 				<div class="mb-3">
-					<label for="name" class="form-label h6 text-secondary"> 確認新密碼 <span
-							class="text-danger ms-1">*</span>
+					<label for="name" class="form-label h6 text-secondary"> 確認新密碼 <span class="text-danger ms-1">*</span>
 					</label>
 					<input id="" type="password" class="form-control" placeholder="確認新密碼" name="確認新密碼">
 					<!---->
 				</div>
 				<div class="text-end">
-					<button type="submit" class="btn btn-success">儲存更改</button>
+					<button type="submit" class="btn btn-secondary">儲存更改</button>
 				</div>
 			</div>
 		</div>

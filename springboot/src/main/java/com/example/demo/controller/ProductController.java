@@ -99,7 +99,7 @@ public class ProductController {
         }
         if (StrUtil.isNotBlank(sellerId)) {
             // 判斷 search 不為空
-            wrapper.like(Product::getSellerId, sellerId);
+            wrapper.eq(Product::getSellerId, sellerId);
             // 避免 search 是 null
         }
         Page<Product> ProductPage = productMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);

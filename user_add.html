@@ -98,7 +98,7 @@
                   :preview-src-list="[form.productImgC]" fit="cover"></el-image>
             </div>
          </div>
-         <div class="col-md-6">
+         <div class="col-md-6 ">
             <hr class="d-block d-md-none my-6 my-md-0">
             <h2 class="h4 fw-bold mb-4 mb-md-6">商品內容</h2>
             <!--form-->
@@ -244,7 +244,11 @@
          data() {
             return {
                image: '',
-               form: { "sellerId": 1, },
+               form: {
+                  sellerId: 1,
+                  sellerName: "mianhuuu",
+                  sellerImg: "https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg"
+               },
                baseUrl: 'http://localhost:9090/product',
             }
          },

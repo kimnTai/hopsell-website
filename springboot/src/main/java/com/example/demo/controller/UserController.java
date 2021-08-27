@@ -44,7 +44,7 @@ public class UserController {
     public Result<?> login(@RequestBody User user) {
         User res = userMapper.selectOne(
                 Wrappers.<User>lambdaQuery()
-                        .eq(User::getUsername, user.getUsername())
+                        .eq(User::getUserAccount, user.getUserAccount())
                         .eq(User::getPassword, user.getPassword()));
         if (res == null) {
             return Result.error("-1", "用戶名或密碼錯誤");
@@ -58,7 +58,7 @@ public class UserController {
     public Result<?> register(@RequestBody User user) {
         User res = userMapper.selectOne(
                 Wrappers.<User>lambdaQuery()
-                        .eq(User::getUsername, user.getUsername()));
+                        .eq(User::getUserAccount, user.getUserAccount()));
         if (res != null) {
             return Result.error("-1", "用戶名重複");
         }
@@ -108,7 +108,7 @@ public class UserController {
         LambdaQueryWrapper<User> wrapper = Wrappers.<User>lambdaQuery();
         if (StrUtil.isNotBlank(search)) {
             // 判斷 search 不為空
-            wrapper.like(User::getUsername, search);
+            wrapper.like(User::getUserAccount, search);
             // 避免 search 是 null
         }
         Page<User> userPage = userMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);

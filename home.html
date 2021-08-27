@@ -111,9 +111,10 @@
             <!-- 卡片頭 -->
             <div class="card container" style="width: 19rem; height: 31rem;">
               <div class="m-3 d-flex align-items-start">
-                <img class="rounded-circle mr-2 " src="https://picsum.photos/40/40">
+                <el-image class="rounded-circle mr-2" :src="item.sellerImg" style="height: 40px; width: 40px;"
+                  fit="cover"></el-image>
                 <div class="flex-column">
-                  <span class="m-3">item.account</span><br>
+                  <span class="m-3">@{{item.sellerName}}</span><br>
                   <span class="m-3">{{item.createTime}}</span>
                 </div>
               </div>
@@ -128,9 +129,9 @@
                 <h6>{{item.productCondition}}</h6>
                 <div class="d-flex justify-content-between">
                   <!-- 愛心 -->
-                  <i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm"
-                    :class="item.like ? 'btn bg-white text-danger bi bi-heart-fill':'btn bi bi-heart' "></i>
-                  <a @click="toProduct(item)" type="button" class="btn bg-white btn-sm bi bi bi-search">
+                  <i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm bi "
+                    :class="item.like ? 'bg-white text-danger bi-heart-fill':'bi-heart' "></i>
+                  <a @click="toProduct(item)" type="button" class="btn bg-white btn-sm bi bi-search">
                     詳情</a>
                 </div>
 

@@ -17,6 +17,8 @@ public class Product {
     private Integer productId;          // 商品_主鍵
     private String productName;         // 商品_名稱
     private Integer sellerId;           // 賣家 id
+    private String sellerName;           // 賣家 名稱
+    private String sellerImg;           // 賣家 頭像
     private String categoryId;         // 分類 id
     private String productContent;      // 商品_內容
     private String productTrade;       // 購買方式: 711、郵寄、宅配

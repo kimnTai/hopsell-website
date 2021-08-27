@@ -122,7 +122,7 @@
 									<tbody v-for="item in commList">
 										<tr>
 											<th scope="row">{{item.commTime}}</th>
-											<td><img :src="item.buyerImg" class="rounded-circle" alt="" height="50" width="50">
+											<td><img :src="item.buyerImg" class="rounded-circle" height="50" width="50">
 												{{item.buyerName}}</td>
 											<td>{{item.productName}}</td>
 											<td>
@@ -137,8 +137,8 @@
 						</div>
 						<!-- 右功能 -->
 						<div class="col-md-4 px-5">
-							<div class="card  text-center ">
-								<img class="card-img-top img-thumbnail p-1 " alt=""
+							<div class="card  text-center shadow">
+								<img class="card-img-top img-thumbnail p-1 "
 									src="https://media.karousell.com/media/photos/profiles/2021/07/21/chaclaire_1626880624.jpg" />
 								<div class="card-block mt-2 p-2">
 									<p class="card-title fs-3">
@@ -192,10 +192,9 @@
 									<div v-for="item in storeList" class="col-md-3 mb-3">
 										<div class="card pt-1">
 											<p class="card-title d-flex ">
-												<el-image class="rounded-circle mx-2"
-													src="https://media.karousell.com/media/photos/profiles/default.png"
+												<el-image class="rounded-circle mx-2" :src="item.sellerImg"
 													style="height: 32px; width: 32px;" fit="cover"></el-image>
-												@nxuan07
+												@{{item.sellerName}}
 											</p>
 											<div>
 												<el-image class="card-img-top img-thumbnail-like px-1" alt=""
@@ -214,8 +213,8 @@
 													<p class="card-text">{{item.productCondition}}</p>
 												</div>
 												<div class="d-flex justify-content-between">
-													<i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm"
-														:class="item.like ? 'btn bg-white text-danger bi bi-heart-fill':'btn bi bi-heart' ">
+													<i @click="addFavorite(item)" type="button" class="btn rounded-pill bi btn-sm"
+														:class="item.like ? 'bg-white text-danger bi-heart-fill':'bi-heart' ">
 													</i>
 													<a href="#top" @click="toProduct(item)" type="button"
 														class="btn bg-white btn-sm bi bi bi-search">
