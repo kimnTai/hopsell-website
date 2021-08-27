@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!--ICON CDN-->
+   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+   <!--CSS-->
+   <link rel="stylesheet" href="scss/all.css">
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+   <title>後台管理</title>
+</head>
+
+<body>
+   <div class="container" id="app">
+      {{test}}
+      <!-------------------- 商品管理-------------------- -->
+      <h3>商品管理</h3>
+      <hr>
+      <div>
+         <el-table :data="tableData" border style="width: 100%" stripe
+            :default-sort="{prop: 'productId', order: 'descending'}">
+            <el-table-column prop="productId" label="Id" sortable>
+            </el-table-column>
+            <el-table-column prop="productName" label="名稱">
+            </el-table-column>
+            <el-table-column label="封面">
+               <template #default="scope">
+                  <el-image style="width: 50px; height: 50px" :src="scope.row.productImgA"
+                     :preview-src-list="[scope.row.productImgA]">
+                  </el-image>
+               </template>
+            </el-table-column>
+            <el-table-column prop="categoryId" label="分類" sortable>
+            </el-table-column>
+            <el-table-column prop="productPrice" label="價格" sortable>
+            </el-table-column>
+            <el-table-column prop="createTime" label="建立時間" sortable>
+            </el-table-column>
+            <el-table-column prop="updateTime" label="更新時間" sortable>
+            </el-table-column>
+            <el-table-column prop="productStatus" label="狀態" sortable>
+               <template #default="scope">
+                  <span v-if="scope.row.productStatus === 1" class="btn btn-success btn-sm">正常</span>
+                  <span v-else-if="scope.row.productStatus === 0" class="btn btn btn-secondary btn-sm">下架</span>
+                  <span v-else class="btn btn-danger btn-sm">已刪除</span>
+               </template>
+            </el-table-column>
+            <el-table-column label="操作">
+               <template #default="scope">
+                  <el-button size="mini" @click="details(scope.row)">詳情</el-button>
+                  <el-popconfirm title="確定下架嗎？" @confirm="handleDelete(scope.row.productId)">
+                     <template #reference>
+                        <el-button size="mini" class="btn btn-danger">下架</el-button>
+                     </template>
+                  </el-popconfirm>
+               </template>
+            </el-table-column>
+         </el-table>
+
+         <!--詳情-->
+         <el-dialog title="提示" v-model="visProduct" width="50%">
+            <el-card>
+               <div style="min-height: 150px"></div>
+            </el-card>
+         </el-dialog>
+      </div>
+   </div>
+
+
+
+
+
+
+
+
+
+   <!-- bootstrap JS CDN-->
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"></script>
+   <!-- Vue CDN -->
+   <script src="https://unpkg.com/vue@next"></script>
+   <!-- axios -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+   <!-- Element 引入樣式 -->
+   <link rel="stylesheet" href="https://unpkg.com/element-plus@1.0.2-beta.71/lib/theme-chalk/index.css">
+   <!-- Element 引入组件庫 -->
+   <script src="https://unpkg.com/element-plus@1.0.2-beta.71/lib/index.full.js"></script>
+   <!-- sweetalert2 -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+   <script type="module">
+
+      const app = Vue.createApp({
+         data() {
+            return {
+               test: '測試',
+               baseUrl: 'http://localhost:9090',
+               tableData: [],
+               visProduct: false,
+               detail: {},
+            }
+         },
+         methods: {
+            loadProduct() {
+               axios.get(`${this.baseUrl}/product/all`).then(res => {
+                  console.log(res.data.data)
+                  this.tableData = res.data.data
+               })
+                  .catch(err => console.log(err));
+            },
+            details(row) {
+               this.detail = row;
+               this.visProduct = true;
+            },
+         },
+
+
+         mounted() {
+            this.loadProduct()
+         }
+      });
+      app.use(ElementPlus);
+      app.mount('#app')
+
+   </script>
+
+
+
+</body>
+
+</html>
