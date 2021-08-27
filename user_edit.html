@@ -164,9 +164,9 @@
                   <textarea v-model="form.productContent" name="" id="message" class="form-control"
                      style="height: 200px" placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
                </div>
-               <div class="text-end d-flex justify-content-between">
+               <div class="text-end d-flex justify-content-end">
                   <div>
-                     <!-- <button type="button" class="btn btn-primary" @click="addList">一鍵輸入</button> -->
+                     <button type="button" class="btn btn-danger mx-3" @click="deleteProduct">刪除商品</button>
                   </div>
                   <button type="button" class="btn btn-secondary" @click="addProduct">更新商品</button>
                </div>
@@ -244,7 +244,8 @@
          data() {
             return {
                image: '',
-               form: { "sellerId": 1, },
+               form: {},
+               deleteForm: { productStatus: -1, productId: '' },
                baseUrl: 'http://localhost:9090/product',
             }
          },
@@ -272,6 +273,34 @@
                      axios.put(this.baseUrl, this.form)
                         .then((res) => {
                            Swal.fire('商品已更新', '', 'success')
+                        })
+                        .catch((err) => {
+                           console.log(err);
+                           Swal.fire('失敗', '', 'info')
+                        });
+                     this.form = {};
+                     setTimeout(() => {
+                        window.location.href = "user_store.html"
+                     }, 2000)
+                  }
+               })
+            },
+            // 刪除商品
+            deleteProduct() {
+               Swal.fire({
+                  title: '確定要刪除嗎',
+                  icon: 'info',
+                  showCancelButton: true,
+                  confirmButtonText: `確認`,
+                  cancelButtonText: '取消',
+               }).then((result) => {
+                  if (result.isConfirmed) {
+                     if (!this.form.productId) { Swal.fire('失敗', '', 'info'); return }
+                     this.deleteForm.productId = this.form.productId
+                     console.log(this.deleteForm.productId)
+                     axios.put(this.baseUrl, this.deleteForm)
+                        .then((res) => {
+                           Swal.fire('商品已刪除', '', 'success')
                         })
                         .catch((err) => {
                            console.log(err);
