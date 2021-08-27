@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="home.css">
+  <!-- <link rel="stylesheet" href="bootstrap-5.0.2-dist/css/bootstrap.min.css"> -->
+  <!-- <link rel="stylesheet" href="home.css"> -->
   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
   <link rel="stylesheet" href="scss/all.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
@@ -75,13 +75,15 @@
     </div>
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img src="https://picsum.photos/1300/450" class="d-block w-100" alt="...">
+        <img src="https://upload.cc/i1/2021/08/27/XuPKjx.jpg" class="d-block w-100" height="450"
+          style="object-fit: cover;">
       </div>
       <div class="carousel-item">
-        <img src="https://picsum.photos/1300/450" class="d-block w-100" alt="...">
+        <img src="https://upload.cc/i1/2021/08/27/TLEeNd.jpg" class="d-block w-100" height="450"
+          style="object-fit: cover;">
       </div>
       <div class="carousel-item">
-        <img src="https://picsum.photos/1300/450" class="d-block w-100" alt="...">
+        <img src="https://upload.cc/i1/2021/08/27/MiqTk9.jpg" class="d-block w-100" height="450">
       </div>
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
@@ -103,60 +105,73 @@
     <div class="row">
       <div class="col">
         <div class="row">
-          <div class="col-lg-3 col-md-6" v-for="item in people">
+
+          <div class="col-lg-3 col-md-6 mb-3" v-for="item in storeList">
             <!-- 卡片內容 -->
             <!-- 卡片頭 -->
             <div class="card container" style="width: 19rem; height: 31rem;">
               <div class="m-3 d-flex align-items-start">
-                <img class="rounded-circle mr-2 " :src="item.accImg" alt="">
+                <img class="rounded-circle mr-2 " src="https://picsum.photos/40/40">
                 <div class="flex-column">
-                  <span class="m-3">{{item.account}}</span><br>
-                  <span class="m-3">上架時間</span>
+                  <span class="m-3">item.account</span><br>
+                  <span class="m-3">{{item.createTime}}</span>
                 </div>
               </div>
               <!-- 卡片圖 -->
-              <img src="https://picsum.photos/300/250" class="card-img-top" alt="...">
+              <el-image class="card-img-top" :src="item.productImgA" fit="cover" style="height: 300px;width: 250px;">
+              </el-image>
               <!-- 卡片尾 -->
               <div class="card-body">
-                <h4 class="card-title">{{item.itemTitle}}</h4>
-                <p class="card-text">{{item.itemDis}}</p>
-                <h5>NT${{item.price}}</h5>
-                <h6>{{item.status}}</h6>
-                <!-- 愛心 -->
-                <i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm"
-                :class="item.like ? 'btn bg-white text-danger bi bi-heart-fill':'btn bi bi-heart' "></i>
-                <!-- <i class="btn bg-white text-danger bi bi-heart-fill" v-else=""></i> -->
-      
+                <h4 class="card-title text-truncate">{{item.productName}}</h4>
+                <p class="card-text">{{item.productTrade}}</p>
+                <h5 class="fw-bold">NT${{item.productPrice}}</h5>
+                <h6>{{item.productCondition}}</h6>
+                <div class="d-flex justify-content-between">
+                  <!-- 愛心 -->
+                  <i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm"
+                    :class="item.like ? 'btn bg-white text-danger bi bi-heart-fill':'btn bi bi-heart' "></i>
+                  <a @click="toProduct(item)" type="button" class="btn btn-outline-secondary btn-sm bi bi bi-search">
+                    詳情</a>
+                </div>
+
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
   </div>
 
-  
+
   <!-- bootstrap JS CDN-->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
     crossorigin="anonymous"></script>
-  <script src="https://unpkg.com/vue@next"></script>
-  <script src="./js/data.js"></script>
   <!-- Vue CDN -->
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://unpkg.com/vue@next"></script>
   <!-- Jquery CDN -->
   <script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
-  <!-- homeVue.js -->
-  <!-- <script src="homeVue.js"></script> -->
+  <!-- axios -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+    integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- 引入樣式 -->
+  <link rel="stylesheet" href="https://unpkg.com/element-plus@1.0.2-beta.71/lib/theme-chalk/index.css">
+  <!-- 引入組件庫 -->
+  <script src="https://unpkg.com/element-plus@1.0.2-beta.71/lib/index.full.js"></script>
+  <!-- sweetalert2 -->
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-<!-- vue.js -->
+  <!-- vue.js -->
 
   <script>
     const app = Vue.createApp({
       data() {
         return {
-          text: 'yee',
+          baseUrl: 'http://localhost:9090',
+          storeList: [],
           people: [
             {
               account: 'ac1',
@@ -165,102 +180,71 @@
               itemTitle: '毛毛球',
               itemDis: '毛線球',
               price: 350,
-              status:'全新'
+              status: '全新'
             },
-            {
-              account: 'ac2',
-              accImg: 'https://picsum.photos/40/40',
-              itemImg: 'https://picsum.photos/300/250',
-              itemTitle: '毛毛球2',
-              itemDis: '毛線球2',
-              price: 360,
-              status:'二手'
-            },
-            {
-              account: 'ac3',
-              accImg: 'https://picsum.photos/40/40',
-              itemImg: 'https://picsum.photos/300/250',
-              itemTitle: '毛毛球3',
-              itemDis: '毛線球3',
-              price: 370,
-              status:'全新'
-            },
-            {
-              account: 'ac4',
-              accImg: 'https://picsum.photos/40/40',
-              itemImg: 'https://picsum.photos/300/250',
-              itemTitle: '毛毛球4',
-              itemDis: '毛線球4',
-              price: 380,
-              status:'二手'
-            },
-            {
-              account: 'ac5',
-              accImg: 'https://picsum.photos/40/40',
-              itemImg: 'https://picsum.photos/300/250',
-              itemTitle: '毛毛球5',
-              itemDis: '毛線球5',
-              price: 390,
-              status:'二手'
-            },
-            {
-              account: 'ac6',
-              accImg: 'https://picsum.photos/40/40',
-              itemImg: 'https://picsum.photos/300/250',
-              itemTitle: '毛毛球6',
-              itemDis: '毛線球6',
-              price: 300,
-              status:'二手'
-            },
-            {
-              account: 'ac7',
-              accImg: 'https://picsum.photos/40/40',
-              itemImg: 'https://picsum.photos/300/250',
-              itemTitle: '毛毛球7',
-              itemDis: '毛線球7',
-              price: 310,
-              status:'二手'
-            },
-            {
-              account: 'ac8',
-              accImg: 'https://picsum.photos/40/40',
-              itemImg: 'https://picsum.photos/300/250',
-              itemTitle: '毛毛球8',
-              itemDis: '毛線球8',
-              price: 320,
-              status:'二手'
-            },
+
           ]
         };
       },
       methods: {
+        // 加入最愛
         addFavorite(item) {
-					// 先看清單中 是否有該商品
-					const index = this.favoriteList.find(obj => obj.productId === item.productId)
-					item.like = true;
-					console.log(item.like);
-					if (index) {
-						Swal.fire('已經加到最愛囉!')
-						return
-					}
-					this.favoriteList.push(item);
-					Swal.fire({
-						icon: 'success',
-						title: '幫你加到最愛囉!',
-						showConfirmButton: false,
-						timer: 1500
-					})
-				}
-      },
-      mounted() {
+          // 先看清單中 是否有該商品
+          const index = this.favoriteList.find(obj => obj.productId === item.productId)
+          item.like = true;
+          console.log(item.like);
+          if (index) {
+            Swal.fire('已經加到最愛囉!')
+            return
+          }
+          this.favoriteList.push(item);
+          Swal.fire({
+            icon: 'success',
+            title: '幫你加到最愛囉!',
+            showConfirmButton: false,
+            timer: 1500
+          })
+        },
+        // 讀取商品資料
+        storeLoad() {
+          axios.get(`${this.baseUrl}/product`, {
+            params: {
+              sellerId: this.sellerId
+            }
+          }).then(res => {
+            // 過濾 刪除 & 下架
+            const arr = res.data.data.records.filter(item => item.productStatus > 0)
+            this.storeList = arr;
+          }).catch(err => console.log(err));
+        },
+        // 商品詳情跳轉
+        toProduct(item) {
+          sessionStorage.setItem('詳情', item.productId)
+          window.location.href = "product_detail.html"
+        },
 
       },
+      mounted() {
+        this.storeLoad();
+        this.favoriteList = JSON.parse(localStorage.getItem('最愛清單')) || [];
+      },
+      // 監聽 favoriteList
+      watch: {
+        favoriteList: {
+          handler() {
+            localStorage.setItem('最愛清單', JSON.stringify(this.favoriteList));
+          },
+          deep: true,
+        }
+      }
+
     });
+    app.use(ElementPlus);
     app.mount('#shopitem');
 
 
 
-    
+
 
   </script>
 

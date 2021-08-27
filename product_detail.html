@@ -198,8 +198,8 @@
 												@nxuan07
 											</p>
 											<div>
-												<el-image class="card-img-top img-thumbnail-like px-1" alt="" :src="item.productImgA"
-													fit="cover"></el-image>
+												<el-image class="card-img-top img-thumbnail-like px-1" alt=""
+													:src="item.productImgA" fit="cover"></el-image>
 											</div>
 											<div class="card-block">
 												<div class="px-1">
@@ -214,15 +214,12 @@
 													<p class="card-text">{{item.productCondition}}</p>
 												</div>
 												<div class="d-flex justify-content-between">
-													<button @click="addFavorite(item)" type="button"
-														class="btn btn-outline-danger rounded-pill btn-sm">
-														<i class="bi bi-heart-fill "></i>
-													</button>
+													<i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm"
+														:class="item.like ? 'btn bg-white text-danger bi bi-heart-fill':'btn bi bi-heart' ">
+													</i>
 													<a href="#top" @click="toProduct(item)" type="button"
-														class="btn btn-outline-primary  btn-sm bi bi bi-search" :class="item.like ? 'btn-danger':'btn-outline-white'">
+														class="btn btn-outline-dark  btn-sm bi bi bi-search">
 														詳情</a>
-													<button type="button" class="btn btn-outline-dark  btn-sm"><i
-															class="bi bi-x-octagon-fill"></i> 檢舉</button>
 												</div>
 											</div>
 										</div>
@@ -349,6 +346,7 @@
 				addFavorite(item) {
 					// 先看清單中 是否有該商品
 					const index = this.favoriteList.find(obj => obj.productId === item.productId)
+					item.like = true;
 					if (index) {
 						Swal.fire('已經加到最愛囉!')
 						return
