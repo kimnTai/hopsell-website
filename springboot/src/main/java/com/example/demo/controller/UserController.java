@@ -10,6 +10,7 @@ import com.example.demo.mapper.UserMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Date;
 
 // 定義返回 JSON Controller
 @RestController
@@ -49,7 +50,8 @@ public class UserController {
         if (res == null) {
             return Result.error("-1", "用戶名或密碼錯誤");
         }
-
+        user.setLoginTime(new Date());
+        userMapper.insert(user);
         return Result.success(res);
     }
 
@@ -65,6 +67,7 @@ public class UserController {
         if (user.getPassword() == null) {
             user.setPassword("123456");
         }
+        user.setRegisterTime(new Date());
         userMapper.insert(user);
         return Result.success();
     }

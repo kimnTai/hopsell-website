@@ -18,14 +18,14 @@
    <div class="container" id="app">
       {{test}}
       <!-------------------- 商品管理-------------------- -->
-      <h3>商品管理</h3>
-      <hr>
-      <div>
-         <el-table :data="tableData" border style="width: 100%" stripe
+      <div class="mb-3">
+         <h3>商品管理</h3>
+         <hr>
+         <el-table :data="productData" border style="width: 100%" stripe v-loading="loading"
             :default-sort="{prop: 'productId', order: 'descending'}">
             <el-table-column prop="productId" label="Id" sortable>
             </el-table-column>
-            <el-table-column prop="productName" label="名稱">
+            <el-table-column prop="productName" label="名稱" style="height: 85px;">
             </el-table-column>
             <el-table-column label="封面">
                <template #default="scope">
@@ -52,9 +52,16 @@
             <el-table-column label="操作">
                <template #default="scope">
                   <el-button size="mini" @click="details(scope.row)">詳情</el-button>
-                  <el-popconfirm title="確定下架嗎？" @confirm="handleDelete(scope.row.productId)">
+                  <el-popconfirm v-if="scope.row.productStatus === 1" title="確定下架嗎？"
+                     @confirm="productControl(scope.row.productId,scope.row.productStatus)">
                      <template #reference>
-                        <el-button size="mini" class="btn btn-danger">下架</el-button>
+                        <el-button type="danger" size="mini">下架</el-button>
+                     </template>
+                  </el-popconfirm>
+                  <el-popconfirm v-else-if="scope.row.productStatus === 0" title="確定上架嗎？"
+                     @confirm="productControl(scope.row.productId,scope.row.productStatus)">
+                     <template #reference>
+                        <el-button type="success" size="mini">上架</el-button>
                      </template>
                   </el-popconfirm>
                </template>
@@ -64,10 +71,102 @@
          <!--詳情-->
          <el-dialog title="提示" v-model="visProduct" width="50%">
             <el-card>
-               <div style="min-height: 150px"></div>
+               <div style="min-height: 150px">
+                  <p>{{detail.sellerId}} </p>
+               </div>
             </el-card>
          </el-dialog>
       </div>
+      <!-------------------- 用戶管理-------------------- -->
+      <div class="mb-3">
+         <h3>用戶管理</h3>
+         <hr>
+         <el-table :data="userData" border style="width: 100%" stripe v-loading="loading"
+            :default-sort="{prop: 'userId', order: 'descending'}">
+            <el-table-column prop="userId" label="Id" sortable>
+            </el-table-column>
+            <el-table-column prop="userAccount" label="用戶名稱" style="height: 85px;">
+            </el-table-column>
+            <el-table-column label="頭像">
+               <template #default="scope">
+                  <el-image style="width: 50px; height: 50px" :src="scope.row.userImg"
+                     :preview-src-list="[scope.row.userImg]">
+                  </el-image>
+               </template>
+            </el-table-column>
+            <el-table-column prop="userEmail" label="信箱" sortable>
+            </el-table-column>
+            <el-table-column prop="userAddress" label="地區" sortable>
+            </el-table-column>
+            <el-table-column prop="registerTime" label="註冊時間" sortable>
+            </el-table-column>
+            <el-table-column prop="loginTime" label="最後登入時間" sortable>
+            </el-table-column>
+            <el-table-column prop="role" label="權限" sortable>
+               <template #default="scope">
+                  <span v-if="scope.row.role === 1">管理員</span>
+                  <span v-else-if="scope.row.role === 2" class="btn btn btn-success btn-sm">一般用戶</span>
+                  <span v-else class="btn btn-danger btn-sm">停權</span>
+               </template>
+            </el-table-column>
+            <el-table-column label="操作">
+               <template #default="scope">
+                  <el-button size="mini" @click="userProduct(scope.row.userId)">商品</el-button>
+                  <el-popconfirm v-if="scope.row.role === 2" title="確定停權嗎？"
+                     @confirm="userControl(scope.row.userId,scope.row.role)">
+                     <template #reference>
+                        <el-button type="danger" size="mini">停權</el-button>
+                     </template>
+                  </el-popconfirm>
+                  <el-popconfirm v-else-if="scope.row.role === 0" title="確定恢復嗎？"
+                     @confirm="userControl(scope.row.userId,scope.row.role)">
+                     <template #reference>
+                        <el-button type="success" size="mini">復原</el-button>
+                     </template>
+                  </el-popconfirm>
+               </template>
+            </el-table-column>
+         </el-table>
+
+         <!--詳情-->
+         <el-dialog title="收货地址" v-model="dialogTableVisible">
+            <el-table :data="userProductData">
+
+               <el-table-column prop="productId" label="Id" sortable>
+               </el-table-column>
+               <el-table-column prop="productName" label="名稱" style="height: 85px;">
+               </el-table-column>
+               <el-table-column label="封面">
+                  <template #default="scope">
+                     <el-image style="width: 50px; height: 50px" :src="scope.row.productImgA"
+                        :preview-src-list="[scope.row.productImgA]">
+                     </el-image>
+                  </template>
+               </el-table-column>
+               <el-table-column prop="categoryId" label="分類" sortable>
+               </el-table-column>
+               <el-table-column prop="productPrice" label="價格" sortable>
+               </el-table-column>
+               <el-table-column prop="createTime" label="建立時間" sortable>
+               </el-table-column>
+               <el-table-column prop="updateTime" label="更新時間" sortable>
+               </el-table-column>
+               <el-table-column prop="productStatus" label="狀態" sortable>
+                  <template #default="scope">
+                     <span v-if="scope.row.productStatus === 1" class="btn btn-success btn-sm">正常</span>
+                     <span v-else-if="scope.row.productStatus === 0" class="btn btn btn-secondary btn-sm">下架</span>
+                     <span v-else class="btn btn-danger btn-sm">已刪除</span>
+                  </template>
+               </el-table-column>
+
+            </el-table>
+         </el-dialog>
+      </div>
+
+
+
+
+
    </div>
 
 
@@ -103,28 +202,76 @@
             return {
                test: '測試',
                baseUrl: 'http://localhost:9090',
-               tableData: [],
+               productData: [],
+               userData: [],
+               userProductData: [],
                visProduct: false,
+               dialogTableVisible: false,
+               loading: true,
                detail: {},
             }
          },
          methods: {
+            // 讀取商品資料
             loadProduct() {
                axios.get(`${this.baseUrl}/product/all`).then(res => {
-                  console.log(res.data.data)
-                  this.tableData = res.data.data
-               })
-                  .catch(err => console.log(err));
+                  this.productData = res.data.data
+               }).catch(err => console.log(err));
+               this.loading = false;
+            },
+            // 讀取用戶資料
+            loadUser() {
+               axios.get(`${this.baseUrl}/user/all`).then(res => {
+                  this.userData = res.data.data
+               }).catch(err => console.log(err));
+               this.loading = false;
             },
             details(row) {
-               this.detail = row;
                this.visProduct = true;
             },
+            // 用戶商品列表
+            userProduct(id) {
+               console.log(id)
+               this.dialogTableVisible = true;
+               axios.get(`${this.baseUrl}/product`, {
+                  params: {
+                     sellerId: id
+                  }
+               }).then(res => {
+                  console.log(res.data.data.records)
+                  this.userProductData = res.data.data.records;
+               }).catch(err => console.log(err));
+            },
+            // 商品控制，(1上、0下、負刪除)
+            productControl(id, status) {
+               if (status == 1) {
+                  axios.put(`${this.baseUrl}/product`, { productId: id, productStatus: 0 })
+               } else {
+                  axios.put(`${this.baseUrl}/product`, { productId: id, productStatus: 1 })
+               }
+               this.loading = true;
+               setTimeout(() => { this.loadProduct() }, 1000)
+            },
+            // 用戶控制，(1管理、2普通、0停權)
+            userControl(id, role) {
+               if (role == 2) {
+                  axios.put(`${this.baseUrl}/user`, { userId: id, role: 0 })
+               } else {
+                  axios.put(`${this.baseUrl}/user`, { userId: id, role: 2 })
+               }
+               this.loading = true;
+               setTimeout(() => { this.loadUser() }, 1000)
+            },
+
+
+
          },
 
 
          mounted() {
-            this.loadProduct()
+            this.loadProduct();
+            this.loadUser();
+
          }
       });
       app.use(ElementPlus);
