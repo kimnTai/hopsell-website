@@ -17,6 +17,8 @@
 <body>
    <div class="container" id="app">
       {{test}}
+
+
       <!-------------------- 商品管理-------------------- -->
       <div class="mb-3">
          <h3>商品管理</h3>
@@ -51,7 +53,7 @@
             </el-table-column>
             <el-table-column label="操作">
                <template #default="scope">
-                  <el-button size="mini" @click="details(scope.row)">詳情</el-button>
+                  <el-button size="mini" @click="productDetails(scope.row.productId)">詳情</el-button>
                   <el-popconfirm v-if="scope.row.productStatus === 1" title="確定下架嗎？"
                      @confirm="productControl(scope.row.productId,scope.row.productStatus)">
                      <template #reference>
@@ -68,13 +70,13 @@
             </el-table-column>
          </el-table>
 
-         <!--詳情-->
+         <!--此商品詳情-->
          <el-dialog title="提示" v-model="visProduct" width="50%">
-            <el-card>
-               <div style="min-height: 150px">
-                  <p>{{detail.sellerId}} </p>
-               </div>
-            </el-card>
+            <el-table border :data="productDetailsData">
+               <el-table-column property="date" label="日期" width="150"></el-table-column>
+               <el-table-column property="name" label="姓名" width="200"></el-table-column>
+               <el-table-column property="address" label="地址"></el-table-column>
+            </el-table>
          </el-dialog>
       </div>
       <!-------------------- 用戶管理-------------------- -->
@@ -128,10 +130,9 @@
             </el-table-column>
          </el-table>
 
-         <!--詳情-->
+         <!--用戶的商品詳情-->
          <el-dialog title="收货地址" v-model="dialogTableVisible">
-            <el-table :data="userProductData">
-
+            <el-table border :data="userProductData">
                <el-table-column prop="productId" label="Id" sortable>
                </el-table-column>
                <el-table-column prop="productName" label="名稱" style="height: 85px;">
@@ -158,9 +159,11 @@
                      <span v-else class="btn btn-danger btn-sm">已刪除</span>
                   </template>
                </el-table-column>
-
             </el-table>
          </el-dialog>
+
+
+
       </div>
 
 
@@ -203,12 +206,12 @@
                test: '測試',
                baseUrl: 'http://localhost:9090',
                productData: [],
+               productDetailsData: [],
                userData: [],
                userProductData: [],
                visProduct: false,
                dialogTableVisible: false,
                loading: true,
-               detail: {},
             }
          },
          methods: {
@@ -226,8 +229,13 @@
                }).catch(err => console.log(err));
                this.loading = false;
             },
-            details(row) {
+            // 商品詳情
+            productDetails(id) {
                this.visProduct = true;
+               axios.get(`${this.baseUrl}/product/${id}`).then(res => {
+                  console.log(res.data.data)
+                  // this.productDetailsData = res.data.data
+               }).catch(err => console.log(err));
             },
             // 用戶商品列表
             userProduct(id) {

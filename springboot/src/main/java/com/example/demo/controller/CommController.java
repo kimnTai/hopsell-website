@@ -97,7 +97,7 @@ public class CommController {
         }
         if (StrUtil.isNotBlank(sellerId)) {
             // 判斷 search 不為空
-            wrapper.like(Comm::getSellerId, sellerId);
+            wrapper.eq(Comm::getSellerId, sellerId);
             // 避免 search 是 null
         }
         Page<Comm> CommPage = commMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
