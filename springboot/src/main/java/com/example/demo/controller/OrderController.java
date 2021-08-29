@@ -32,7 +32,7 @@ public class OrderController {
         // @RequestBody 把傳過來的 JSON 轉成JAVA對象
         // 需要連接資料庫 -> mapper
         // 問號表示任何一種泛型
-        orderTable.setCompleteTime(new Date());
+//        orderTable.setOrderTime(new Date());
         orderMapper.insert(orderTable);
         return Result.success();
 

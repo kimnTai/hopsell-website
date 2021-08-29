@@ -25,9 +25,9 @@
          <hr>
          <el-table :data="productData" border style="width: 100%" stripe v-loading="loading"
             :default-sort="{prop: 'productId', order: 'descending'}">
-            <el-table-column prop="productId" label="Id" sortable>
+            <el-table-column prop="productId" label="商品 Id" sortable>
             </el-table-column>
-            <el-table-column prop="productName" label="名稱" style="height: 85px;">
+            <el-table-column prop="productName" label="名稱">
             </el-table-column>
             <el-table-column label="封面">
                <template #default="scope">
@@ -39,6 +39,8 @@
             <el-table-column prop="categoryId" label="分類" sortable>
             </el-table-column>
             <el-table-column prop="productPrice" label="價格" sortable>
+            </el-table-column>
+            <el-table-column prop="sellerName" label="賣家名稱" sortable>
             </el-table-column>
             <el-table-column prop="createTime" label="建立時間" sortable>
             </el-table-column>
@@ -53,7 +55,6 @@
             </el-table-column>
             <el-table-column label="操作">
                <template #default="scope">
-                  <el-button size="mini" @click="productDetails(scope.row.productId)">詳情</el-button>
                   <el-popconfirm v-if="scope.row.productStatus === 1" title="確定下架嗎？"
                      @confirm="productControl(scope.row.productId,scope.row.productStatus)">
                      <template #reference>
@@ -71,11 +72,9 @@
          </el-table>
 
          <!--此商品詳情-->
-         <el-dialog title="提示" v-model="visProduct" width="50%">
+         <el-dialog title="詳情" v-model="visProduct">
             <el-table border :data="productDetailsData">
-               <el-table-column property="date" label="日期" width="150"></el-table-column>
-               <el-table-column property="name" label="姓名" width="200"></el-table-column>
-               <el-table-column property="address" label="地址"></el-table-column>
+
             </el-table>
          </el-dialog>
       </div>
@@ -85,7 +84,7 @@
          <hr>
          <el-table :data="userData" border style="width: 100%" stripe v-loading="loading"
             :default-sort="{prop: 'userId', order: 'descending'}">
-            <el-table-column prop="userId" label="Id" sortable>
+            <el-table-column prop="userId" label="用戶 Id" sortable>
             </el-table-column>
             <el-table-column prop="userAccount" label="用戶名稱" style="height: 85px;">
             </el-table-column>
@@ -131,7 +130,7 @@
          </el-table>
 
          <!--用戶的商品詳情-->
-         <el-dialog title="收货地址" v-model="dialogTableVisible">
+         <el-dialog title="商品詳情" v-model="visUserProduct">
             <el-table border :data="userProductData">
                <el-table-column prop="productId" label="Id" sortable>
                </el-table-column>
@@ -161,15 +160,60 @@
                </el-table-column>
             </el-table>
          </el-dialog>
+      </div>
 
-
-
+      <!-------------------- 訂單管理----------------------->
+      <div class="mb-3">
+         <h3>訂單管理</h3>
+         <hr>
+         <el-table :data="orderData" border style="width: 100%" stripe v-loading="loading"
+            :default-sort="{prop: 'orderId', order: 'descending'}">
+            <el-table-column prop="orderId" label="訂單編號" sortable>
+            </el-table-column>
+            <el-table-column prop="buyerId" label="買家Id" sortable>
+            </el-table-column>
+            <el-table-column prop="productId" label="商品Id">
+            </el-table-column>
+            <el-table-column prop="category" label="商品分類">
+            </el-table-column>
+            <el-table-column prop="productPrice" label="成交價格">
+            </el-table-column>
+            <el-table-column prop="orderTime" label="建立時間" sortable>
+            </el-table-column>
+            <el-table-column prop="completeTime" label="完成時間" sortable>
+            </el-table-column>
+            <el-table-column prop="orderStatus" label="訂單狀態" sortable>
+            </el-table-column>
+            <el-table-column label="操作">
+               <template #default="scope">
+                  <el-popconfirm v-if="scope.row.orderStatus == '處理中' " title="確定出貨嗎？"
+                     @confirm="orderControl(scope.row.productId,scope.row.productStatus)">
+                     <template #reference>
+                        <el-button type="danger" size="mini">出貨</el-button>
+                     </template>
+                  </el-popconfirm>
+                  <el-popconfirm v-else-if="scope.row.orderStatus == '已出貨' " title="確定收貨嗎？"
+                     @confirm="orderControl(scope.row.productId,scope.row.productStatus)">
+                     <template #reference>
+                        <el-button type="success" size="mini">收貨</el-button>
+                     </template>
+                  </el-popconfirm>
+               </template>
+            </el-table-column>
+         </el-table>
+         <!--詳情-->
+         <el-dialog title="提示" v-model="" width="50%">
+            <el-table border :data="productDetailsData">
+               <el-table-column property="date" label="日期" width="150"></el-table-column>
+            </el-table>
+         </el-dialog>
       </div>
 
 
 
 
 
+      <!-------------------- END APP----------------------->
    </div>
 
 
@@ -209,8 +253,9 @@
                productDetailsData: [],
                userData: [],
                userProductData: [],
+               orderData: [],
                visProduct: false,
-               dialogTableVisible: false,
+               visUserProduct: false,
                loading: true,
             }
          },
@@ -222,35 +267,7 @@
                }).catch(err => console.log(err));
                this.loading = false;
             },
-            // 讀取用戶資料
-            loadUser() {
-               axios.get(`${this.baseUrl}/user/all`).then(res => {
-                  this.userData = res.data.data
-               }).catch(err => console.log(err));
-               this.loading = false;
-            },
-            // 商品詳情
-            productDetails(id) {
-               this.visProduct = true;
-               axios.get(`${this.baseUrl}/product/${id}`).then(res => {
-                  console.log(res.data.data)
-                  // this.productDetailsData = res.data.data
-               }).catch(err => console.log(err));
-            },
-            // 用戶商品列表
-            userProduct(id) {
-               console.log(id)
-               this.dialogTableVisible = true;
-               axios.get(`${this.baseUrl}/product`, {
-                  params: {
-                     sellerId: id
-                  }
-               }).then(res => {
-                  console.log(res.data.data.records)
-                  this.userProductData = res.data.data.records;
-               }).catch(err => console.log(err));
-            },
-            // 商品控制，(1上、0下、負刪除)
+            // 商品控制，(1上、0處理中、負刪除、2已完成)
             productControl(id, status) {
                if (status == 1) {
                   axios.put(`${this.baseUrl}/product`, { productId: id, productStatus: 0 })
@@ -259,6 +276,25 @@
                }
                this.loading = true;
                setTimeout(() => { this.loadProduct() }, 1000)
+            },
+            // 讀取用戶資料
+            loadUser() {
+               axios.get(`${this.baseUrl}/user/all`).then(res => {
+                  this.userData = res.data.data
+               }).catch(err => console.log(err));
+               this.loading = false;
+            },
+            // 用戶商品列表
+            userProduct(id) {
+               this.visUserProduct = true;
+               axios.get(`${this.baseUrl}/product`, {
+                  params: {
+                     sellerId: id
+                  }
+               }).then(res => {
+                  console.log(res.data.data.records)
+                  this.userProductData = res.data.data.records;
+               }).catch(err => console.log(err));
             },
             // 用戶控制，(1管理、2普通、0停權)
             userControl(id, role) {
@@ -270,6 +306,24 @@
                this.loading = true;
                setTimeout(() => { this.loadUser() }, 1000)
             },
+            // 讀取評價資料
+            loadComm() {
+               axios.get(`${this.baseUrl}/comm`, {
+                  params: {
+                     // sellerId: this.sellerId
+                  }
+               }).then(res => {
+                  // this.commList = res.data.data.records;
+               }).catch(err => console.log(err));
+            },
+            // 讀取訂單資料
+            loadOrder() {
+               axios.get(`${this.baseUrl}/order/all`).then(res => {
+                  this.orderData = res.data.data
+               }).catch(err => console.log(err));
+               this.loading = false;
+            },
+
 
 
 
@@ -279,6 +333,7 @@
          mounted() {
             this.loadProduct();
             this.loadUser();
+            this.loadOrder();
 
          }
       });

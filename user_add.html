@@ -65,7 +65,7 @@
 
    <div class="container pt-2 ">
       <div class="d-flex justify-content-center align-items-center" style="height: 50px;">
-         <button class="btn bg-white  m-4" onclick="history.back()">X</button>
+         <button type="button" class="btn-close mx-3" aria-label="Close" onclick="history.back()"></button>
          <div>
             <p class="h2 pt-2 fw-bold">你今天想賣出什麼商品？</p>
          </div>
@@ -172,6 +172,7 @@
                </div>
             </form>
          </div>
+         <!-------------------- END APP----------------------->
       </div>
    </div>
 
@@ -296,6 +297,8 @@
             addList() {
                const list = {
                   sellerId: 1,
+                  sellerName: "mianhuuu",
+                  sellerImg: "https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg",
                   productName: "實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套",
                   productPrice: "860",
                   productCondition: "全新",
@@ -314,7 +317,6 @@
                                     購買前可先詢問 或 參考賣場簡介✔️✔️✔️
                                     喜歡的各位可點選本賣場首頁《追蹤》
                                     才不會遺漏最新上架的商品`,
-                  createTim: "2021-08-23"
                };
                this.form = list;
             }

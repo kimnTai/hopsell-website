@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.common.Result;
-import com.example.demo.entity.Comm;
-import com.example.demo.mapper.CommMapper;
+import com.example.demo.entity.Report;
+import com.example.demo.mapper.ReportMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,7 +15,7 @@ import java.util.Date;
 // 定義返回 JSON Controller
 @RestController
 // 統一的路由
-@RequestMapping("/comm")
+@RequestMapping("/report")
 public class ReportController {
 
     /*
@@ -23,25 +23,25 @@ public class ReportController {
      *   正常要寫一個 service，Controller 要引入 service，service引入Mapper
      */
     @Resource
-    CommMapper commMapper;
+    ReportMapper reportMapper;
 
     // 新增
     @PostMapping
-    public Result<?> save(@RequestBody Comm comm) {
+    public Result<?> save(@RequestBody Report report) {
         // 需要定義 前端回傳的 JSON - > entity
         // @RequestBody 把傳過來的 JSON 轉成JAVA對象
         // 需要連接資料庫 -> mapper
         // 問號表示任何一種泛型
-        comm.setCommTime(new Date());
-        commMapper.insert(comm);
+        report.setReportTime(new Date());
+        reportMapper.insert(report);
         return Result.success();
 
     }
 
     // 修改
     @PutMapping
-    public Result<?> update(@RequestBody Comm comm) {
-        commMapper.updateById(comm);
+    public Result<?> update(@RequestBody Report report) {
+        reportMapper.updateById(report);
         return Result.success();
 
     }
@@ -50,7 +50,7 @@ public class ReportController {
     @DeleteMapping("/{id}")
     public Result<?> delete(@PathVariable Long id) {
         // {} 要用 PathVariable
-        commMapper.deleteById(id);
+        reportMapper.deleteById(id);
         return Result.success();
 
     }
@@ -58,13 +58,13 @@ public class ReportController {
     // ID查詢
     @GetMapping("/{id}")
     public Result<?> getById(@PathVariable Long id) {
-        return Result.success(commMapper.selectById(id));
+        return Result.success(reportMapper.selectById(id));
     }
 
     // 查詢全部
     @GetMapping("/all")
     public Result<?> findAll() {
-        return Result.success(commMapper.selectList(null));
+        return Result.success(reportMapper.selectList(null));
     }
 
 
@@ -72,23 +72,23 @@ public class ReportController {
     @GetMapping
     public Result<?> findPage(@RequestParam(defaultValue = "1") Integer pageNum,
                               @RequestParam(defaultValue = "10") Integer pageSize,
-                              @RequestParam(defaultValue = "") String sellerId,
-                              @RequestParam(defaultValue = "") String buyerName) {
+                              @RequestParam(defaultValue = "") String productId,
+                              @RequestParam(defaultValue = "") String productName) {
         // 查詢 用GET ，分頁查詢
-        LambdaQueryWrapper<Comm> wrapper = Wrappers.<Comm>lambdaQuery();
-        if (StrUtil.isNotBlank(buyerName)) {
+        LambdaQueryWrapper<Report> wrapper = Wrappers.<Report>lambdaQuery();
+        if (StrUtil.isNotBlank(productName)) {
             // 判斷 search 不為空
-            wrapper.like(Comm::getBuyerName, buyerName);
+            wrapper.like(Report::getProductName, productName);
             // 避免 search 是 null
         }
-        if (StrUtil.isNotBlank(sellerId)) {
+        if (StrUtil.isNotBlank(productId)) {
             // 判斷 search 不為空
-            wrapper.eq(Comm::getSellerId, sellerId);
+            wrapper.eq(Report::getProductId, productId);
             // 避免 search 是 null
         }
-        Page<Comm> CommPage = commMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
+        Page<Report> ReportPage = reportMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
 
-        return Result.success(CommPage);
+        return Result.success(ReportPage);
 
     }
 

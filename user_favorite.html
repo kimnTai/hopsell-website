@@ -95,8 +95,7 @@
                         <button @click="removeFavorite(item)" type="button"
                            class="btn rounded-pill btn-sm btn bg-white text-danger bi bi-heart-fill">
                         </button>
-                        <a @click="toProduct(item)" type="button"
-                           class="btn bg-white btn-sm bi bi bi-search">
+                        <a @click="toProduct(item)" type="button" class="btn bg-white btn-sm bi bi bi-search">
                            詳情</a>
                      </div>
                   </div>
@@ -111,6 +110,7 @@
             </div>
          </div>
       </div>
+      <!-------------------- END APP----------------------->
    </div>
 
 
@@ -200,8 +200,8 @@
             // 商品詳情跳轉
             toProduct(item) {
                console.log(item.productId)
-               sessionStorage.setItem('詳情',item.productId)
-               window.location.href="product_detail.html"
+               sessionStorage.setItem('詳情', item.productId)
+               window.location.href = "product_detail.html"
             },
          },
          mounted() {

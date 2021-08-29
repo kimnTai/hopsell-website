@@ -141,6 +141,7 @@
         </div>
       </div>
     </div>
+    <!-------------------- END APP----------------------->
   </div>
 
 
@@ -213,7 +214,7 @@
             }
           }).then(res => {
             // 過濾 刪除 & 下架
-            const arr = res.data.data.records.filter(item => item.productStatus > 0)
+            const arr = res.data.data.records.filter(item => item.productStatus == 1)
             this.storeList = arr;
           }).catch(err => console.log(err));
         },
