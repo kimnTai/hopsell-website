@@ -13,11 +13,12 @@ import java.util.Date;
 public class Report {
 
     @TableId(type = IdType.AUTO)       // 資料庫 table 名稱不同的話 要補 value
-    private Integer report_id;
+    private Integer reportId;
     private Integer productId;
     private String productName;
     private String productImgA;
     private String reportReason;
+    private String reportStatus;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")      // 時間
     private Date reportTime;
 

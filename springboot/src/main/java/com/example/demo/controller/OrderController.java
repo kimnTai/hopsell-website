@@ -42,6 +42,7 @@ public class OrderController {
     @PutMapping
     public Result<?> update(@RequestBody OrderTable orderTable) {
         orderMapper.updateById(orderTable);
+        orderTable.setCompleteTime(new Date());
         return Result.success();
 
     }

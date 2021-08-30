@@ -166,7 +166,8 @@
 								</div>
 							</div>
 							<div class="d-flex justify-content-center pt-2">
-								<button v-if="buyerId !== '' " class="btn btn-outline-secondary bi bi-flag"> Report this
+								<button v-if="buyerId !== ''" class="btn btn-outline-secondary bi bi-flag" type="button"
+									data-bs-toggle="modal" data-bs-target="#reportModal"> Report this
 									listing</button>
 							</div>
 						</div>
@@ -174,6 +175,36 @@
 				</div>
 			</div>
 		</div>
+
+		<!-------- 檢舉彈窗 -------->
+		<div class="modal fade" id="reportModal" tabindex="-1">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header bg-secondary">
+						<h5 class="modal-title text-light" id="reportModalLabel">你為什麼要檢舉這項商品</h5>
+						<button type="button" class="btn-close " data-bs-dismiss="modal"></button>
+					</div>
+					<div class="modal-body">
+						<select v-model="reportList.reportReason" class="form-select" name="檢舉內容">
+							<option disabled="">請選擇一個選項</option>
+							<option value="可疑帳戶">可疑帳戶</option>
+							<option value="錯誤分類">錯誤分類</option>
+							<option value="仿冒品">仿冒品</option>
+							<option value="重複刊登商品">重複刊登商品</option>
+							<option value="違禁品">違禁品</option>
+							<option value="錯誤標價商品">錯誤標價商品</option>
+							<option value="濫用關鍵字">濫用關鍵字</option>
+							<option value="冒犯內容">冒犯內容</option>
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" @click="reportProduct"
+							data-bs-dismiss="modal">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
 
 
 		<!-- 內容 你可能喜歡 -->
@@ -233,6 +264,7 @@
 				</div>
 			</div>
 		</div>
+		<!-------------------- END APP----------------------->
 	</div>
 
 
@@ -303,7 +335,7 @@
 					commList: [],
 					storeList: [],
 					favoriteList: [],
-					reportList: [],
+					reportList: {},
 					buyerId: "1",
 				}
 			},
@@ -391,6 +423,30 @@
 						}
 					})
 				},
+				// 檢舉商品
+				reportProduct() {
+					if (Object.keys(this.reportList).length === 0) {
+						Swal.fire('請選擇一個原因', '', 'error')
+						return
+					}
+					this.reportList.productId = this.data.productId
+					this.reportList.productName = this.data.productName
+					this.reportList.productImgA = this.data.productImgA
+					console.log(this.reportList)
+					axios.post(`${this.baseUrl}/report`, this.reportList)
+						.then((res) => {
+							Swal.fire('提交成功', '', 'success')
+						})
+						.catch((err) => {
+							console.log(err);
+							Swal.fire('失敗', '', 'info')
+						});
+					this.reportList = {}
+					// setTimeout(() => {
+					// 	window.location.href = "home.html"
+					// }, 2000)
+				},
+
 			},
 			mounted() {
 				this.productId = sessionStorage.getItem('詳情') || 10;

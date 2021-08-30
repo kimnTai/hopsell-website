@@ -15,200 +15,295 @@
 </head>
 
 <body>
-   <div class="container" id="app">
-      {{test}}
+   <div id="app">
+      <div class="d-flex align-items-start">
+         <!-------------------- 左側選單-------------------- -->
+         <div class="nav flex-column nav-pills me-3 bg-secondary" id="v-pills-tab" role="tablist"
+            style="width: 200px; min-height: 100vh">
+            <button class="nav-link active text-light" id="v-pills-product-tab" data-bs-toggle="pill"
+               data-bs-target="#v-pills-product" type="button" role="tab">商品管理</button>
+            <button class="nav-link text-light" id="v-pills-user-tab" data-bs-toggle="pill"
+               data-bs-target="#v-pills-user" type="button" role="tab">用戶管理</button>
+            <button class="nav-link text-light" id="v-pills-order-tab" data-bs-toggle="pill"
+               data-bs-target="#v-pills-order" type="button" role="tab">訂單管理</button>
+            <button class="nav-link text-light" id="v-pills-report-tab" data-bs-toggle="pill"
+               data-bs-target="#v-pills-report" type="button" role="tab">檢舉清單</button>
+         </div>
 
+         <div class="tab-content container" id="v-pills-tabContent">
+            <!-------------------- 商品管理-------------------- -->
+            <div class="tab-pane fade show active" id="v-pills-product" role="tabpanel">
+               <div class="p-5">
+                  <h3>商品管理</h3>
+                  <hr>
+                  <el-table :data="productData" border style="width: 100%" stripe v-loading="loading" height="750"
+                     :default-sort="{prop: 'productId', order: 'descending'}">
+                     <el-table-column prop="productId" label="商品 Id" sortable>
+                     </el-table-column>
+                     <el-table-column prop="productName" label="名稱">
+                     </el-table-column>
+                     <el-table-column label="封面">
+                        <template #default="scope">
+                           <el-image style="width: 50px; height: 50px" :src="scope.row.productImgA"
+                              :preview-src-list="[scope.row.productImgA]">
+                           </el-image>
+                        </template>
+                     </el-table-column>
+                     <el-table-column prop="categoryId" label="分類" sortable>
+                     </el-table-column>
+                     <el-table-column prop="productPrice" label="價格" sortable>
+                     </el-table-column>
+                     <el-table-column prop="sellerName" label="賣家名稱" sortable>
+                     </el-table-column>
+                     <el-table-column prop="createTime" label="建立時間" sortable>
+                     </el-table-column>
+                     <el-table-column prop="updateTime" label="更新時間" sortable>
+                     </el-table-column>
+                     <el-table-column prop="productStatus" label="狀態" sortable>
+                        <template #default="scope">
+                           <span v-if="scope.row.productStatus === 1" class="btn btn-success btn-sm">正常</span>
+                           <span v-else-if="scope.row.productStatus === 0"
+                              class="btn btn btn-secondary btn-sm">下架</span>
+                           <span v-else class="btn btn-danger btn-sm">已刪除</span>
+                        </template>
+                     </el-table-column>
+                     <el-table-column label="操作">
+                        <template #default="scope">
+                           <el-popconfirm v-if="scope.row.productStatus === 1" title="確定下架嗎？"
+                              @confirm="productControl(scope.row.productId,scope.row.productStatus)">
+                              <template #reference>
+                                 <el-button type="danger" size="mini">下架</el-button>
+                              </template>
+                           </el-popconfirm>
+                           <el-popconfirm v-else-if="scope.row.productStatus === 0" title="確定上架嗎？"
+                              @confirm="productControl(scope.row.productId,scope.row.productStatus)">
+                              <template #reference>
+                                 <el-button type="success" size="mini">上架</el-button>
+                              </template>
+                           </el-popconfirm>
+                        </template>
+                     </el-table-column>
+                  </el-table>
 
-      <!-------------------- 商品管理-------------------- -->
-      <div class="mb-3">
-         <h3>商品管理</h3>
-         <hr>
-         <el-table :data="productData" border style="width: 100%" stripe v-loading="loading"
-            :default-sort="{prop: 'productId', order: 'descending'}">
-            <el-table-column prop="productId" label="商品 Id" sortable>
-            </el-table-column>
-            <el-table-column prop="productName" label="名稱">
-            </el-table-column>
-            <el-table-column label="封面">
-               <template #default="scope">
-                  <el-image style="width: 50px; height: 50px" :src="scope.row.productImgA"
-                     :preview-src-list="[scope.row.productImgA]">
-                  </el-image>
-               </template>
-            </el-table-column>
-            <el-table-column prop="categoryId" label="分類" sortable>
-            </el-table-column>
-            <el-table-column prop="productPrice" label="價格" sortable>
-            </el-table-column>
-            <el-table-column prop="sellerName" label="賣家名稱" sortable>
-            </el-table-column>
-            <el-table-column prop="createTime" label="建立時間" sortable>
-            </el-table-column>
-            <el-table-column prop="updateTime" label="更新時間" sortable>
-            </el-table-column>
-            <el-table-column prop="productStatus" label="狀態" sortable>
-               <template #default="scope">
-                  <span v-if="scope.row.productStatus === 1" class="btn btn-success btn-sm">正常</span>
-                  <span v-else-if="scope.row.productStatus === 0" class="btn btn btn-secondary btn-sm">下架</span>
-                  <span v-else class="btn btn-danger btn-sm">已刪除</span>
-               </template>
-            </el-table-column>
-            <el-table-column label="操作">
-               <template #default="scope">
-                  <el-popconfirm v-if="scope.row.productStatus === 1" title="確定下架嗎？"
-                     @confirm="productControl(scope.row.productId,scope.row.productStatus)">
-                     <template #reference>
-                        <el-button type="danger" size="mini">下架</el-button>
-                     </template>
-                  </el-popconfirm>
-                  <el-popconfirm v-else-if="scope.row.productStatus === 0" title="確定上架嗎？"
-                     @confirm="productControl(scope.row.productId,scope.row.productStatus)">
-                     <template #reference>
-                        <el-button type="success" size="mini">上架</el-button>
-                     </template>
-                  </el-popconfirm>
-               </template>
-            </el-table-column>
-         </el-table>
+                  <!--此商品詳情-->
+                  <el-dialog title="詳情" v-model="visProduct">
+                     <el-table border :data="productDetailsData">
 
-         <!--此商品詳情-->
-         <el-dialog title="詳情" v-model="visProduct">
-            <el-table border :data="productDetailsData">
+                     </el-table>
+                  </el-dialog>
+               </div>
+            </div>
+            <!-------------------- 用戶管理-------------------- -->
+            <div class="tab-pane fade" id="v-pills-user">
+               <div class="mb-3">
+                  <h3>用戶管理</h3>
+                  <hr>
+                  <el-table :data="userData" border style="width: 100%" stripe v-loading="loading"
+                     :default-sort="{prop: 'userId', order: 'descending'}">
+                     <el-table-column prop="userId" label="用戶 Id" sortable>
+                     </el-table-column>
+                     <el-table-column prop="userAccount" label="用戶名稱" style="height: 85px;">
+                     </el-table-column>
+                     <el-table-column label="頭像">
+                        <template #default="scope">
+                           <el-image style="width: 50px; height: 50px" :src="scope.row.userImg"
+                              :preview-src-list="[scope.row.userImg]">
+                           </el-image>
+                        </template>
+                     </el-table-column>
+                     <el-table-column prop="userEmail" label="信箱" sortable>
+                     </el-table-column>
+                     <el-table-column prop="userAddress" label="地區" sortable>
+                     </el-table-column>
+                     <el-table-column prop="registerTime" label="註冊時間" sortable>
+                     </el-table-column>
+                     <el-table-column prop="loginTime" label="最後登入時間" sortable>
+                     </el-table-column>
+                     <el-table-column prop="role" label="權限" sortable>
+                        <template #default="scope">
+                           <span v-if="scope.row.role === 1">管理員</span>
+                           <span v-else-if="scope.row.role === 2" class="btn btn btn-success btn-sm">普通用戶</span>
+                           <span v-else class="btn btn-danger btn-sm">停權</span>
+                        </template>
+                     </el-table-column>
+                     <el-table-column label="操作">
+                        <template #default="scope">
+                           <el-button size="mini" @click="userProduct(scope.row.userId)">商品</el-button>
+                           <el-button size="mini" @click="loadComm(scope.row.userId)">評價</el-button>
+                           <div class="mt-2">
+                              <el-popconfirm v-if="scope.row.role === 2" title="確定停權嗎？"
+                                 @confirm="userControl(scope.row.userId,scope.row.role)">
+                                 <template #reference>
+                                    <el-button type="danger" size="mini">停權</el-button>
+                                 </template>
+                              </el-popconfirm>
+                              <el-popconfirm v-else-if="scope.row.role === 0" title="確定恢復嗎？"
+                                 @confirm="userControl(scope.row.userId,scope.row.role)">
+                                 <template #reference>
+                                    <el-button type="success" size="mini">復原</el-button>
+                                 </template>
+                              </el-popconfirm>
+                           </div>
+                        </template>
+                     </el-table-column>
+                  </el-table>
 
-            </el-table>
-         </el-dialog>
-      </div>
-      <!-------------------- 用戶管理-------------------- -->
-      <div class="mb-3">
-         <h3>用戶管理</h3>
-         <hr>
-         <el-table :data="userData" border style="width: 100%" stripe v-loading="loading"
-            :default-sort="{prop: 'userId', order: 'descending'}">
-            <el-table-column prop="userId" label="用戶 Id" sortable>
-            </el-table-column>
-            <el-table-column prop="userAccount" label="用戶名稱" style="height: 85px;">
-            </el-table-column>
-            <el-table-column label="頭像">
-               <template #default="scope">
-                  <el-image style="width: 50px; height: 50px" :src="scope.row.userImg"
-                     :preview-src-list="[scope.row.userImg]">
-                  </el-image>
-               </template>
-            </el-table-column>
-            <el-table-column prop="userEmail" label="信箱" sortable>
-            </el-table-column>
-            <el-table-column prop="userAddress" label="地區" sortable>
-            </el-table-column>
-            <el-table-column prop="registerTime" label="註冊時間" sortable>
-            </el-table-column>
-            <el-table-column prop="loginTime" label="最後登入時間" sortable>
-            </el-table-column>
-            <el-table-column prop="role" label="權限" sortable>
-               <template #default="scope">
-                  <span v-if="scope.row.role === 1">管理員</span>
-                  <span v-else-if="scope.row.role === 2" class="btn btn btn-success btn-sm">一般用戶</span>
-                  <span v-else class="btn btn-danger btn-sm">停權</span>
-               </template>
-            </el-table-column>
-            <el-table-column label="操作">
-               <template #default="scope">
-                  <el-button size="mini" @click="userProduct(scope.row.userId)">商品</el-button>
-                  <el-popconfirm v-if="scope.row.role === 2" title="確定停權嗎？"
-                     @confirm="userControl(scope.row.userId,scope.row.role)">
-                     <template #reference>
-                        <el-button type="danger" size="mini">停權</el-button>
-                     </template>
-                  </el-popconfirm>
-                  <el-popconfirm v-else-if="scope.row.role === 0" title="確定恢復嗎？"
-                     @confirm="userControl(scope.row.userId,scope.row.role)">
-                     <template #reference>
-                        <el-button type="success" size="mini">復原</el-button>
-                     </template>
-                  </el-popconfirm>
-               </template>
-            </el-table-column>
-         </el-table>
+                  <!--用戶商品詳情-->
+                  <el-dialog title="商品詳情" v-model="visUserProduct">
+                     <el-table border :data="userProductData" height="450">
+                        <el-table-column prop="productId" label="Id" sortable>
+                        </el-table-column>
+                        <el-table-column prop="productName" label="名稱" style="height: 85px;">
+                        </el-table-column>
+                        <el-table-column label="封面">
+                           <template #default="scope">
+                              <el-image style="width: 50px; height: 50px" :src="scope.row.productImgA"
+                                 :preview-src-list="[scope.row.productImgA]">
+                              </el-image>
+                           </template>
+                        </el-table-column>
+                        <el-table-column prop="categoryId" label="分類" sortable>
+                        </el-table-column>
+                        <el-table-column prop="productPrice" label="價格" sortable>
+                        </el-table-column>
+                        <el-table-column prop="createTime" label="建立時間" sortable>
+                        </el-table-column>
+                        <el-table-column prop="updateTime" label="更新時間" sortable>
+                        </el-table-column>
+                        <el-table-column prop="productStatus" label="狀態" sortable>
+                           <template #default="scope">
+                              <span v-if="scope.row.productStatus === 1" class="btn btn-success btn-sm">正常</span>
+                              <span v-else-if="scope.row.productStatus === 0"
+                                 class="btn btn btn-secondary btn-sm">下架</span>
+                              <span v-else class="btn btn-danger btn-sm">已刪除</span>
+                           </template>
+                        </el-table-column>
+                     </el-table>
+                  </el-dialog>
+                  <!--用戶評價詳情-->
+                  <el-dialog title="評價詳情" v-model="visUserComm">
+                     <el-table border :data="userCommData">
+                        <el-table-column prop="commTime" label="評價時間" sortable>
+                        </el-table-column>
+                        <el-table-column label="封面">
+                           <template #default="scope">
+                              <el-image style="width: 50px; height: 50px" :src="scope.row.buyerImg"
+                                 :preview-src-list="[scope.row.buyerImg]">
+                              </el-image>
+                           </template>
+                        </el-table-column>
+                        <el-table-column prop="buyerName" label="買家名稱" style="height: 85px;">
+                        </el-table-column>
+                        <el-table-column prop="commLevel" label="評等" sortable style="width: 150px;">
+                           <template #default="scope">
+                              <el-rate v-model="scope.row.commLevel" disabled show-score text-color="#ff9900"></el-rate>
+                           </template>
+                        </el-table-column>
+                        <el-table-column prop="commContent" label="評價內容" sortable>
+                        </el-table-column>
+                        <el-table-column prop="productId" label="商品編號" sortable>
+                        </el-table-column>
+                        <el-table-column prop="productName" label="商品名稱" sortable>
+                        </el-table-column>
+                     </el-table>
+                  </el-dialog>
 
-         <!--用戶的商品詳情-->
-         <el-dialog title="商品詳情" v-model="visUserProduct">
-            <el-table border :data="userProductData">
-               <el-table-column prop="productId" label="Id" sortable>
-               </el-table-column>
-               <el-table-column prop="productName" label="名稱" style="height: 85px;">
-               </el-table-column>
-               <el-table-column label="封面">
-                  <template #default="scope">
-                     <el-image style="width: 50px; height: 50px" :src="scope.row.productImgA"
-                        :preview-src-list="[scope.row.productImgA]">
-                     </el-image>
-                  </template>
-               </el-table-column>
-               <el-table-column prop="categoryId" label="分類" sortable>
-               </el-table-column>
-               <el-table-column prop="productPrice" label="價格" sortable>
-               </el-table-column>
-               <el-table-column prop="createTime" label="建立時間" sortable>
-               </el-table-column>
-               <el-table-column prop="updateTime" label="更新時間" sortable>
-               </el-table-column>
-               <el-table-column prop="productStatus" label="狀態" sortable>
-                  <template #default="scope">
-                     <span v-if="scope.row.productStatus === 1" class="btn btn-success btn-sm">正常</span>
-                     <span v-else-if="scope.row.productStatus === 0" class="btn btn btn-secondary btn-sm">下架</span>
-                     <span v-else class="btn btn-danger btn-sm">已刪除</span>
-                  </template>
-               </el-table-column>
-            </el-table>
-         </el-dialog>
-      </div>
-
-      <!-------------------- 訂單管理----------------------->
-      <div class="mb-3">
-         <h3>訂單管理</h3>
-         <hr>
-         <el-table :data="orderData" border style="width: 100%" stripe v-loading="loading"
-            :default-sort="{prop: 'orderId', order: 'descending'}">
-            <el-table-column prop="orderId" label="訂單編號" sortable>
-            </el-table-column>
-            <el-table-column prop="buyerId" label="買家Id" sortable>
-            </el-table-column>
-            <el-table-column prop="productId" label="商品Id">
-            </el-table-column>
-            <el-table-column prop="category" label="商品分類">
-            </el-table-column>
-            <el-table-column prop="productPrice" label="成交價格">
-            </el-table-column>
-            <el-table-column prop="orderTime" label="建立時間" sortable>
-            </el-table-column>
-            <el-table-column prop="completeTime" label="完成時間" sortable>
-            </el-table-column>
-            <el-table-column prop="orderStatus" label="訂單狀態" sortable>
-            </el-table-column>
-            <el-table-column label="操作">
-               <template #default="scope">
-                  <el-popconfirm v-if="scope.row.orderStatus == '處理中' " title="確定出貨嗎？"
-                     @confirm="orderControl(scope.row.productId,scope.row.productStatus)">
-                     <template #reference>
-                        <el-button type="danger" size="mini">出貨</el-button>
-                     </template>
-                  </el-popconfirm>
-                  <el-popconfirm v-else-if="scope.row.orderStatus == '已出貨' " title="確定收貨嗎？"
-                     @confirm="orderControl(scope.row.productId,scope.row.productStatus)">
-                     <template #reference>
-                        <el-button type="success" size="mini">收貨</el-button>
-                     </template>
-                  </el-popconfirm>
-               </template>
-            </el-table-column>
-         </el-table>
-         <!--詳情-->
-         <el-dialog title="提示" v-model="" width="50%">
+               </div>
+            </div>
+            <!-------------------- 訂單管理----------------------->
+            <div class="tab-pane fade" id="v-pills-order">
+               <div class="mb-3">
+                  <h3>訂單管理</h3>
+                  <hr>
+                  <el-table :data="orderData" border style="width: 100%" stripe v-loading="loading"
+                     :default-sort="{prop: 'orderId', order: 'descending'}">
+                     <el-table-column prop="orderId" label="訂單編號" sortable>
+                     </el-table-column>
+                     <el-table-column prop="buyerId" label="買家Id" sortable>
+                     </el-table-column>
+                     <el-table-column prop="productId" label="商品Id">
+                     </el-table-column>
+                     <el-table-column prop="category" label="商品分類">
+                     </el-table-column>
+                     <el-table-column prop="productPrice" label="成交價格">
+                     </el-table-column>
+                     <el-table-column prop="orderTime" label="建立時間" sortable>
+                     </el-table-column>
+                     <el-table-column prop="completeTime" label="完成時間" sortable>
+                     </el-table-column>
+                     <el-table-column prop="orderStatus" label="訂單狀態" sortable>
+                     </el-table-column>
+                     <el-table-column label="操作">
+                        <template #default="scope">
+                           <el-popconfirm v-if="scope.row.orderStatus == '處理中' " title="確定出貨嗎？"
+                              @confirm="orderControl(scope.row.orderId,scope.row.orderStatus)">
+                              <template #reference>
+                                 <el-button type="danger" size="mini">出貨</el-button>
+                              </template>
+                           </el-popconfirm>
+                           <el-popconfirm v-else-if="scope.row.orderStatus == '已出貨' " title="確定收貨嗎？"
+                              @confirm="orderControl(scope.row.orderId,scope.row.orderStatus)">
+                              <template #reference>
+                                 <el-button type="success" size="mini">收貨、評價</el-button>
+                              </template>
+                           </el-popconfirm>
+                        </template>
+                     </el-table-column>
+                  </el-table>
+                  <!--詳情-->
+                  <!-- <el-dialog title="提示" v-model="" width="50%">
             <el-table border :data="productDetailsData">
                <el-table-column property="date" label="日期" width="150"></el-table-column>
             </el-table>
-         </el-dialog>
+         </el-dialog> -->
+               </div>
+            </div>
+            <!-------------------- 檢舉清單----------------------->
+            <div class="tab-pane fade" id="v-pills-report">
+               <div class="mb-3">
+                  <h3>檢舉清單</h3>
+                  <hr>
+                  <el-table :data="reportData" border style="width: 100%" stripe v-loading="loading"
+                     :default-sort="{prop: 'reportId', order: 'descending'}">
+                     <el-table-column prop="reportId" label="檢舉編號" sortable>
+                     </el-table-column>
+                     <el-table-column prop="productId" label="商品編號">
+                     </el-table-column>
+                     <el-table-column prop="productName" label="商品名稱">
+                     </el-table-column>
+                     <el-table-column prop="reportReason" label="檢舉原因">
+                     </el-table-column>
+                     <el-table-column prop="reportTime" label="檢舉時間" sortable>
+                     </el-table-column>
+                     <el-table-column prop="reportStatus" label="檢舉狀態" sortable>
+                     </el-table-column>
+                     <el-table-column label="操作">
+                        <template #default="scope">
+                           <el-popconfirm v-if="scope.row.reportStatus == '處理中' " title="確定下架嗎？"
+                              @confirm="reportControl(scope.row.reportId,scope.row.productStatus,scope.row.productId)">
+                              <template #reference>
+                                 <el-button type="danger" size="mini">下架</el-button>
+                              </template>
+                           </el-popconfirm>
+                           <el-popconfirm v-if="scope.row.reportStatus == '處理中' " title="確定完成嗎？"
+                              @confirm="reportControl(scope.row.reportId,scope.row.productStatus)">
+                              <template #reference>
+                                 <el-button type="success" size="mini">完成</el-button>
+                              </template>
+                           </el-popconfirm>
+                        </template>
+                     </el-table-column>
+                  </el-table>
+                  <!--詳情-->
+                  <!-- <el-dialog title="提示" v-model="" width="50%">
+            <el-table border :data="productDetailsData">
+               <el-table-column property="date" label="日期" width="150"></el-table-column>
+            </el-table>
+         </el-dialog> -->
+               </div>
+            </div>
+         </div>
       </div>
-
 
 
 
@@ -253,9 +348,12 @@
                productDetailsData: [],
                userData: [],
                userProductData: [],
+               userCommData: [],
                orderData: [],
+               reportData: [],
                visProduct: false,
                visUserProduct: false,
+               visUserComm: false,
                loading: true,
             }
          },
@@ -292,7 +390,7 @@
                      sellerId: id
                   }
                }).then(res => {
-                  console.log(res.data.data.records)
+                  // console.log(res.data.data.records)
                   this.userProductData = res.data.data.records;
                }).catch(err => console.log(err));
             },
@@ -306,14 +404,15 @@
                this.loading = true;
                setTimeout(() => { this.loadUser() }, 1000)
             },
-            // 讀取評價資料
-            loadComm() {
+            // 讀取用戶評價資料
+            loadComm(id) {
+               this.visUserComm = true;
                axios.get(`${this.baseUrl}/comm`, {
                   params: {
-                     // sellerId: this.sellerId
+                     sellerId: id
                   }
                }).then(res => {
-                  // this.commList = res.data.data.records;
+                  this.userCommData = res.data.data.records;
                }).catch(err => console.log(err));
             },
             // 讀取訂單資料
@@ -323,7 +422,32 @@
                }).catch(err => console.log(err));
                this.loading = false;
             },
-
+            // 訂單控制
+            orderControl(id, status) {
+               if (status == "處理中") {
+                  axios.put(`${this.baseUrl}/order`, { orderId: id, orderStatus: "已出貨" })
+               } else if (status == "已出貨") {
+                  axios.put(`${this.baseUrl}/order`, { orderId: id, orderStatus: "已完成" })
+               }
+               this.loading = true;
+               setTimeout(() => { this.loadOrder() }, 1000)
+            },
+            // 讀取檢舉清單
+            loadReport() {
+               axios.get(`${this.baseUrl}/report/all`).then(res => {
+                  this.reportData = res.data.data
+               }).catch(err => console.log(err));
+               this.loading = false;
+            },
+            // 檢舉控制
+            reportControl(rid, status, pid) {
+               axios.put(`${this.baseUrl}/report`, { reportId: rid, reportStatus: "已完成" })
+               if (pid != null) {
+                  axios.put(`${this.baseUrl}/product`, { productId: pid, productStatus: 0 })
+               }
+               this.loading = true;
+               setTimeout(() => { this.loadReport() }, 1000)
+            },
 
 
 
@@ -334,6 +458,7 @@
             this.loadProduct();
             this.loadUser();
             this.loadOrder();
+            this.loadReport();
 
          }
       });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:3306
--- 產生時間： 2021-08-28 15:52:41
+-- 產生時間： 2021-08-30 16:01:21
 -- 伺服器版本： 5.7.24
 -- PHP 版本： 7.4.1
 
@@ -34,7 +34,7 @@ CREATE TABLE `comm` (
   `product_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品_名稱',
   `seller_id` int(11) DEFAULT NULL COMMENT '賣家 id',
   `buyer_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '買家 id',
-  `buyer_img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `buyer_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `comm_level` int(11) DEFAULT NULL COMMENT '評價等級',
   `comm_content` text COLLATE utf8mb4_unicode_ci COMMENT '評價內容',
   `comm_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '評價_附圖',
@@ -59,11 +59,21 @@ INSERT INTO `comm` (`comm_id`, `product_id`, `product_name`, `seller_id`, `buyer
 CREATE TABLE `ordertable` (
   `order_id` int(11) NOT NULL COMMENT '訂單_id',
   `product_id` int(11) DEFAULT NULL COMMENT '商品 id',
+  `category` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '分類',
+  `product_price` int(11) DEFAULT NULL COMMENT '商品價格',
   `buyer_id` int(11) DEFAULT NULL COMMENT '買家 id',
   `comm_id` int(11) DEFAULT NULL COMMENT '評價 id',
-  `order_time` datetime DEFAULT NULL COMMENT '購買時間',
+  `order_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '處理中',
+  `order_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '購買時間',
   `complete_time` datetime DEFAULT NULL COMMENT '完成時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 傾印資料表的資料 `ordertable`
+--
+
+INSERT INTO `ordertable` (`order_id`, `product_id`, `category`, `product_price`, `buyer_id`, `comm_id`, `order_status`, `order_time`, `complete_time`) VALUES
+(1, 12, '時尚衣裝', 7500, 1, NULL, '已完成', '2021-08-28 20:19:07', '2021-08-29 20:18:05');
 
 -- --------------------------------------------------------
 
@@ -100,8 +110,9 @@ INSERT INTO `product` (`product_id`, `product_name`, `seller_id`, `seller_name`,
 (7, 'iPhone X 64G 銀 🔋100% 9成新', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '3C家電', '📱宇哥嚴選中古機📱\r\n\r\n📣歡迎貼換，舊機換新機\r\n📣下單前請先詢問有無現貨\r\n\r\niPhone X 64G 銀 $7500\r\n\r\n《外觀描述》\r\n✅外觀9成新\r\n✅全機功能正常\r\n✅健康度100%\r\n\r\n《配件》序號一致原盒\r\n🔺全新充電頭\r\n🔺全新充電線\r\n🔺全新9H鋼化玻璃貼\r\n🔺全新防摔空壓殼\r\n另有很多週邊配件可用優惠價格加購，歡迎詢問😉\r\n\r\n交易方式：\r\n✅雙北都可以預約面交\r\n✅可貨到付款(4%手續費自付)\r\n\r\n#iphone #iPhonex #ix #64g', '面交', '幾乎全新', 7500, 'https://media.karousell.com/media/photos/products/2021/8/24/iphone_x_64g__100_9_1629824664_23d7c83f_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/iphone_x_64g__100_9_1629824664_93a25ff4_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/iphone_x_64g__100_9_1629824664_830ece1e_progressive.jpg', 1, '2021-08-23 17:14:58', '2021-08-28 16:49:07'),
 (8, '我的包包', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '她的時尚', '我的包包800元', '7-Eleven 取貨付款', '狀況尚可', 800, 'http://localhost:9090/files/f01b4a3173e043ec9693ce6d55836496', NULL, NULL, 1, '2021-08-23 17:48:59', NULL),
 (9, 'Nike+ Jordan sticker together', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '名牌精品', '西洋棋一組\n塑膠製品\n附上說明書\n無原本的外包裝盒，用其他盒子代替', '7-Eleven 取貨付款', '幾乎全新', 210, 'https://media.karousell.com/media/photos/products/2021/8/22/9polo_ralph_lauren44t_1629661645_79bc84ad_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/nike_jordan_sticker_together_1629823928_cec7b3ae_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/nike_jordan_sticker_together_1629823928_daecfcd3_progressive.jpg', 1, '2021-08-25 00:55:41', NULL),
-(10, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '時尚衣裝', '商品定價：代購約2500-3000\r\n                                    商品尺寸：S號 版型偏大\r\n                                    肩寬48胸寬56衣長72cm\r\n                                    商品狀況：95%\r\n\r\n                                    台灣沒有發售這個配色\r\n\r\n                                    商品照片皆為本人實體拍攝\r\n                                    提供商品實體測量數據參考\r\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\r\n\r\n                                    喜歡的各位可點選本賣場首頁《追蹤》\r\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-25 20:17:25', NULL),
-(12, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 20, 'RobertaColeman', 'https://randomuser.me/api/portraits/women/31.jpg', '時尚衣裝', '商品定價：代購約2500-3000\n                                    商品尺寸：S號 版型偏大\n                                    肩寬48胸寬56衣長72cm\n                                    商品狀況：95%\n                                    台灣沒有發售這個配色\n                                    商品照片皆為本人實體拍攝\n                                    提供商品實體測量數據參考\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\n                                    喜歡的各位可點選本賣場首頁《追蹤》\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://media.karousell.com/media/photos/products/2021/8/26/porter_1629975912_42f075eb_progressive.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-26 10:50:21', NULL);
+(10, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '時尚衣裝', '商品定價：代購約2500-3000\r\n                                    商品尺寸：S號 版型偏大\r\n                                    肩寬48胸寬56衣長72cm\r\n                                    商品狀況：95%\r\n\r\n                                    台灣沒有發售這個配色\r\n\r\n                                    商品照片皆為本人實體拍攝\r\n                                    提供商品實體測量數據參考\r\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\r\n\r\n                                    喜歡的各位可點選本賣場首頁《追蹤》\r\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-25 20:17:25', '2021-08-30 19:44:46'),
+(12, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 20, 'RobertaColeman', 'https://randomuser.me/api/portraits/women/31.jpg', '時尚衣裝', '商品定價：代購約2500-3000\n                                    商品尺寸：S號 版型偏大\n                                    肩寬48胸寬56衣長72cm\n                                    商品狀況：95%\n                                    台灣沒有發售這個配色\n                                    商品照片皆為本人實體拍攝\n                                    提供商品實體測量數據參考\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\n                                    喜歡的各位可點選本賣場首頁《追蹤》\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://media.karousell.com/media/photos/products/2021/8/26/porter_1629975912_42f075eb_progressive.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-26 10:50:21', NULL),
+(15, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '時尚衣裝', '商品定價：代購約2500-3000\n                                    商品尺寸：S號 版型偏大\n                                    肩寬48胸寬56衣長72cm\n                                    商品狀況：95%\n                                    台灣沒有發售這個配色\n                                    商品照片皆為本人實體拍攝\n                                    提供商品實體測量數據參考\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\n                                    喜歡的各位可點選本賣場首頁《追蹤》\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-29 15:54:56', '2021-08-30 19:30:09');
 
 -- --------------------------------------------------------
 
@@ -110,13 +121,21 @@ INSERT INTO `product` (`product_id`, `product_name`, `seller_id`, `seller_name`,
 --
 
 CREATE TABLE `report` (
-  `report_id` int(11) NOT NULL COMMENT '訂單_id',
+  `report_id` int(11) NOT NULL COMMENT '訂單_編號',
   `product_id` int(11) DEFAULT NULL COMMENT '商品_id',
-  `product_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_img_a` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `product_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品_名稱',
+  `product_img_a` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '商品圖片',
   `report_reason` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '檢舉原因',
-  `report_time` datetime DEFAULT NULL COMMENT '檢舉時間'
+  `report_status` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT '處理中',
+  `report_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '檢舉時間'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- 傾印資料表的資料 `report`
+--
+
+INSERT INTO `report` (`report_id`, `product_id`, `product_name`, `product_img_a`, `report_reason`, `report_status`, `report_time`) VALUES
+(1, 10, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', '仿冒品', '已完成', '2021-08-30 13:08:23');
 
 -- --------------------------------------------------------
 
@@ -128,14 +147,14 @@ CREATE TABLE `user` (
   `user_id` int(11) NOT NULL COMMENT 'ID',
   `user_account` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '用户名',
   `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '密码',
-  `user_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '大頭貼',
+  `user_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'https://upload.cc/i1/2021/08/13/yW9b3E.png' COMMENT '大頭貼',
   `user_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '姓名',
   `user_email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Email',
   `user_address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '地址',
   `user_introduce` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '個人簡介',
-  `register_time` datetime DEFAULT NULL COMMENT '註冊時間',
+  `register_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '註冊時間',
   `login_time` datetime DEFAULT NULL,
-  `role` int(11) DEFAULT NULL COMMENT '角色，1：管理员，2：普通用户'
+  `role` int(11) DEFAULT '2' COMMENT '角色，1：管理员，2：普通用户'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='用户信息表' ROW_FORMAT=DYNAMIC;
 
 --
@@ -196,19 +215,19 @@ ALTER TABLE `comm`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `ordertable`
 --
 ALTER TABLE `ordertable`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '訂單_id';
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '訂單_id', AUTO_INCREMENT=3;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品_主鍵', AUTO_INCREMENT=15;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品_主鍵', AUTO_INCREMENT=16;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `report`
 --
 ALTER TABLE `report`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '訂單_id';
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '訂單_編號', AUTO_INCREMENT=2;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `user`
