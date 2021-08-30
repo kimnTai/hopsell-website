@@ -2,226 +2,233 @@
 <html lang="en">
 
 <head>
-   <meta charset="UTF-8">
-   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <!--ICON CDN-->
-   <link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
-   <!--CSS-->
-   <link rel="stylesheet" href="scss/all.css">
-   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-   <title>追蹤商品</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!--ICON CDN-->
+	<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+	<!--CSS-->
+	<link rel="stylesheet" href="scss/all.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<title>追蹤商品</title>
 </head>
 
 <body>
-   <header class="bg-secondary text-white">
-      <div class="container">
-         <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-            <!--LOGO-->
-            <a class="navbar-brand" href="home.html">
-               <img class="bi me-2" src="images/icon_1.png" alt="hopsellIcon" width="30" height="30">
-            </a>
-            <!--商品分類-->
-            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-               <li><a href="#" class="nav-link px-2 text-white">商品分類1</a></li>
-               <li><a href="#" class="nav-link px-2 text-white">商品分類2</a></li>
-               <li><a href="#" class="nav-link px-2 text-white">商品分類3</a></li>
-               <li><a href="#" class="nav-link px-2 text-white">商品分類4</a></li>
-               <li><a href="#" class="nav-link px-2 text-white">商品分類5</a></li>
-               <li><a href="#" class="nav-link px-2 text-white">商品分類6</a></li>
-            </ul>
-            <!--登出按鈕-->
-            <div class="text-end">
-               <a href="home.html" type="button" class="btn btn-secondary ">登出</a>
-               <a href="register.html" type="button" class="btn btn-secondary">註冊</a>
-            </div>
-         </div>
-      </div>
-   </header>
-   <!-- 搜尋列 -->
-   <div class="navbar ">
-      <div class="container">
-         <!--LOGO-->
-         <a href="home.html"><img src="https://upload.cc/i1/2021/08/13/xDSmVg.png" alt="hopsellIcon" height="32"></a>
-         <!--搜尋-->
-         <div>
-            <div class="container-fluid">
-               <form class="d-flex">
-                  <input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search">
-                  <button class="btn btn-outline-success px- me-2" type="submit">Search</button>
-               </form>
-            </div>
-         </div>
-         <div class="d-flex">
-            <a href="user_add.html" class="btn fw-bold btn-danger px-4 me-2">出售</a>
-         </div>
-      </div>
-   </div>
+	<header class="bg-secondary text-white">
+		<div class="container">
+			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+				<!--LOGO-->
+				<a class="navbar-brand" href="home.html">
+					<img class="bi me-2" src="images/icon_1.png" alt="hopsellIcon" width="30" height="30">
+				</a>
+				<!--商品分類-->
+				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+					<li><a href="#" class="nav-link px-2 text-white">時尚衣裝</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">精品配件</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">3C家電</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">書籍雜誌</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">娛樂休閒</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">居家生活</a></li>
+				</ul>
+				<!--登出按鈕-->
+				<div class="text-end">
+					<a href="home.html" type="button" class="btn btn-secondary ">登出</a>
+					<a href="register.html" type="button" class="btn btn-secondary">註冊</a>
+				</div>
+			</div>
+		</div>
+	</header>
+	<!-- 搜尋列 -->
+	<div class="navbar ">
+		<div class="container">
+			<!--LOGO-->
+			<a href="home.html"><img src="https://upload.cc/i1/2021/08/13/xDSmVg.png" alt="hopsellIcon" height="32"></a>
+			<!--搜尋-->
+			<div>
+				<div class="container-fluid">
+					<form class="d-flex">
+						<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search">
+						<button class="bi bi-search bg-white border-0" type="submit"></button>
+					</form>
+				</div>
+			</div>
+			<div class="d-flex">
+				<a href="user_add.html" class="btn fw-bold btn-danger px-4 me-2">出售</a>
+			</div>
+		</div>
+	</div>
 
 
-   <!-- 內容 -->
-   <div id="product">
-      <div class="container pt-4">
-         <div class="row align-items-center">
-            <div class="col-md-3">
-               <h1 class="display-5">我按過的讚</h1>
-            </div>
-            <div class="col-md-2 ">
-               <button class="btn btn-outline-danger" @click='removeAllList'>清除所有讚</button>
-            </div>
-         </div>
-         <hr class="bg-dark border-4 border-top border-dark">
-      </div>
-      <div class="container">
-         <div v-if="favoriteList.length !== 0 " class="row">
-            <!-- v-for -->
-            <div class="col-md-3 mb-4 px-3" v-for="item in favoriteList">
-               <div class="card px-1">
-                  <div>
-                     <el-image class="card-img-top img-thumbnail-like p-1" alt="" :src="item.productImgA"
-                        :preview-src-list="[item.productImgA]" fit="cover"></el-image>
-                  </div>
-                  <div class="card-block p-2">
-                     <div class="mt-1">
-                        <p class="card-text fs-6 text-truncate">
-                           {{item.productName}}
-                        </p>
-                     </div>
-                     <div class="">
-                        <p class="fs-4"><strong>NT$ {{item.productPrice}}</strong></p>
-                        <p class="">{{item.productCondition}}</p>
-                     </div>
-                     <div class="d-flex justify-content-between">
-                        <button @click="removeFavorite(item)" type="button"
-                           class="btn rounded-pill btn-sm btn bg-white text-danger bi bi-heart-fill">
-                        </button>
-                        <a @click="toProduct(item)" type="button" class="btn bg-white btn-sm bi bi bi-search">
-                           詳情</a>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </div>
-         <div v-else class="row">
-            <el-image src="https://upload.cc/i1/2021/08/25/ZLUXBr.jpg" fit="contain" style="height: 500px;"></el-image>
-            <div class="col d-flex flex-column pt-5">
-               <p class="fs-5 fw-bold text-center">你按讚的商品都在這裡。</p>
-               <p class="fs-6 text-center">找到你的最想要買的商品，開始建立你的許願清單吧！</p>
-            </div>
-         </div>
-      </div>
-      <!-------------------- END APP----------------------->
-   </div>
+	<!-- 內容 -->
+	<div id="product">
+		<div class="container pt-4">
+			<div class="row align-items-center">
+				<div class="col-md-3">
+					<h1 class="display-5">我按過的讚</h1>
+				</div>
+				<div class="col-md-2 ">
+					<button class="btn btn-outline-danger" @click='removeAllList'>清除所有讚</button>
+				</div>
+			</div>
+			<hr class="bg-dark border-4 border-top border-dark">
+		</div>
+		<div class="container">
+			<div v-if="favoriteList.length !== 0 " class="row">
+				<!-- v-for -->
+				<div class="col-lg-3 col-md-6 mb-3" v-for="item in favoriteList">
+					<!-- 卡片內容 -->
+					<!-- 卡片頭 -->
+					<div class="card">
+						<div class="m-3 d-flex align-items-start">
+							<el-image class="rounded-circle mr-2" :src="item.sellerImg" style="height: 40px; width: 40px;"
+								fit="cover"></el-image>
+							<div class="flex-column">
+								<span class="m-3">@{{item.sellerName}}</span><br>
+								<span class="m-3">{{item.createTime}}</span>
+							</div>
+						</div>
+						<!-- 卡片圖 -->
+						<el-image class="card-img-top mx-auto" :src="item.productImgA" fit="cover" style="height: 300px;width: 300px;">
+						</el-image>
+						<!-- 卡片尾 -->
+						<div class="card-body">
+							<h4 class="card-title text-truncate">{{item.productName}}</h4>
+							<p class="card-text">{{item.productTrade}}</p>
+							<h5 class="fw-bold text-danger">NT${{item.productPrice}}</h5>
+							<h6>{{item.productCondition}}</h6>
+							<div class="d-flex justify-content-between">
+								<!-- 愛心 -->
+								<i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm bi "
+									:class="item.like ? 'bg-white text-danger bi-heart-fill':'bi-heart' "></i>
+								<a @click="toProduct(item)" type="button" class="btn bg-white btn-sm bi bi-search">
+									詳情</a>
+							</div>
 
-
-
-
-   <!-- 置底 -->
-   <div class="bg-secondary text-light mt-5">
-      <div class="container">
-         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3  border-top ">
-            <p class="col-md-4 mb-0 text-reset">© 2021 Company, Inc</p>
-
-            <a href="/"
-               class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
-               <svg class="bi me-2" width="40" height="32">
-                  <use xlink:href="#bootstrap"></use>
-               </svg>
-            </a>
-
-            <ul class="nav col-md-4 justify-content-end">
-               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
-               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
-               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Pricing</a></li>
-               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
-               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
-            </ul>
-         </footer>
-      </div>
-   </div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div v-else class="row">
+				<el-image src="https://upload.cc/i1/2021/08/25/ZLUXBr.jpg" fit="contain" style="height: 500px;"></el-image>
+				<div class="col d-flex flex-column pt-5">
+					<p class="fs-5 fw-bold text-center">你按讚的商品都在這裡。</p>
+					<p class="fs-6 text-center">找到你的最想要買的商品，開始建立你的許願清單吧！</p>
+				</div>
+			</div>
+		</div>
+		<div style="height: 70px;"></div>
+		<!-------------------- END APP----------------------->
+	</div>
 
 
 
 
+	<!-- 置底 -->
+	<footer class="bg-secondary text-light fixed-bottom">
+		<div class="container">
+			<div class="d-flex flex-wrap justify-content-between align-items-center py-3  border-top ">
+				<p class="col-md-4 mb-0 text-reset">© 2021 Company, Inc</p>
+
+				<a href="/"
+					class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+					<svg class="bi me-2" width="40" height="32">
+						<use xlink:href="#bootstrap"></use>
+					</svg>
+				</a>
+
+				<!-- <ul class="nav col-md-4 justify-content-end">
+					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
+					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
+					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Pricing</a></li>
+					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
+					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
+				</ul> -->
+			</div>
+		</div>
+	</footer>
 
 
 
 
 
 
-   <!-- bootstrap JS CDN-->
-   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-      crossorigin="anonymous"></script>
-   <!-- Vue CDN -->
-   <script src="https://unpkg.com/vue@next"></script>
-   <!-- axios -->
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
-      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-      crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-   <!-- 引入樣式 -->
-   <link rel="stylesheet" href="https://unpkg.com/element-plus@1.0.2-beta.71/lib/theme-chalk/index.css">
-   <!-- 引入組件庫 -->
-   <script src="https://unpkg.com/element-plus@1.0.2-beta.71/lib/index.full.js"></script>
-   <!-- sweetalert2 -->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
-   <script>
-      const app = Vue.createApp({
-         data() {
-            return {
-               favoriteList: [],
-            }
-         },
-         methods: {
-            // 移除最愛
-            removeFavorite(item) {
-               Swal.fire('已刪除!')
-               const index = this.favoriteList.findIndex(obj => obj.id === item.id);
-               console.log(item.id);
-               this.favoriteList.splice(index, 1);
-            },
-            // 移除所有資料 
-            removeAllList() {
-               Swal.fire({
-                  title: '確定要刪除全部最愛嗎?',
-                  showCancelButton: true,
-                  icon: 'warning',
-                  confirmButtonText: `是的`,
-                  cancelButtonText: '取消',
-               }).then((result) => {
-                  if (result.isConfirmed) {
-                     localStorage.removeItem('最愛清單');
-                     this.favoriteList = [];
-                  }
-               })
-            },
-            // 商品詳情跳轉
-            toProduct(item) {
-               console.log(item.productId)
-               sessionStorage.setItem('詳情', item.productId)
-               window.location.href = "product_detail.html"
-            },
-         },
-         mounted() {
-            this.favoriteList = JSON.parse(localStorage.getItem('最愛清單')) || [];
-         },
-         // 監聽 favoriteList
-         watch: {
-            favoriteList: {
-               handler() {
-                  localStorage.setItem('最愛清單', JSON.stringify(this.favoriteList));
-               },
-               deep: true,
-            }
-         }
 
-      })
-      app.use(ElementPlus);
-      app.mount('#product')
 
-   </script>
+	<!-- bootstrap JS CDN-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<!-- Vue CDN -->
+	<script src="https://unpkg.com/vue@next"></script>
+	<!-- axios -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+		integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- 引入樣式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-plus@1.0.2-beta.71/lib/theme-chalk/index.css">
+	<!-- 引入組件庫 -->
+	<script src="https://unpkg.com/element-plus@1.0.2-beta.71/lib/index.full.js"></script>
+	<!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+	<script>
+		const app = Vue.createApp({
+			data() {
+				return {
+					favoriteList: [],
+				}
+			},
+			methods: {
+				// 移除最愛
+				removeFavorite(item) {
+					Swal.fire('已刪除!')
+					const index = this.favoriteList.findIndex(obj => obj.id === item.id);
+					console.log(item.id);
+					this.favoriteList.splice(index, 1);
+				},
+				// 移除所有資料 
+				removeAllList() {
+					Swal.fire({
+						title: '確定要刪除全部最愛嗎?',
+						showCancelButton: true,
+						icon: 'warning',
+						confirmButtonText: `是的`,
+						cancelButtonText: '取消',
+					}).then((result) => {
+						if (result.isConfirmed) {
+							localStorage.removeItem('最愛清單');
+							this.favoriteList = [];
+						}
+					})
+				},
+				// 商品詳情跳轉
+				toProduct(item) {
+					console.log(item.productId)
+					sessionStorage.setItem('詳情', item.productId)
+					window.location.href = "product_detail.html"
+				},
+			},
+			mounted() {
+				this.favoriteList = JSON.parse(localStorage.getItem('最愛清單')) || [];
+			},
+			// 監聽 favoriteList
+			watch: {
+				favoriteList: {
+					handler() {
+						localStorage.setItem('最愛清單', JSON.stringify(this.favoriteList));
+					},
+					deep: true,
+				}
+			}
+
+		})
+		app.use(ElementPlus);
+		app.mount('#product')
+
+	</script>
 
 
 

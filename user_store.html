@@ -23,12 +23,12 @@
 				</a>
 				<!--商品分類-->
 				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="#" class="nav-link px-2 text-white">商品分類1</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">商品分類2</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">商品分類3</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">商品分類4</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">商品分類5</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">商品分類6</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">時尚衣裝</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">精品配件</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">3C家電</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">書籍雜誌</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">娛樂休閒</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">居家生活</a></li>
 				</ul>
 				<!--登出按鈕-->
 				<div class="text-end">
@@ -48,7 +48,7 @@
 				<div class="container-fluid">
 					<form class="d-flex">
 						<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search">
-						<button class="btn btn-outline-success px- me-2" type="submit">Search</button>
+						<button class="bi bi-search bg-white border-0" type="submit"></button>
 					</form>
 				</div>
 			</div>
@@ -60,10 +60,10 @@
 
 
 	<!-- 內容 圖片 -->
-	<div class="container bg-image rounded-3" style="background-image: url('https://mweb-cdn.karousell.com/build/profile-bg-1hcJPlrNW6.jpg');
+	<!-- <div class="container bg-image rounded-3" style="background-image: url('https://mweb-cdn.karousell.com/build/profile-bg-1hcJPlrNW6.jpg');
    height: 128px">
 
-	</div>
+	</div> -->
 
 
 	<div id="userPage">
@@ -116,29 +116,27 @@
 									<div class="col-md-3 mb-4" v-for="item in storeList">
 										<div class="card  p-1">
 											<div>
-												<el-image class="card-img-top img-thumbnail-like p-1" alt="" :src="item.productImgA"
+												<el-image class="card-img-top img-thumbnail-like rounded" alt="" :src="item.productImgA"
 													:preview-src-list="[item.productImgA]" fit="cover"></el-image>
 												</el-image>
 											</div>
-											<div class="card-block">
+											<div class="card-block px-1">
 												<div class="mt-3">
 													<p class="card-text fs-6 text-truncate">
 														{{item.productName}}
 													</p>
 												</div>
-												<div class="px-2">
-													<p class="fs-4 fw-bold">NT$ {{item.productPrice}}</p>
-													<p class="">{{item.productCondition}}</p>
+												<div>
+													<p class="fs-4 fw-bold text-danger">NT$ {{item.productPrice}}</p>
+													<p>{{item.productCondition}}</p>
 												</div>
 												<div class="d-flex justify-content-between">
-													<i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm bi"
+													<i @click="addFavorite(item)" type="button" class="me-auto btn rounded-pill btn-sm bi"
 														:class="item.like ? 'bg-white text-danger bi-heart-fill':'bi-heart' ">
 													</i>
-													<a @click="toProduct(item)" type="button"
-														class="btn bg-white btn-sm bi bi-search">
+													<a @click="toProduct(item)" type="button" class="btn bg-white btn-sm bi bi-search">
 														詳情</a>
-													<button type="button" @click="toEdit(item)"
-														class="btn bg-white bi bi-pencil-square btn-sm">
+													<button type="button" @click="toEdit(item)" class="btn bg-white bi bi-pencil-square btn-sm">
 														編輯</button>
 												</div>
 											</div>
@@ -151,27 +149,25 @@
 										<table class="table table-hover table-borderless">
 											<thead>
 												<tr>
-													<th width="100" scope="col">日期</th>
+													<th width="110" scope="col">日期</th>
 													<th width="200" class="" scope="col">買家</th>
 													<th scope="col">購買商品</th>
-													<th scope="col">評等</th>
-													<th scope="col">評價</th>
+													<th width="150" scope="col">評等</th>
+													<th width="150"scope="col">評價</th>
 												</tr>
 											</thead>
 											<tbody v-for="item in commList">
 												<tr>
-													<th scope="row">{{item.commTime}}</th>
-													<td>
-														<img :src="item.buyerImg" class="rounded-circle" alt="" height="50"
-															width="50">
+													<th class="align-middle" scope="row">{{item.commTime}}</th>
+													<td><img :src="item.buyerImg" class="rounded-circle" height="50" width="50">
 														{{item.buyerName}}
 													</td>
-													<td>{{item.productName}}</td>
+													<td class="text-truncate" style="max-width: 150px;">{{item.productName}}</td>
 													<td>
 														<el-rate v-model="item.commLevel" disabled show-score text-color="#ff9900">
 														</el-rate>
 													</td>
-													<td>{{item.commContent}}</td>
+													<td class="text-truncate" style="max-width: 150px;">{{item.commContent}}</td>
 												</tr>
 											</tbody>
 										</table>
@@ -198,13 +194,13 @@
 						<use xlink:href="#bootstrap"></use>
 					</svg>
 				</a>
-				<ul class="nav col-md-4 justify-content-end">
+				<!-- <ul class="nav col-md-4 justify-content-end">
 					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
 					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
 					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Pricing</a></li>
 					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
 					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
-				</ul>
+				</ul> -->
 			</div>
 		</div>
 	</div>

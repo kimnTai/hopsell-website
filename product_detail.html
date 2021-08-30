@@ -23,12 +23,12 @@
 				</a>
 				<!--商品分類-->
 				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="#" class="nav-link px-2 text-white">商品分類1</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">商品分類2</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">商品分類3</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">商品分類4</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">商品分類5</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">商品分類6</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">時尚衣裝</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">精品配件</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">3C家電</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">書籍雜誌</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">娛樂休閒</a></li>
+					<li><a href="#" class="nav-link px-2 text-white">居家生活</a></li>
 				</ul>
 				<!--登出按鈕-->
 				<div class="text-end">
@@ -48,7 +48,7 @@
 				<div class="container-fluid">
 					<form class="d-flex">
 						<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search">
-						<button class="btn btn-outline-success px- me-2" type="submit">Search</button>
+						<button class="bi bi-search bg-white border-0" type="submit"></button>
 					</form>
 				</div>
 			</div>
@@ -112,24 +112,24 @@
 								<table class="table table-hover table-borderless">
 									<thead>
 										<tr>
-											<th width="100" scope="col">日期</th>
+											<th width="110" scope="col">日期</th>
 											<th width="200" class="" scope="col">買家</th>
 											<th scope="col">購買商品</th>
-											<th scope="col">評等</th>
-											<th scope="col">評價</th>
+											<th width="150" scope="col">評等</th>
+											<th width="150" scope="col">評價</th>
 										</tr>
 									</thead>
 									<tbody v-for="item in commList">
 										<tr>
-											<th scope="row">{{item.commTime}}</th>
+											<th class="align-middle" scope="row">{{item.commTime}}</th>
 											<td><img :src="item.buyerImg" class="rounded-circle" height="50" width="50">
 												{{item.buyerName}}</td>
-											<td>{{item.productName}}</td>
+											<td class="text-truncate" style="max-width: 150px;">{{item.productName}}</td>
 											<td>
 												<el-rate v-model="item.commLevel" disabled show-score text-color="#ff9900">
 												</el-rate>
 											</td>
-											<td>{{item.commContent}}</td>
+											<td class="text-truncate" style="max-width: 150px;">{{item.commContent}}</td>
 										</tr>
 									</tbody>
 								</table>
@@ -221,24 +221,27 @@
 									<!-- v-for -->
 									<div v-for="item in storeList" class="col-md-3 mb-3">
 										<div class="card pt-1">
-											<p class="card-title d-flex ">
-												<el-image class="rounded-circle mx-2" :src="item.sellerImg"
-													style="height: 32px; width: 32px;" fit="cover"></el-image>
-												@{{item.sellerName}}
-											</p>
+											<div class="card-title d-flex ">
+												<el-image class="rounded-circle m-2" :src="item.sellerImg" style="height: 32px; width: 32px;"
+													fit="cover"></el-image>
+													<div class="flex-column">
+														<span class="m-2">@{{item.sellerName}}</span><br>
+														<span class="m-2">{{item.createTime}}</span>
+													</div>
+										</div>
 											<div>
-												<el-image class="card-img-top img-thumbnail-like px-1" alt=""
-													:src="item.productImgA" fit="cover"></el-image>
+												<el-image class="card-img-top img-thumbnail-like px-1" alt="" :src="item.productImgA"
+													fit="cover"></el-image>
 											</div>
 											<div class="card-block">
-												<div class="px-1">
+												<div class="px-2">
 													<p class="card-text fs-6 text-truncate">
 														{{item.productName}}
 													</p>
 												</div>
 												<div class="px-2 d-flex flex-column mb-2">
 													<div>
-														<p class="card-text fs-5 fw-bold">NT${{item.productPrice}}</p>
+														<p class="card-text fs-5 fw-bold text-danger">NT${{item.productPrice}}</p>
 													</div>
 													<p class="card-text">{{item.productCondition}}</p>
 												</div>
@@ -285,13 +288,13 @@
 					</svg>
 				</a>
 
-				<ul class="nav col-md-4 justify-content-end">
+				<!-- <ul class="nav col-md-4 justify-content-end">
 					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
 					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
 					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Pricing</a></li>
 					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
 					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
-				</ul>
+				</ul> -->
 			</footer>
 		</div>
 	</div>

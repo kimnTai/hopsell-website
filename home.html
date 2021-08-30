@@ -51,7 +51,7 @@
         <div class="container-fluid">
           <form class="d-flex">
             <input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search">
-            <button class="btn btn-outline-secondary px- me-2" type="submit">Search</button>
+            <button class="bi bi-search bg-white border-0" type="submit"></button>
           </form>
         </div>
       </div>
@@ -64,7 +64,7 @@
   <!--網頁內容-->
 
   <!--輪播圖-->
-  <div class="carousel slide container" data-bs-ride="carousel" id="carouselExampleIndicators">
+  <div class="carousel slide container px-0" data-bs-ride="carousel" id="carouselExampleIndicators">
     <div class="carousel-indicators">
       <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active"
         aria-current="true" aria-label="Slide 1"></button>
@@ -109,7 +109,7 @@
           <div class="col-lg-3 col-md-6 mb-3" v-for="item in storeList">
             <!-- 卡片內容 -->
             <!-- 卡片頭 -->
-            <div class="card container" style="width: 19rem; height: 31rem;">
+            <div class="card">
               <div class="m-3 d-flex align-items-start">
                 <el-image class="rounded-circle mr-2" :src="item.sellerImg" style="height: 40px; width: 40px;"
                   fit="cover"></el-image>
@@ -119,13 +119,13 @@
                 </div>
               </div>
               <!-- 卡片圖 -->
-              <el-image class="card-img-top" :src="item.productImgA" fit="cover" style="height: 300px;width: 250px;">
+              <el-image class="card-img-top mx-auto" :src="item.productImgA" fit="cover" style="height: 300px;width: 300px;">
               </el-image>
               <!-- 卡片尾 -->
               <div class="card-body">
                 <h4 class="card-title text-truncate">{{item.productName}}</h4>
                 <p class="card-text">{{item.productTrade}}</p>
-                <h5 class="fw-bold">NT${{item.productPrice}}</h5>
+                <h5 class="fw-bold text-danger">NT${{item.productPrice}}</h5>
                 <h6>{{item.productCondition}}</h6>
                 <div class="d-flex justify-content-between">
                   <!-- 愛心 -->
@@ -143,6 +143,30 @@
     </div>
     <!-------------------- END APP----------------------->
   </div>
+  <!-- 置底 -->
+  <div class="bg-secondary text-light mt-5">
+    <div class="container">
+       <footer class="d-flex flex-wrap justify-content-between align-items-center py-3  border-top ">
+          <p class="col-md-4 mb-0 text-reset">© 2021 Company, Inc</p>
+
+          <a href="/"
+             class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+             <svg class="bi me-2" width="40" height="32">
+                <use xlink:href="#bootstrap"></use>
+             </svg>
+          </a>
+
+          <!-- <ul class="nav col-md-4 justify-content-end">
+             <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
+             <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
+             <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Pricing</a></li>
+             <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
+             <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
+          </ul> -->
+       </footer>
+    </div>
+ </div>
+
 
 
   <!-- bootstrap JS CDN-->
