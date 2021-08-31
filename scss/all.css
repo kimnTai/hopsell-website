@@ -11077,16 +11077,16 @@ textarea.form-control-lg {
 }
 
 .form-check-input:checked {
-  background-color: #1c2a33;
+  background-color: #2C2C2D;
 }
 
 .page-item.active .page-link {
-  border-color: #1c2a33;
-  background-color: #1c2a33;
+  border-color: #2C2C2D;
+  background-color: #2C2C2D;
 }
 
 .page-link {
-  color: #1c2a33;
+  color: #2C2C2D;
 }
 
 .card .img-thumbnail {

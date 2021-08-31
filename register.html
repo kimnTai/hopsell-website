@@ -3,73 +3,154 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>跳跳市集 註冊</title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-		integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+	<link rel='stylesheet' href='https://cdn-uicons.flaticon.com/uicons-regular-rounded/css/uicons-regular-rounded.css'>
+	<link rel="stylesheet" href="scss/all.css">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 
 <body>
-	<section class="h-100">
+	<section class="h-100" id="app">
 		<div class="container h-100">
 			<div class="row justify-content-sm-center h-100">
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
 					<div class="text-center my-5">
 						<img src="images/logo_1.png" alt="logo" width="200">
 					</div>
-					<div class="card shadow-lg">
+					<el-form class="card shadow-lg" ref="form" :rules="rules" :model="form">
 						<div class="card-body p-5">
 							<h1 class="fs-4 card-title fw-bold mb-4">註冊</h1>
-							<form method="POST" class="needs-validation" novalidate="" autocomplete="off">
-								<!-- <div class="mb-3">
-									<label class="mb-2 text-muted" for="name">暱稱</label>
-									<input id="name" type="text" class="form-control" name="name" value="" required autofocus>
-									<div class="invalid-feedback">
-										請輸入暱稱
-									</div>
-								</div> -->
-
-								<div class="mb-3">
-									<label class="mb-2 text-muted" for="email">帳號(e-mail)</label>
-									<input id="email" type="email" class="form-control" name="email" value="" required>
-									<div class="invalid-feedback">
-										請輸入e-mail
-									</div>
-								</div>
-
-								<div class="mb-3">
-									<label class="mb-2 text-muted" for="password">密碼</label>
-									<input id="password" type="password" class="form-control" name="password" required>
-									<div class="invalid-feedback">
-										請輸入密碼
-									</div>
-								</div>
-
-								<p class="form-text text-muted mb-3">
-									註冊即表示您同意我們的服務條款與隱私權政策。
-								</p>
-
-								<div class="align-items-center d-flex">
-									<button type="submit" class="btn btn-primary ms-auto">
-										註冊
-									</button>
-								</div>
-							</form>
+							<el-form-item class="mb-3" prop="userAccount">
+								<label class="text-muted" style="font-size: 1rem;">使用者名稱</label>
+								<el-input prefix-icon="el-icon-user-solid" placeholder="請輸入使用者名稱" v-model="form.userAccount"
+									class="input-with-select">
+									<template #append>
+										<el-button icon="el-icon-search" @click="check"></el-button>
+									</template>
+								</el-input>
+							</el-form-item>
+							<el-form-item class="mb-3" prop="password">
+								<label class="text-muted" style="font-size: 1rem;">密碼</label>
+								<el-input prefix-icon="el-icon-lock" v-model="form.password" show-password></el-input>
+							</el-form-item>
+							<el-form-item class="mb-3" prop="confirm">
+								<label class="text-muted" style="font-size: 1rem;">確認密碼</label>
+								<el-input prefix-icon="el-icon-lock" v-model="form.confirm" show-password></el-input>
+							</el-form-item>
+							<el-form-item class="mb-3" prop="userAddress">
+								<label class="text-muted" style="font-size: 1rem;">選擇地區</label>
+								<el-select v-model="form.userAddress" placeholder="選擇地區" style="width: 318px;">
+									<el-option label="中彰投" value="中彰投"></el-option>
+									<el-option label="北北基" value="北北基"></el-option>
+									<el-option label="外島" value="外島"></el-option>
+									<el-option label="宜花東" value="宜花東"></el-option>
+									<el-option label="桃竹苗" value="桃竹苗"></el-option>
+									<el-option label="雲嘉南" value="雲嘉南"></el-option>
+									<el-option label="高屏" value="高屏"></el-option>
+								</el-select>
+							</el-form-item>
+							<el-form-item class="mb-3" prop="userEmail">
+								<label class="text-muted" style="font-size: 1rem;">Email</label>
+								<el-input placeholder="請輸入信箱" prefix-icon="el-icon-message" v-model="form.userEmail"></el-input>
+							</el-form-item>
+							<el-form-item class="text-end mt-4">
+								<el-button style="background-color: #2C2C2D;color: #fff;" @click="register">註冊</el-button>
+							</el-form-item>
 						</div>
 						<div class="card-footer py-3 border-0">
 							<div class="text-center">
 								已有帳號? <a href="login.html" class="text-dark">登入</a>
 							</div>
 						</div>
-					</div>
+					</el-form>
 					<!-- <div class="text-center mt-5 text-muted">
 						Copyright &copy; 2017-2021 &mdash; Your Company
 					</div> -->
 				</div>
 			</div>
 		</div>
+		<!-------------------- END APP----------------------->
 	</section>
 
-	<script src="js/login.js"></script>
+
+
+	<!-- bootstrap JS CDN-->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+		crossorigin="anonymous"></script>
+	<!-- Vue CDN -->
+	<script src="https://unpkg.com/vue@next"></script>
+	<!-- Jquery CDN -->
+	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+	<!-- axios -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+		integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- 引入樣式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-plus@1.0.2-beta.71/lib/theme-chalk/index.css">
+	<!-- 引入組件庫 -->
+	<script src="https://unpkg.com/element-plus@1.0.2-beta.71/lib/index.full.js"></script>
+	<!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<script>
+		const app = Vue.createApp({
+			data() {
+				return {
+					text: "測試",
+					baseUrl: 'http://localhost:9090',
+					form: {},
+					// 驗證內容
+					rules: {
+						userAccount: [{ required: true, message: '請輸入使用者名稱', trigger: 'blur' }],
+						password: [{ required: true, message: '請輸入密碼', trigger: 'blur' }],
+						confirm: [{ required: true, message: '請確認密碼', trigger: 'blur' }],
+						userAddress: [{ required: true, message: '請選擇地區', trigger: 'change' }],
+						userEmail: [
+							{ required: true, message: '請輸入Email', trigger: 'blur' },
+							{ type: 'email', message: '請輸入正確的Email', trigger: ['blur', 'change'] }
+						],
+					}
+				};
+			},
+			methods: {
+				// 註冊
+				register() {
+					this.$refs['form'].validate((valid) => {
+						if (!valid) { return }
+						if (this.form.password !== this.form.confirm) {
+							Swal.fire("兩次密碼輸入不一致", '', 'error')
+							// this.$message({ type: "error", message: "兩次密碼輸入不一致", })
+							return
+						}
+						axios.post(`${this.baseUrl}/user/register`, this.form).then(res => {
+							if (res.data.code !== '0') {
+								Swal.fire(res.data.msg, '', 'error')
+								return
+							}
+							Swal.fire('註冊成功', '', 'success')
+						})
+					})
+				},
+				// 檢查
+				check() {
+					axios.post(`${this.baseUrl}/user/check`, this.form).then(res => {
+						if (res.data.code !== '0') {
+							Swal.fire(res.data.msg, '', 'error')
+							return
+						}
+						Swal.fire('可以註冊', '', 'success')
+					})
+				}
+			},
+
+		});
+		app.use(ElementPlus);
+		app.mount('#app');
+
+	</script>
+
 </body>
 
 </html>

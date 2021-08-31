@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主機： localhost:3306
--- 產生時間： 2021-08-30 16:01:21
+-- 產生時間： 2021-08-31 20:34:53
 -- 伺服器版本： 5.7.24
 -- PHP 版本： 7.4.1
 
@@ -73,7 +73,10 @@ CREATE TABLE `ordertable` (
 --
 
 INSERT INTO `ordertable` (`order_id`, `product_id`, `category`, `product_price`, `buyer_id`, `comm_id`, `order_status`, `order_time`, `complete_time`) VALUES
-(1, 12, '時尚衣裝', 7500, 1, NULL, '已完成', '2021-08-28 20:19:07', '2021-08-29 20:18:05');
+(1, 12, '時尚衣裝', 7500, 1, NULL, '已完成', '2021-08-28 20:19:07', '2021-08-29 20:18:05'),
+(5, 10, '時尚衣裝', 860, 1, NULL, '已完成', '2021-08-31 14:38:33', NULL),
+(6, 7, '3C家電', 7500, 1, NULL, '已完成', '2021-08-31 18:40:47', NULL),
+(7, 12, '時尚衣裝', 860, 1, NULL, '已完成', '2021-08-31 20:24:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -107,12 +110,14 @@ CREATE TABLE `product` (
 INSERT INTO `product` (`product_id`, `product_name`, `seller_id`, `seller_name`, `seller_img`, `category_id`, `product_content`, `product_trade`, `product_condition`, `product_price`, `product_img_a`, `product_img_b`, `product_img_c`, `product_status`, `create_time`, `update_time`) VALUES
 (5, '更新皮夾', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '時尚衣裝', '我的皮夾7-11付款、它的時尚、全新、500元', '郵寄及宅配', '幾乎全新', 500, 'https://media.karousell.com/media/photos/products/2021/8/26/rodelo_1629975865_7fd484ba_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/26/rodelo_1629975864_31bd2049_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/26/rodelo_1629975864_75ab657b_progressive.jpg', -1, '2021-08-22 00:00:00', '2021-08-28 15:37:50'),
 (6, '刪除很多G2000 襯衫 長袖 男生 衣服', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '娛樂休閒', 'G2000 襯衫 長袖 男生 衣服', '面交', '狀況良好', 500, 'http://localhost:9090/files/3ca5ba87f01944d6865ddeaff2c29464', 'https://media.karousell.com/media/photos/products/2021/8/23/g2000_____1629719161_44f7f1f6_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/23/g2000_____1629719161_70d5fffc_progressive.jpg', -1, '2021-08-23 00:00:00', '2021-08-28 01:06:34'),
-(7, 'iPhone X 64G 銀 🔋100% 9成新', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '3C家電', '📱宇哥嚴選中古機📱\r\n\r\n📣歡迎貼換，舊機換新機\r\n📣下單前請先詢問有無現貨\r\n\r\niPhone X 64G 銀 $7500\r\n\r\n《外觀描述》\r\n✅外觀9成新\r\n✅全機功能正常\r\n✅健康度100%\r\n\r\n《配件》序號一致原盒\r\n🔺全新充電頭\r\n🔺全新充電線\r\n🔺全新9H鋼化玻璃貼\r\n🔺全新防摔空壓殼\r\n另有很多週邊配件可用優惠價格加購，歡迎詢問😉\r\n\r\n交易方式：\r\n✅雙北都可以預約面交\r\n✅可貨到付款(4%手續費自付)\r\n\r\n#iphone #iPhonex #ix #64g', '面交', '幾乎全新', 7500, 'https://media.karousell.com/media/photos/products/2021/8/24/iphone_x_64g__100_9_1629824664_23d7c83f_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/iphone_x_64g__100_9_1629824664_93a25ff4_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/iphone_x_64g__100_9_1629824664_830ece1e_progressive.jpg', 1, '2021-08-23 17:14:58', '2021-08-28 16:49:07'),
+(7, 'iPhone X 64G 銀 🔋100% 9成新', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '3C家電', '📱宇哥嚴選中古機📱\r\n\r\n📣歡迎貼換，舊機換新機\r\n📣下單前請先詢問有無現貨\r\n\r\niPhone X 64G 銀 $7500\r\n\r\n《外觀描述》\r\n✅外觀9成新\r\n✅全機功能正常\r\n✅健康度100%\r\n\r\n《配件》序號一致原盒\r\n🔺全新充電頭\r\n🔺全新充電線\r\n🔺全新9H鋼化玻璃貼\r\n🔺全新防摔空壓殼\r\n另有很多週邊配件可用優惠價格加購，歡迎詢問😉\r\n\r\n交易方式：\r\n✅雙北都可以預約面交\r\n✅可貨到付款(4%手續費自付)\r\n\r\n#iphone #iPhonex #ix #64g', '面交', '幾乎全新', 7500, 'https://media.karousell.com/media/photos/products/2021/8/24/iphone_x_64g__100_9_1629824664_23d7c83f_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/iphone_x_64g__100_9_1629824664_93a25ff4_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/iphone_x_64g__100_9_1629824664_830ece1e_progressive.jpg', 0, '2021-08-23 17:14:58', '2021-08-31 18:47:15'),
 (8, '我的包包', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '她的時尚', '我的包包800元', '7-Eleven 取貨付款', '狀況尚可', 800, 'http://localhost:9090/files/f01b4a3173e043ec9693ce6d55836496', NULL, NULL, 1, '2021-08-23 17:48:59', NULL),
 (9, 'Nike+ Jordan sticker together', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '名牌精品', '西洋棋一組\n塑膠製品\n附上說明書\n無原本的外包裝盒，用其他盒子代替', '7-Eleven 取貨付款', '幾乎全新', 210, 'https://media.karousell.com/media/photos/products/2021/8/22/9polo_ralph_lauren44t_1629661645_79bc84ad_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/nike_jordan_sticker_together_1629823928_cec7b3ae_progressive.jpg', 'https://media.karousell.com/media/photos/products/2021/8/24/nike_jordan_sticker_together_1629823928_daecfcd3_progressive.jpg', 1, '2021-08-25 00:55:41', NULL),
-(10, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '時尚衣裝', '商品定價：代購約2500-3000\r\n                                    商品尺寸：S號 版型偏大\r\n                                    肩寬48胸寬56衣長72cm\r\n                                    商品狀況：95%\r\n\r\n                                    台灣沒有發售這個配色\r\n\r\n                                    商品照片皆為本人實體拍攝\r\n                                    提供商品實體測量數據參考\r\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\r\n\r\n                                    喜歡的各位可點選本賣場首頁《追蹤》\r\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-25 20:17:25', '2021-08-30 19:44:46'),
-(12, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 20, 'RobertaColeman', 'https://randomuser.me/api/portraits/women/31.jpg', '時尚衣裝', '商品定價：代購約2500-3000\n                                    商品尺寸：S號 版型偏大\n                                    肩寬48胸寬56衣長72cm\n                                    商品狀況：95%\n                                    台灣沒有發售這個配色\n                                    商品照片皆為本人實體拍攝\n                                    提供商品實體測量數據參考\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\n                                    喜歡的各位可點選本賣場首頁《追蹤》\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://media.karousell.com/media/photos/products/2021/8/26/porter_1629975912_42f075eb_progressive.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-26 10:50:21', NULL),
-(15, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '時尚衣裝', '商品定價：代購約2500-3000\n                                    商品尺寸：S號 版型偏大\n                                    肩寬48胸寬56衣長72cm\n                                    商品狀況：95%\n                                    台灣沒有發售這個配色\n                                    商品照片皆為本人實體拍攝\n                                    提供商品實體測量數據參考\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\n                                    喜歡的各位可點選本賣場首頁《追蹤》\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-29 15:54:56', '2021-08-30 19:30:09');
+(10, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '時尚衣裝', '商品定價：代購約2500-3000\r\n                                    商品尺寸：S號 版型偏大\r\n                                    肩寬48胸寬56衣長72cm\r\n                                    商品狀況：95%\r\n\r\n                                    台灣沒有發售這個配色\r\n\r\n                                    商品照片皆為本人實體拍攝\r\n                                    提供商品實體測量數據參考\r\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\r\n\r\n                                    喜歡的各位可點選本賣場首頁《追蹤》\r\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-25 20:17:25', '2021-08-31 14:39:21'),
+(12, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 20, 'RobertaColeman', 'https://randomuser.me/api/portraits/women/31.jpg', '時尚衣裝', '商品定價：代購約2500-3000\n                                    商品尺寸：S號 版型偏大\n                                    肩寬48胸寬56衣長72cm\n                                    商品狀況：95%\n                                    台灣沒有發售這個配色\n                                    商品照片皆為本人實體拍攝\n                                    提供商品實體測量數據參考\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\n                                    喜歡的各位可點選本賣場首頁《追蹤》\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://media.karousell.com/media/photos/products/2021/8/26/porter_1629975912_42f075eb_progressive.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-26 10:50:21', '2021-08-31 20:29:59'),
+(15, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '時尚衣裝', '商品定價：代購約2500-3000\n                                    商品尺寸：S號 版型偏大\n                                    肩寬48胸寬56衣長72cm\n                                    商品狀況：95%\n                                    台灣沒有發售這個配色\n                                    商品照片皆為本人實體拍攝\n                                    提供商品實體測量數據參考\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\n                                    喜歡的各位可點選本賣場首頁《追蹤》\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-29 15:54:56', '2021-08-30 19:30:09'),
+(16, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '時尚衣裝', '商品定價：代購約2500-3000\n                                    商品尺寸：S號 版型偏大\n                                    肩寬48胸寬56衣長72cm\n                                    商品狀況：95%\n                                    台灣沒有發售這個配色\n                                    商品照片皆為本人實體拍攝\n                                    提供商品實體測量數據參考\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\n                                    喜歡的各位可點選本賣場首頁《追蹤》\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-31 18:41:49', '2021-08-31 18:43:31'),
+(17, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 1, 'mianhuuu', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '時尚衣裝', '商品定價：代購約2500-3000\n                                    商品尺寸：S號 版型偏大\n                                    肩寬48胸寬56衣長72cm\n                                    商品狀況：95%\n                                    台灣沒有發售這個配色\n                                    商品照片皆為本人實體拍攝\n                                    提供商品實體測量數據參考\n                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️\n                                    喜歡的各位可點選本賣場首頁《追蹤》\n                                    才不會遺漏最新上架的商品', '郵寄及宅配', '全新', 860, 'http://localhost:9090/files/176eac5bbb02405684b876da8b36e80a', 'https://upload.cc/i1/2021/08/13/V7zYiM.jpg', 'https://upload.cc/i1/2021/08/13/gWvoPQ.jpg', 1, '2021-08-31 20:26:47', '2021-08-31 20:30:02');
 
 -- --------------------------------------------------------
 
@@ -135,7 +140,10 @@ CREATE TABLE `report` (
 --
 
 INSERT INTO `report` (`report_id`, `product_id`, `product_name`, `product_img_a`, `report_reason`, `report_status`, `report_time`) VALUES
-(1, 10, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', '仿冒品', '已完成', '2021-08-30 13:08:23');
+(1, 10, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', '仿冒品', '已完成', '2021-08-30 13:08:23'),
+(2, 10, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 'https://upload.cc/i1/2021/08/13/IlYc4K.jpg', '仿冒品', '已完成', '2021-08-31 00:46:31'),
+(3, 7, 'iPhone X 64G 銀 🔋100% 9成新', 'https://media.karousell.com/media/photos/products/2021/8/24/iphone_x_64g__100_9_1629824664_23d7c83f_progressive.jpg', '可疑帳戶', '已完成', '2021-08-31 18:40:39'),
+(4, 12, '實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套', 'https://media.karousell.com/media/photos/products/2021/8/26/porter_1629975912_42f075eb_progressive.jpg', '仿冒品', '已完成', '2021-08-31 20:24:50');
 
 -- --------------------------------------------------------
 
@@ -162,10 +170,11 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`user_id`, `user_account`, `password`, `user_img`, `user_name`, `user_email`, `user_address`, `user_introduce`, `register_time`, `login_time`, `role`) VALUES
-(1, 'admin', 'admin', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '管理员', 'kim.pierce@example.com', '中彰投', '', '2021-08-01 14:41:58', '2021-08-28 15:17:15', 1),
-(13, 'zhang', '123', 'https://randomuser.me/api/portraits/women/47.jpg', 'Neil Perry', 'vera.holmes@example.com', '中彰投', '', '2021-08-03 14:42:07', NULL, 2),
+(1, 'admin', 'admin', 'https://media.karousell.com/media/photos/profiles/2020/04/04/mianhuuu_1585929644.jpg', '管理员', 'kim.pierce@example.com', '中彰投', '', '2021-08-01 14:41:58', '2021-09-01 03:14:35', 1),
+(13, 'zhang', '123', 'https://randomuser.me/api/portraits/women/47.jpg', 'Neil Perry', 'vera.holmes@example.com', '中彰投', '', '2021-08-03 14:42:07', '2021-09-01 03:14:58', 2),
 (17, '頁碼', '123456', 'https://randomuser.me/api/portraits/men/28.jpg', 'Ann Medina', 'alexa.schmidt@example.com', '中彰投', '', '2021-08-09 14:42:10', NULL, 2),
-(20, 'Roberta Coleman', '123', 'https://randomuser.me/api/portraits/women/31.jpg', 'Roberta Coleman', 'neil.perry@example.com', '中彰投', '', '2021-08-15 14:42:12', NULL, 2);
+(20, 'Roberta Coleman', '123', 'https://randomuser.me/api/portraits/women/31.jpg', 'Roberta Coleman', 'neil.perry@example.com', '中彰投', '', '2021-08-15 14:42:12', NULL, 0),
+(22, 'kimn', '123456', 'https://upload.cc/i1/2021/08/13/yW9b3E.png', NULL, 'a9523023650@gmail.com', '中彰投', NULL, '2021-09-01 04:02:07', '2021-09-01 04:32:19', 2);
 
 --
 -- 已傾印資料表的索引
@@ -215,25 +224,25 @@ ALTER TABLE `comm`
 -- 使用資料表自動遞增(AUTO_INCREMENT) `ordertable`
 --
 ALTER TABLE `ordertable`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '訂單_id', AUTO_INCREMENT=3;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '訂單_id', AUTO_INCREMENT=8;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `product`
 --
 ALTER TABLE `product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品_主鍵', AUTO_INCREMENT=16;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '商品_主鍵', AUTO_INCREMENT=18;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `report`
 --
 ALTER TABLE `report`
-  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '訂單_編號', AUTO_INCREMENT=2;
+  MODIFY `report_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '訂單_編號', AUTO_INCREMENT=5;
 
 --
 -- 使用資料表自動遞增(AUTO_INCREMENT) `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID', AUTO_INCREMENT=21;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID', AUTO_INCREMENT=23;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

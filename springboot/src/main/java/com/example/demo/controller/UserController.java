@@ -45,13 +45,20 @@ public class UserController {
     public Result<?> login(@RequestBody User user) {
         User res = userMapper.selectOne(
                 Wrappers.<User>lambdaQuery()
+                        .eq(User::getUserAccount, user.getUserAccount()));
+        if (res == null) {
+            return Result.error("-1", "使用者名稱不存在");
+        }
+        res = userMapper.selectOne(
+                Wrappers.<User>lambdaQuery()
                         .eq(User::getUserAccount, user.getUserAccount())
                         .eq(User::getPassword, user.getPassword()));
         if (res == null) {
-            return Result.error("-1", "用戶名或密碼錯誤");
+            return Result.error("-1", "密碼錯誤");
         }
-        user.setLoginTime(new Date());
-        userMapper.insert(user);
+
+        res.setLoginTime(new Date());
+        userMapper.updateById(res);
         return Result.success(res);
     }
 
@@ -62,7 +69,7 @@ public class UserController {
                 Wrappers.<User>lambdaQuery()
                         .eq(User::getUserAccount, user.getUserAccount()));
         if (res != null) {
-            return Result.error("-1", "用戶名重複");
+            return Result.error("-1", "使用者名稱重複");
         }
         if (user.getPassword() == null) {
             user.setPassword("123456");
@@ -71,6 +78,20 @@ public class UserController {
         userMapper.insert(user);
         return Result.success();
     }
+
+    // 檢查
+    @PostMapping("/check")
+    public Result<?> check(@RequestBody User user) {
+        User res = userMapper.selectOne(
+                Wrappers.<User>lambdaQuery()
+                        .eq(User::getUserAccount, user.getUserAccount()));
+        if (res != null) {
+            return Result.error("-1", "使用者名稱重複");
+        }
+        return Result.success();
+    }
+
+
 
     // 修改
     @PutMapping
