@@ -14,53 +14,77 @@
 </head>
 
 <body>
-	<header class="bg-secondary text-white">
-		<div class="container">
-			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-				<!--LOGO-->
-				<a class="navbar-brand" href="home.html">
-					<img class="bi me-2" src="images/icon_1.png" alt="hopsellIcon" width="30" height="30">
-				</a>
-				<!--商品分類-->
-				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="#" class="nav-link px-2 text-white">時尚衣裝</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">精品配件</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">3C家電</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">書籍雜誌</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">娛樂休閒</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">居家生活</a></li>
-				</ul>
-				<!--登出按鈕-->
-				<div class="text-end">
-					<a href="home.html" type="button" class="btn btn-secondary ">登出</a>
-					<a href="register.html" type="button" class="btn btn-secondary">註冊</a>
-				</div>
-			</div>
-		</div>
-	</header>
-	<!-- 搜尋列 -->
-	<div class="navbar ">
-		<div class="container">
-			<!--LOGO-->
-			<a href="home.html"><img src="https://upload.cc/i1/2021/08/13/xDSmVg.png" alt="hopsellIcon" height="32"></a>
-			<!--搜尋-->
-			<div>
-				<div class="container-fluid">
-					<form class="d-flex">
-						<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search">
-						<button class="bi bi-search bg-white border-0" type="submit"></button>
-					</form>
-				</div>
-			</div>
-			<div class="d-flex">
-				<a href="user_add.html" class="btn fw-bold btn-danger px-4 me-2">出售</a>
-			</div>
-		</div>
-	</div>
-
-
-	<!-- 內容 -->
 	<div id="product">
+		<header class="bg-secondary text-white">
+			<div class="container">
+				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+					<!--LOGO-->
+					<a class="navbar-brand" href="home.html">
+						<img class="bi me-2" src="images/icon_1.png" alt="hopsellIcon" width="30" height="30">
+					</a>
+					<!--商品分類-->
+					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+						<li><a href="#" class="nav-link px-2 text-white">時尚衣裝</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">精品配件</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">3C家電</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">書籍雜誌</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">娛樂休閒</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">居家生活</a></li>
+					</ul>
+					<!-- 登出按鈕 -->
+					<div class="text-end" v-if="userData.userId != null">
+						<i href="" class="">
+							<el-image class="rounded-circle" :src="userData.userImg" alt="Icon"
+								style="height: 30px;height: 30px; top: 9px; right: 5px;">
+							</el-image>
+						</i>
+						<span class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+								data-bs-toggle="dropdown" aria-expanded="false">
+								{{userData.userAccount}}
+							</button>
+							<ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
+								<li><a class="dropdown-item" href="user_settings.html"><i class="bi bi-gear pe-2"></i>用戶設定</a>
+								</li>
+								<li><button class="dropdown-item" type="button" @click="logout">
+										<i class="bi bi-box-arrow-right pe-2"></i>登出</button>
+								</li>
+							</ul>
+						</span>
+						<a type="button" class="btn btn-secondary bi bi-shop" @click="toUserStore"></a>
+						<a href="user_favorite.html" class="btn btn-secondary"><i class="bi bi-heart"></i></a>
+					</div>
+
+					<!--登入按鈕-->
+					<div class="text-end" v-else>
+						<a href="login.html" type="button" class="btn btn-secondary ">登入</a>
+						<a href="register.html" type="button" class="btn btn-secondary">註冊</a>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- 搜尋列 -->
+		<div class="navbar ">
+			<div class="container">
+				<!--LOGO-->
+				<a href="home.html"><img src="https://upload.cc/i1/2021/08/13/xDSmVg.png" alt="hopsellIcon" height="32"></a>
+				<!--搜尋-->
+				<div>
+					<div class="container-fluid">
+						<form class="d-flex">
+							<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search">
+							<button class="bi bi-search bg-white border-0" type="submit"></button>
+						</form>
+					</div>
+				</div>
+				<div class="d-flex">
+					<a href="user_add.html" class="btn fw-bold btn-danger px-4 me-2">出售</a>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- 內容 -->
 		<div class="container pt-4">
 			<div class="row align-items-center">
 				<div class="col-md-3">
@@ -82,13 +106,14 @@
 						<div class="m-3 d-flex align-items-start">
 							<el-image class="rounded-circle mr-2" :src="item.sellerImg" style="height: 40px; width: 40px;"
 								fit="cover"></el-image>
-							<div class="flex-column">
+							<div type="button" class="flex-column" @click="toSellerStore(item.sellerId)">
 								<span class="m-3">@{{item.sellerName}}</span><br>
 								<span class="m-3">{{item.createTime}}</span>
 							</div>
 						</div>
 						<!-- 卡片圖 -->
-						<el-image class="card-img-top mx-auto" :src="item.productImgA" fit="cover" style="height: 300px;width: 300px;">
+						<el-image class="card-img-top mx-auto" :src="item.productImgA" fit="cover"
+							style="height: 300px;width: 300px;">
 						</el-image>
 						<!-- 卡片尾 -->
 						<div class="card-body">
@@ -179,6 +204,7 @@
 			data() {
 				return {
 					favoriteList: [],
+					userData: [],
 				}
 			},
 			methods: {
@@ -208,17 +234,48 @@
 				toProduct(item) {
 					console.log(item.productId)
 					sessionStorage.setItem('詳情', item.productId)
+					sessionStorage.setItem("sellerId", item.sellerId)
 					window.location.href = "product_detail.html"
+				},
+				// 商品賣場跳轉
+				toSellerStore(id) {
+					sessionStorage.setItem('store', id)
+					window.location.href = "user_store.html"
+				},
+				// 登出
+				logout() {
+					this.userData = [];
+					window.location.href = "home.html"
+				},
+				// 出售跳轉
+				toUserAdd() {
+					if (this.userData.userId != null) {
+						window.location.href = "user_add.html"
+						return;
+					}
+					Swal.fire('請先登入', '', 'info')
+				},
+				// 用戶賣場跳轉
+				toUserStore() {
+					sessionStorage.setItem('store', this.userData.userId);
+					window.location.href = "user_store.html"
 				},
 			},
 			mounted() {
 				this.favoriteList = JSON.parse(localStorage.getItem('最愛清單')) || [];
+				this.userData = JSON.parse(sessionStorage.getItem('user')) || [];
 			},
 			// 監聽 favoriteList
 			watch: {
 				favoriteList: {
 					handler() {
 						localStorage.setItem('最愛清單', JSON.stringify(this.favoriteList));
+					},
+					deep: true,
+				},
+				userData: {
+					handler() {
+						sessionStorage.setItem('user', JSON.stringify(this.userData));
 					},
 					deep: true,
 				}

@@ -43,12 +43,21 @@ public class UserController {
     // 登入
     @PostMapping("/login")
     public Result<?> login(@RequestBody User user) {
+        User resRole = userMapper.selectOne(
+                Wrappers.<User>lambdaQuery()
+                        .eq(User::getUserAccount, user.getUserAccount())
+                        .like(User::getRole, 0));
+        if (resRole != null) {
+            return Result.error("-1", "使用者被停權");
+        }
+
         User res = userMapper.selectOne(
                 Wrappers.<User>lambdaQuery()
                         .eq(User::getUserAccount, user.getUserAccount()));
         if (res == null) {
             return Result.error("-1", "使用者名稱不存在");
         }
+
         res = userMapper.selectOne(
                 Wrappers.<User>lambdaQuery()
                         .eq(User::getUserAccount, user.getUserAccount())
@@ -56,6 +65,7 @@ public class UserController {
         if (res == null) {
             return Result.error("-1", "密碼錯誤");
         }
+
 
         res.setLoginTime(new Date());
         userMapper.updateById(res);
