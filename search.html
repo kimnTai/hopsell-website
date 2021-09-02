@@ -25,12 +25,12 @@
 					</a>
 					<!--商品分類-->
 					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-						<li><a href="#" class="nav-link px-2 text-white">時尚衣裝</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">精品配件</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">3C家電</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">書籍雜誌</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">娛樂休閒</a></li>
-						<li><a href="#" class="nav-link px-2 text-white">居家生活</a></li>
+						<li><a href="#" @click="categoryId = '時尚衣裝'" class="nav-link px-2 text-white">時尚衣裝</a></li>
+						<li><a href="#" @click="categoryId = '精品配件'" class="nav-link px-2 text-white">精品配件</a></li>
+						<li><a href="#" @click="categoryId = '3C家電'" class="nav-link px-2 text-white">3C家電</a></li>
+						<li><a href="#" @click="categoryId = '書籍雜誌'" class="nav-link px-2 text-white">書籍雜誌</a></li>
+						<li><a href="#" @click="categoryId = '娛樂休閒'" class="nav-link px-2 text-white">娛樂休閒</a></li>
+						<li><a href="#" @click="categoryId = '居家生活'" class="nav-link px-2 text-white">居家生活</a></li>
 					</ul>
 					<!-- 登出按鈕 -->
 					<div class="text-end" v-if="userData.userId != null">
@@ -73,7 +73,7 @@
 				<div>
 					<div class="container-fluid">
 						<div class="d-flex">
-							<input v-model="form.search" @keyup.enter="searchLoad" class="form-control" placeholder="搜尋商品"
+							<input v-model="form.search" @keyup.enter="searchLoad" class="form-control" placeholder="搜尋商品、賣家"
 								style="width: 30rem;">
 							<button class="bi bi-search bg-white border-0 ms-1" @click="searchLoad"></button>
 						</div>
@@ -86,7 +86,6 @@
 		</div>
 
 		<!--網頁內容-->
-
 		<div class="container">
 			<div class="d-flex ">
 				<h4 class="p-3"><b>"{{form.search}}"的搜尋結果</b></h4>
@@ -96,8 +95,8 @@
 				<div class="col-md-3" style="max-width: 280px;">
 					<p class="fs-6 fw-bolder">篩選</p>
 					<!-- 搜尋分類 -->
-					<select class="form-select my-3 py-2">
-						<option selected>搜尋分類</option>
+					<select v-model="categoryId" class="form-select my-3 py-2">
+						<option selected>所有分類</option>
 						<option>時尚衣裝</option>
 						<option>精品配件</option>
 						<option>3C家電</option>
@@ -105,43 +104,28 @@
 						<option>娛樂休閒</option>
 						<option>居家生活</option>
 					</select>
-					<!-- 搜尋地區 -->
-					<div class="input-group mb-3">
-						<label class="input-group-text" for="inputGroupSelect01"><i class="bi bi-geo-alt"></i></label>
-						<select class="form-select" id="inputGroupSelect01">
-							<option selected>搜尋地區</option>
-							<option value="中彰投">中彰投</option>
-							<option value="北北基">北北基</option>
-							<option value="外島">外島</option>
-							<option value="宜花東">宜花東</option>
-							<option value="桃竹苗">桃竹苗</option>
-							<option value="雲嘉南">雲嘉南</option>
-							<option value="高屏">高屏</option>
-						</select>
-					</div>
-					<!-- 分隔線 -->
-					<hr class="text-muted">
-					<!-- 最佳匹配 -->
-					<select class="form-select my-3 py-2">
-						<option selected>最佳匹配</option>
-						<option>近期</option>
-						<option>價位-高至低</option>
-						<option>價位-低至高</option>
-					</select>
 					<!-- 分隔線 -->
 					<hr class="text-muted">
 					<p class="fs-6 fw-light py-1">商品狀況</p>
-					<p class="fs-6 fw-normal">新舊程度</p>
-					<!-- 選項按鈕 -->
+					<!-- 新舊程度 -->
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input v-model="productCondition" value="新舊程度" class="form-check-input" type="radio"
+							id="exampleRadios1" name="flexRadioDefault" checked>
+						<label class="form-check-label" for="exampleRadios1">
+							不拘
+						</label>
+					</div>
+					<div class="form-check">
+						<input v-model="productCondition" value="新品" class="form-check-input" type="radio" id="exampleRadios2"
+							name="flexRadioDefault">
+						<label class="form-check-label" for="exampleRadios2">
 							新品
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="">
-						<label class="form-check-label" for="flexCheckChecked">
+						<input v-model="productCondition" value="二手" class="form-check-input" type="radio" id="exampleRadios3"
+							name="flexRadioDefault">
+						<label class="form-check-label" for="exampleRadios3">
 							二手
 						</label>
 					</div>
@@ -151,33 +135,34 @@
 					<div class="row">
 						<div class="col-sm-2 col-form-label">NT$</div>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" placeholder="最低">
+							<input v-model="minPrice" type="number" class="form-control" placeholder="最低">
 						</div>
 					</div>
 					<div class="row pt-3">
 						<div class="col-sm-2 col-form-label">NT$</div>
 						<div class="col-sm-10">
-							<input type="text" class="form-control" placeholder="最高">
+							<input v-model="maxPrice" type="number" class="form-control" placeholder="最高">
 						</div>
 					</div>
 					<!-- 分隔線 -->
 					<hr class="text-muted">
 					<p class="fs-6 fw-normal">交易方式</p>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input v-model="productTrade" class="form-check-input" type="checkbox" value="7-Eleven 取貨付款"
+							id="flexCheck-1">
+						<label class="form-check-label" for="flexCheck-1">
 							7-Eleven 取貨付款
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input v-model="productTrade" class="form-check-input" type="checkbox" value="面交" id="flexCheck-2">
+						<label class="form-check-label" for="flexCheck-2">
 							面交
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="">
-						<label class="form-check-label" for="flexCheckDefault">
+						<input v-model="productTrade" class="form-check-input" type="checkbox" value="郵寄及宅配" id="flexCheck-3">
+						<label class="form-check-label" for="flexCheck-3">
 							郵寄及宅配
 						</label>
 					</div>
@@ -187,10 +172,10 @@
 
 				<!------------- 右側卡片 商品項目 ------------->
 
-				<div class="col-md-9 border border-muted rounded-3">
+				<div class="col-md-9 border border-muted rounded-3" style="min-height: 850px;">
 					<div class="row py-3">
-						<!-- v-for -->
-						<div v-for="item in storeList" class="col-md-3 mb-3">
+						<!-------------- v-for ------------->
+						<div v-for="item in filterTrade" class="col-md-3 mb-3">
 							<div class="card pt-1">
 								<div class="card-title d-flex ">
 									<el-image class="rounded-circle m-2" :src="item.sellerImg"
@@ -293,6 +278,11 @@
 					baseUrl: 'http://localhost:9090',
 					storeList: [],
 					userData: [],
+					categoryId: '所有分類',
+					productCondition: '新舊程度',
+					minPrice: '',
+					maxPrice: '',
+					productTrade: [],
 					form: {},
 				};
 			},
@@ -302,7 +292,8 @@
 					axios.get(`${this.baseUrl}/product/shelf`, {
 						params: this.form
 					}).then(res => {
-						this.storeList = res.data.data;
+						this.storeList = res.data.data.reverse();
+						this.categoryId = '所有分類'
 					})
 				},
 				// 商品詳情跳轉
@@ -351,10 +342,56 @@
 					sessionStorage.setItem('store', this.userData.userId);
 					window.location.href = "user_store.html"
 				}
-
 			},
+
+			computed: {
+				// 1.商品種類
+				filterCategoryId() {
+					switch (this.categoryId) {
+						default: return this.storeList;
+						case '時尚衣裝': return this.storeList.filter(item => item.categoryId == this.categoryId);
+						case '精品配件': return this.storeList.filter(item => item.categoryId == this.categoryId);
+						case '3C家電': return this.storeList.filter(item => item.categoryId == this.categoryId);
+						case '書籍雜誌': return this.storeList.filter(item => item.categoryId == this.categoryId);
+						case '娛樂休閒': return this.storeList.filter(item => item.categoryId == this.categoryId);
+						case '居家生活': return this.storeList.filter(item => item.categoryId == this.categoryId);
+					};
+				},
+				// 2.新舊程度
+				filterCondition() {
+					switch (this.productCondition) {
+						default: return this.filterCategoryId;
+						case '新品': return this.filterCategoryId.filter(item => item.productCondition == "全新" || item.productCondition == "幾乎全新")
+						case '二手': return this.filterCategoryId.filter(item => item.productCondition == "狀況尚可" || item.productCondition == "狀況良好")
+					}
+				},
+				// 3. 價位高低
+				filterPrice() {
+					switch (true) {
+						default: return this.filterCondition;
+						case this.minPrice > 0 && this.maxPrice > 0:
+							return this.filterCondition.filter(item => item.productPrice >= this.minPrice && item.productPrice <= this.maxPrice);
+						case this.maxPrice > 0: return this.filterCondition.filter(item => item.productPrice < this.maxPrice);
+						case this.minPrice > 0: return this.filterCondition.filter(item => item.productPrice > this.minPrice);
+					}
+				},
+				// 4.交易方式
+				filterTrade() {
+					switch (true) {
+						default: return this.filterPrice;
+						case this.productTrade.length == 2:
+							return this.filterPrice.filter(item => item.productTrade == '面交' || item.productTrade == '7-Eleven 取貨付款')
+						case this.productTrade.length == 3: return this.filterPrice;
+						case this.productTrade == '面交': return this.filterPrice.filter(item => item.productTrade == '面交')
+						case this.productTrade == '郵寄及宅配': return this.filterPrice.filter(item => item.productTrade == '郵寄及宅配')
+						case this.productTrade == '7-Eleven 取貨付款': return this.filterPrice.filter(item => item.productTrade == '7-Eleven 取貨付款')
+					}
+				}
+			},
+
+
 			mounted() {
-				this.form.search = sessionStorage.getItem('search') || {};
+				this.form.search = sessionStorage.getItem('search') || '';
 				this.searchLoad();
 				this.favoriteList = JSON.parse(localStorage.getItem('最愛清單')) || [];
 				this.userData = JSON.parse(sessionStorage.getItem('user')) || [];
@@ -373,7 +410,7 @@
 					},
 					deep: true,
 				},
-				form:{
+				form: {
 					handler() {
 						sessionStorage.setItem('search', this.form.search);
 					},

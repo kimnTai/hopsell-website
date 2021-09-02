@@ -226,8 +226,9 @@
           baseUrl: 'http://localhost:9090',
           storeList: [],
           userData: [],
-          sellerId: '',
           favoriteList: [],
+          sellerId: '',
+          search: '',
         };
       },
       methods: {
@@ -235,8 +236,8 @@
         storeLoad() {
           axios.get(`${this.baseUrl}/product/all`).then(res => {
             // 過濾 刪除 & 下架
-            const arr = res.data.data.filter(item => item.productStatus == 1)
-            this.storeList = arr;
+            const arr = res.data.data.filter(item => item.productStatus == 1);
+            this.storeList = arr.reverse().splice(0, 8);
           }).catch(err => console.log(err));
         },
         // 商品詳情跳轉
@@ -289,6 +290,10 @@
         toSearch() {
           sessionStorage.setItem('search', this.search);
           window.location.href = "search.html"
+        },
+        // 分類跳轉
+        toCategoryId() {
+
         }
 
       },

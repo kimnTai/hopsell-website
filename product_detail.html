@@ -454,7 +454,7 @@
 					axios.get(`${this.baseUrl}/product/all`).then(res => {
 						// 過濾 刪除 & 下架
 						const arr = res.data.data.filter(item => item.productStatus == 1)
-						this.storeList = arr;
+						this.storeList = arr.reverse().splice(0, 8);
 					}).catch(err => console.log(err));
 				},
 				// 商品賣場跳轉

@@ -130,7 +130,7 @@
 					<hr class="d-block d-md-none my-6 my-md-0">
 					<h2 class="h4 fw-bold mb-4 mb-md-6">商品內容</h2>
 					<!--form-->
-					<form novalidate="">
+					<div novalidate="">
 						<div class="mb-3">
 							<label for="" class="form-label  h6 text-secondary">選擇交易方式<span class="text-danger ms-1">*</span>
 							</label>
@@ -199,7 +199,7 @@
 							</div>
 							<button type="button" class="btn btn-secondary" @click="addProduct">立即刊登</button>
 						</div>
-					</form>
+					</div>
 				</div>
 				<!-------------------- END APP----------------------->
 			</div>
@@ -278,6 +278,7 @@
 					form: {},
 					baseUrl: 'http://localhost:9090/product',
 					userData: [],
+					search: '',
 				}
 			},
 			methods: {
