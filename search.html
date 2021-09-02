@@ -13,10 +13,10 @@
 	<title>搜尋</title>
 </head>
 
-<body>
-	<!-- 導覽列 -->
+<body class="mt-5">
 	<div id="shopitem">
-		<header class="bg-secondary text-white">
+		<!-- 導覽列 -->
+		<header class="bg-secondary text-white fixed-top">
 			<div class="container">
 				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
 					<!--LOGO-->
@@ -45,8 +45,10 @@
 								{{userData.userAccount}}
 							</button>
 							<ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
-								<li><a class="dropdown-item" href="user_settings.html"><i class="bi bi-gear pe-2"></i>用戶設定</a></li>
-								<li><a class="dropdown-item" href="" @click="logout"><i class="bi bi-box-arrow-right pe-2"></i>登出</a>
+								<li><a class="dropdown-item" href="user_settings.html"><i class="bi bi-gear pe-2"></i>用戶設定</a>
+								</li>
+								<li><a class="dropdown-item" href="" @click="logout"><i
+											class="bi bi-box-arrow-right pe-2"></i>登出</a>
 								</li>
 							</ul>
 						</span>
@@ -71,13 +73,14 @@
 				<div>
 					<div class="container-fluid">
 						<form class="d-flex">
-							<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search">
-							<button class="bi bi-search bg-white border-0" type="submit"></button>
+							<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search"
+								style="width: 30rem;">
+							<button class="bi bi-search bg-white border-0 ms-1" type="submit"></button>
 						</form>
 					</div>
 				</div>
 				<div class="d-flex">
-					<a href="user_add.html" class="btn fw-bold btn-danger px-4 me-2">出售</a>
+					<a class="btn fw-bold btn-danger px-4 me-2" @click="toUserAdd">出售</a>
 				</div>
 			</div>
 		</div>
@@ -85,15 +88,15 @@
 		<!--網頁內容-->
 
 		<div class="container">
-			<h4 class="py-5"><b>""的搜尋結果</b></h4>
+			<div class="d-flex ">
+				<h4 class="p-3"><b>""的搜尋結果</b></h4>
+			</div>
 			<div class="row">
-
-				<!--左側表單-->
-
-				<div class="col-md-3">
+				<!-------------左側表單------------->
+				<div class="col-md-3" style="max-width: 280px;">
 					<p class="fs-6 fw-bolder">篩選</p>
 					<!-- 搜尋分類 -->
-					<select class="form-select my-3 py-3" aria-label="Default select example">
+					<select class="form-select my-3 py-2" aria-label="Default select example">
 						<option selected>搜尋分類</option>
 						<option>時尚衣裝</option>
 						<option>精品配件</option>
@@ -175,47 +178,52 @@
 					<div class="form-check">
 						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
 						<label class="form-check-label" for="flexCheckDefault">
-							賣家自行配送
+							郵寄及宅配
 						</label>
 					</div>
 
 
 				</div>
 
-				<!-- 右側卡片 商品項目 -->
+				<!------------- 右側卡片 商品項目 ------------->
 
 				<div class="col-md-9 border border-muted rounded-3">
-					<div class="row">
-						<div class="col-lg-3 col-md-6 p-0" v-for="item in storeList">
-							<!-- 卡片內容 -->
-							<!-- 卡片頭 -->
-							<div class="card">
-								<div class="m-3 d-flex">
-									<el-image class="rounded-circle mr-2 " :src="item.sellerImg" style="height: 40px; width: 40px;"
-										fit="cover"></el-image>
-									<div class="flex-column">
-										<span class="m-3">@{{item.sellerName}}</span><br>
-										<span class="m-3">{{item.createTime}}</span>
+					<div class="row py-3">
+						<!-- v-for -->
+						<div v-for="item in storeList" class="col-md-3 mb-3">
+							<div class="card pt-1">
+								<div class="card-title d-flex ">
+									<el-image class="rounded-circle m-2" :src="item.sellerImg"
+										style="height: 32px; min-width: 32px;" fit="cover"></el-image>
+									<div type="button" class="flex-column" @click="toSellerStore(item.sellerId)">
+										<span class="">@{{item.sellerName}}</span><br>
+										<span class="p-2">{{item.createTime}}</span>
 									</div>
 								</div>
-								<!-- 卡片圖 -->
-								<el-image class="card-img-top mx-auto" :src="item.productImgA" fit="cover"
-									style="height: 240px;width: 240px;">
-								</el-image>
-								<!-- 卡片尾 -->
-								<div class="card-body p-3">
-									<h4 class="card-title text-truncate">{{item.productName}}</h4>
-									<p class="card-text">{{item.productTrade}}</p>
-									<h5 class="fw-bold text-danger">NT${{item.productPrice}}</h5>
-									<h6>{{item.productCondition}}</h6>
+								<div>
+									<el-image class="card-img-top img-thumbnail-like px-1" :src="item.productImgA" fit="cover">
+									</el-image>
+								</div>
+								<div class="card-block">
+									<div class="px-2">
+										<p class="card-text fs-6 text-truncate">
+											{{item.productName}}
+										</p>
+									</div>
+									<div class="px-2 d-flex flex-column mb-2">
+										<div>
+											<p class="card-text fs-5 fw-bold text-danger">NT${{item.productPrice}}</p>
+										</div>
+										<p class="card-text">{{item.productCondition}}</p>
+									</div>
 									<div class="d-flex justify-content-between">
-										<!-- 愛心 -->
-										<i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm bi "
-											:class="item.like ? 'bg-white text-danger bi-heart-fill':'bi-heart' "></i>
-										<a @click="toProduct(item)" type="button" class="btn bg-white btn-sm bi bi-search">
+										<i @click="addFavorite(item)" type="button" class="btn rounded-pill bi btn-sm"
+											:class="item.like ? 'bg-white text-danger bi-heart-fill':'bi-heart' ">
+										</i>
+										<a href="#top" @click="toProduct(item)" type="button"
+											class="btn bg-white btn-sm bi bi bi-search">
 											詳情</a>
 									</div>
-
 								</div>
 							</div>
 						</div>
@@ -284,21 +292,28 @@
 				return {
 					baseUrl: 'http://localhost:9090',
 					storeList: [],
-					people: [
-						{
-							account: 'ac1',
-							accImg: 'https://picsum.photos/40/40',
-							itemImg: 'https://picsum.photos/300/250',
-							itemTitle: '毛毛球',
-							itemDis: '毛線球',
-							price: 350,
-							status: '全新'
-						},
-					],
 					userData: [],
 				};
 			},
 			methods: {
+				// 讀取商品資料
+				storeLoad() {
+					axios.get(`${this.baseUrl}/product/all`).then(res => {
+						// 過濾 刪除 & 下架
+						const arr = res.data.data.filter(item => item.productStatus == 1)
+						this.storeList = arr;
+					}).catch(err => console.log(err));
+				},
+				// 商品詳情跳轉
+				toProduct(item) {
+					sessionStorage.setItem('詳情', item.productId)
+					window.location.href = "product_detail.html"
+				},
+				// 商品賣場跳轉
+				toSellerStore(id) {
+					sessionStorage.setItem('store', id)
+					window.location.href = "user_store.html"
+				},
 				// 加入最愛
 				addFavorite(item) {
 					// 先看清單中 是否有該商品
@@ -317,27 +332,22 @@
 						timer: 1500
 					})
 				},
-				// 讀取商品資料
-				storeLoad() {
-					axios.get(`${this.baseUrl}/product`, {
-						params: {
-							sellerId: this.sellerId
-						}
-					}).then(res => {
-						// 過濾 刪除 & 下架
-						const arr = res.data.data.records.filter(item => item.productStatus == 1)
-						this.storeList = arr;
-					}).catch(err => console.log(err));
-				},
-				// 商品詳情跳轉
-				toProduct(item) {
-					sessionStorage.setItem('詳情', item.productId)
-					window.location.href = "product_detail.html"
-				},
-				// 登出
+				// 使用者登出
 				logout() {
 					this.userData = [];
 					window.location.href = "home.html"
+				},// 出售跳轉
+				toUserAdd() {
+					if (this.userData.userId != null) {
+						window.location.href = "user_add.html"
+						return;
+					}
+					Swal.fire('請先登入', '', 'info')
+				},
+				// 用戶賣場跳轉
+				toUserStore() {
+					sessionStorage.setItem('store', this.userData.userId);
+					window.location.href = "user_store.html"
 				}
 
 			},
