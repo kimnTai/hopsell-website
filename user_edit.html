@@ -72,10 +72,11 @@
 				<!--搜尋-->
 				<div>
 					<div class="container-fluid">
-						<form class="d-flex">
-							<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search" style="width: 30rem;">
-							<button class="bi bi-search bg-white border-0 ms-1" type="submit"></button>
-						</form>
+						<div class="d-flex">
+							<input v-model="search" @keyup.enter="toSearch" class="form-control" placeholder="搜尋商品"
+								style="width: 30rem;">
+							<button @click="toSearch" class="bi bi-search bg-white border-0 ms-1"></button>
+						</div>
 					</div>
 				</div>
 				<div class="d-flex">
@@ -158,15 +159,16 @@
 						<v-form @submit="onSubmit" v-slot="{errors}" class="mb-3">
 							<label for="" class="form-label h6 text-secondary">商品名稱 <span class="text-danger ms-1">*</span>
 							</label>
-							<v-field v-model="form.productName" type="text" class="form-control" placeholder="請輸入商品名稱" name="商品名稱"
-								:rules="isRequired">
+							<v-field v-model="form.productName" type="text" class="form-control" placeholder="請輸入商品名稱"
+								name="商品名稱" :rules="isRequired">
 							</v-field>
 							<!---->
 							<error-message name="商品名稱"></error-message>
 						</v-form>
 						<h2 class="h4 fw-bold mb-4 mb-md-6">關於此商品</h2>
 						<div class="mb-3">
-							<label for="name" class="form-label h6 text-secondary"> 新舊程度 <span class="text-danger ms-1">*</span>
+							<label for="name" class="form-label h6 text-secondary"> 新舊程度 <span
+									class="text-danger ms-1">*</span>
 							</label>
 							<select v-model="form.productCondition" class="form-select" name="新舊程度">
 								<option disabled="">選擇分類</option>
@@ -181,14 +183,15 @@
 							<label for="" class="form-label h6 text-secondary">
 								價格<span class="text-danger ms-1">*</span>
 							</label>
-							<input v-model="form.productPrice" type="number" class="form-control" placeholder="NT$ 設定價位" name="價格">
+							<input v-model="form.productPrice" type="number" class="form-control" placeholder="NT$ 設定價位"
+								name="價格">
 							<!---->
 						</div>
 						<div class="mb-3 ">
 							<label for="message" class="form-label h6 text-secondary">商品描述</label>
 							<!--textarea 不能換行-->
-							<textarea v-model="form.productContent" name="" id="message" class="form-control" style="height: 200px"
-								placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
+							<textarea v-model="form.productContent" name="" id="message" class="form-control"
+								style="height: 200px" placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
 						</div>
 						<div class="text-end d-flex justify-content-end">
 							<div>
@@ -361,6 +364,11 @@
 					}
 					Swal.fire('請先登入', '', 'info')
 				},
+				// 搜尋頁面跳轉
+				toSearch() {
+					sessionStorage.setItem('search', this.search);
+					window.location.href = "search.html"
+				}
 			},
 			// 
 			mounted() {

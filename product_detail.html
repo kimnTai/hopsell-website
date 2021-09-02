@@ -73,10 +73,11 @@
 				<!--搜尋-->
 				<div>
 					<div class="container-fluid">
-						<form class="d-flex">
-							<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search" style="width: 30rem;">
-							<button class="bi bi-search bg-white border-0 ms-1" type="submit"></button>
-						</form>
+						<div class="d-flex">
+							<input v-model="search" @keyup.enter="toSearch" class="form-control" placeholder="搜尋商品"
+								style="width: 30rem;">
+							<button @click="toSearch" class="bi bi-search bg-white border-0 ms-1"></button>
+						</div>
 					</div>
 				</div>
 				<div class="d-flex">
@@ -135,7 +136,13 @@
 							<div style="min-height: 200px;">
 								<h3>賣家評價</h3>
 								<hr class="bg-dark border-4 border-top border-dark">
-								<table class="table table-hover table-borderless">
+								<div v-if="commList.length == 0" class="row">
+									<div class="col d-flex flex-column mt-3">
+										<p class="fs-5 fw-bold text-center">目前沒有評價喔!</p>
+										<p class="fs-6 text-center">找到你的想要賣的商品，開始建立你的拍賣清單吧！</p>
+									</div>
+								</div>
+								<table v-else class="table table-hover table-borderless">
 									<thead>
 										<tr>
 											<th width="110" scope="col">日期</th>
@@ -366,6 +373,7 @@
 					userData: [],
 					productId: '',
 					sellerId: '',
+					search: '',
 				}
 			},
 			methods: {
@@ -440,12 +448,7 @@
 							Swal.fire('失敗', '', 'info')
 						});
 					this.reportList = {}
-					// setTimeout(() => {
-					// 	window.location.href = "home.html"
-					// }, 2000)
 				},
-
-
 				// 讀取額外商品資料
 				storeLoad() {
 					axios.get(`${this.baseUrl}/product/all`).then(res => {
@@ -491,9 +494,7 @@
 					sessionStorage.setItem("詳情", item.productId)
 					sessionStorage.setItem("sellerId", item.sellerId)
 				},
-
-
-				// 登出
+				// 使用者登出
 				logout() {
 					this.userData = [];
 					window.location.href = "home.html"
@@ -510,6 +511,11 @@
 				toUserStore() {
 					sessionStorage.setItem('store', this.userData.userId);
 					window.location.href = "user_store.html"
+				},
+				// 搜尋頁面跳轉
+				toSearch() {
+					sessionStorage.setItem('search', this.search);
+					window.location.href = "search.html"
 				}
 
 			},

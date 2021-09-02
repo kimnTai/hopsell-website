@@ -71,10 +71,11 @@
 				<!--搜尋-->
 				<div>
 					<div class="container-fluid">
-						<form class="d-flex">
-							<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search" style="width: 30rem;">
-							<button class="bi bi-search bg-white border-0 ms-1" type="submit"></button>
-						</form>
+						<div class="d-flex">
+							<input v-model="search" @keyup.enter="toSearch" class="form-control" placeholder="搜尋商品"
+								style="width: 30rem;">
+							<button @click="toSearch" class="bi bi-search bg-white border-0 ms-1"></button>
+						</div>
 					</div>
 				</div>
 				<div class="d-flex">
@@ -370,6 +371,11 @@
 				toUserStore() {
 					sessionStorage.setItem('store', this.userData.userId);
 					window.location.href = "user_store.html"
+				},
+				// 搜尋頁面跳轉
+				toSearch() {
+					sessionStorage.setItem('search', this.search);
+					window.location.href = "search.html"
 				}
 			},
 			mounted() {

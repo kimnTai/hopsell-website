@@ -72,11 +72,11 @@
 				<!--搜尋-->
 				<div>
 					<div class="container-fluid">
-						<form class="d-flex">
-							<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search"
+						<div class="d-flex">
+							<input v-model="form.search" @keyup.enter="searchLoad" class="form-control" placeholder="搜尋商品"
 								style="width: 30rem;">
-							<button class="bi bi-search bg-white border-0 ms-1" type="submit"></button>
-						</form>
+							<button class="bi bi-search bg-white border-0 ms-1" @click="searchLoad"></button>
+						</div>
 					</div>
 				</div>
 				<div class="d-flex">
@@ -89,14 +89,14 @@
 
 		<div class="container">
 			<div class="d-flex ">
-				<h4 class="p-3"><b>""的搜尋結果</b></h4>
+				<h4 class="p-3"><b>"{{form.search}}"的搜尋結果</b></h4>
 			</div>
 			<div class="row">
 				<!-------------左側表單------------->
 				<div class="col-md-3" style="max-width: 280px;">
 					<p class="fs-6 fw-bolder">篩選</p>
 					<!-- 搜尋分類 -->
-					<select class="form-select my-3 py-2" aria-label="Default select example">
+					<select class="form-select my-3 py-2">
 						<option selected>搜尋分類</option>
 						<option>時尚衣裝</option>
 						<option>精品配件</option>
@@ -110,19 +110,19 @@
 						<label class="input-group-text" for="inputGroupSelect01"><i class="bi bi-geo-alt"></i></label>
 						<select class="form-select" id="inputGroupSelect01">
 							<option selected>搜尋地區</option>
-							<option value="1">中彰投</option>
-							<option value="2">北北基</option>
-							<option value="3">外島</option>
-							<option value="4">宜花東</option>
-							<option value="5">桃竹苗</option>
-							<option value="6">雲嘉南</option>
-							<option value="7">高屏</option>
+							<option value="中彰投">中彰投</option>
+							<option value="北北基">北北基</option>
+							<option value="外島">外島</option>
+							<option value="宜花東">宜花東</option>
+							<option value="桃竹苗">桃竹苗</option>
+							<option value="雲嘉南">雲嘉南</option>
+							<option value="高屏">高屏</option>
 						</select>
 					</div>
 					<!-- 分隔線 -->
 					<hr class="text-muted">
 					<!-- 最佳匹配 -->
-					<select class="form-select my-3 py-2" aria-label="Default select example">
+					<select class="form-select my-3 py-2">
 						<option selected>最佳匹配</option>
 						<option>近期</option>
 						<option>價位-高至低</option>
@@ -134,13 +134,13 @@
 					<p class="fs-6 fw-normal">新舊程度</p>
 					<!-- 選項按鈕 -->
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="">
 						<label class="form-check-label" for="flexCheckDefault">
 							新品
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
+						<input class="form-check-input" type="checkbox" value="">
 						<label class="form-check-label" for="flexCheckChecked">
 							二手
 						</label>
@@ -164,19 +164,19 @@
 					<hr class="text-muted">
 					<p class="fs-6 fw-normal">交易方式</p>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="">
 						<label class="form-check-label" for="flexCheckDefault">
 							7-Eleven 取貨付款
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="">
 						<label class="form-check-label" for="flexCheckDefault">
 							面交
 						</label>
 					</div>
 					<div class="form-check">
-						<input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+						<input class="form-check-input" type="checkbox" value="">
 						<label class="form-check-label" for="flexCheckDefault">
 							郵寄及宅配
 						</label>
@@ -293,16 +293,17 @@
 					baseUrl: 'http://localhost:9090',
 					storeList: [],
 					userData: [],
+					form: {},
 				};
 			},
 			methods: {
-				// 讀取商品資料
-				storeLoad() {
-					axios.get(`${this.baseUrl}/product/all`).then(res => {
-						// 過濾 刪除 & 下架
-						const arr = res.data.data.filter(item => item.productStatus == 1)
-						this.storeList = arr;
-					}).catch(err => console.log(err));
+				// 讀取搜尋商品資料
+				searchLoad() {
+					axios.get(`${this.baseUrl}/product/shelf`, {
+						params: this.form
+					}).then(res => {
+						this.storeList = res.data.data;
+					})
 				},
 				// 商品詳情跳轉
 				toProduct(item) {
@@ -312,6 +313,7 @@
 				// 商品賣場跳轉
 				toSellerStore(id) {
 					sessionStorage.setItem('store', id)
+					sessionStorage.setItem("sellerId", item.sellerId)
 					window.location.href = "user_store.html"
 				},
 				// 加入最愛
@@ -352,7 +354,8 @@
 
 			},
 			mounted() {
-				this.storeLoad();
+				this.form.search = sessionStorage.getItem('search') || {};
+				this.searchLoad();
 				this.favoriteList = JSON.parse(localStorage.getItem('最愛清單')) || [];
 				this.userData = JSON.parse(sessionStorage.getItem('user')) || [];
 			},
@@ -367,6 +370,12 @@
 				userData: {
 					handler() {
 						sessionStorage.setItem('user', JSON.stringify(this.userData));
+					},
+					deep: true,
+				},
+				form:{
+					handler() {
+						sessionStorage.setItem('search', this.form.search);
 					},
 					deep: true,
 				}

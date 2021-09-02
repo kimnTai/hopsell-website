@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 // 定義返回 JSON Controller
 @RestController
@@ -70,24 +71,29 @@ public class ProductController {
     }
 
 
-    /**
-     * 注意：這個方法使用的是Mybatis sql的方式做的多多表聯合查詢，大家可以點開，參考下怎麼寫多表查詢
-     * <p>
-     * //     * @param sellerId
-     * //     * @return
-     */
-//    @GetMapping("/seller/{sellerId}")
-//    public Result<?> getBysellerId(@PathVariable Integer sellerId) {
-//        QueryWrapper<Product> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("sellerId", sellerId);
-//
-//        return Result.success(queryWrapper);
-//    }
+    // 查詢上架商品
+    @GetMapping("/shelf")
+    public Result<?> findTest(@RequestParam(defaultValue = "") String search) {
+        LambdaQueryWrapper<Product> wrapper = Wrappers.<Product>lambdaQuery();
+        wrapper.eq(Product::getProductStatus, 1);
+        if (StrUtil.isNotBlank(search)) {
+            wrapper.like(Product::getProductName, search)
+                    .or().like(Product::getProductContent, search)
+                    .or().like(Product::getSellerName, search)
+                    .eq(Product::getProductStatus, 1);
+        }
+
+        List<Product> res = productMapper.selectList(wrapper);
+
+
+        return Result.success(res);
+    }
+
 
     // 分頁查詢
     @GetMapping
     public Result<?> findPage(@RequestParam(defaultValue = "1") Integer pageNum,
-                              @RequestParam(defaultValue = "10") Integer pageSize,
+                              @RequestParam(defaultValue = "20") Integer pageSize,
                               @RequestParam(defaultValue = "") String sellerId,
                               @RequestParam(defaultValue = "") String search) {
         // 查詢 用GET ，分頁查詢
@@ -98,9 +104,9 @@ public class ProductController {
             // 避免 search 是 null
         }
         if (StrUtil.isNotBlank(sellerId)) {
-            // 判斷 search 不為空
+            // 判斷 sellerId 不為空
             wrapper.eq(Product::getSellerId, sellerId);
-            // 避免 search 是 null
+            // 避免 sellerId 是 null
         }
         Page<Product> ProductPage = productMapper.selectPage(new Page<>(pageNum, pageSize), wrapper);
 
