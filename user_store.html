@@ -93,137 +93,204 @@
 
 
 		<div style="min-height: 720px;" class="container mt-3">
-			<div class="row ">
-				<div class="col-md-12">
-					<div class="row">
-						<div class="col-md-3">
-							<div class="card text-center border-light">
-								<img style="object-fit: cover;" class="card-img-top img-thumbnail p-1"
-									:src=sellerData.userImg />
-								<div class="card-block mt-2 p-2">
-									<h3 class="card-title">
-										{{sellerData.userAccount}}
-									</h3>
-									<div class="mt-3">
-										<p class="card-text">
-											<i class="bi bi-star-fill fs-4">尚無評價</i>
-										</p>
-									</div>
-									<div class="p-2">
-										<i class="bi bi-chat-dots-fill m-2 fs-5">很常回覆</i>
-										<i class="bi bi-envelope-fill m-2 fs-5">已驗證</i>
-									</div>
-									<div class="mb-3" style="min-height: 50px;">
-										<p class="">{{sellerData.userIntroduce}}</p>
-									</div>
-
-
-									<div class="card-footer bg-secondary">
-										<button type="button" data-bs-toggle="modal" data-bs-target="#addModal"
-											class="btn btn-danger btn-block card-btn rounded-pill px-4 fs-6">
-											追蹤
-										</button>
-									</div>
-								</div>
+			<div class="row">
+				<!-------------------- 左介紹頁----------------------->
+				<div class="col-md-3">
+					<div class="card text-center border-light">
+						<img style="object-fit: cover;" class="card-img-top img-thumbnail p-1" :src=sellerData.userImg />
+						<div class="card-block mt-2 p-2">
+							<h3 class="card-title">
+								{{sellerData.userAccount}}
+							</h3>
+							<div class="mt-1">
+								<el-rate v-model="sellerRate" disabled show-score text-color="#ff9900">
+								</el-rate>
 							</div>
-						</div>
-						<div class="col-md-9">
-							<div>
-								<button class="btn btn-secondary mx-2" @click='toProductPage'>商品</button>
-								<button class="btn btn-secondary mx-2" @click='toEvaluation'>評價</button>
+							<div class="p-2">
+								<i class="bi bi-chat-dots-fill m-2 fs-5">很常回覆</i>
+								<i class="bi bi-envelope-fill m-2 fs-5">已驗證</i>
 							</div>
-							<hr class="bg-dark border-4 border-top border-dark">
-							<div>
-								<div v-if="visibility === 'productPage'" class="row">
-									<!-- v-for -->
-									<p class="fs-1">商品</p>
-									<div v-if="storeList.length == 0" class="row">
-										<div class="col d-flex flex-column">
-											<p class="fs-5 fw-bold text-center">歡迎加入跳躍拍賣!</p>
-											<p class="fs-6 text-center">找到你的想要賣的商品，開始建立你的拍賣清單吧！</p>
-										</div>
-										<el-image src="https://upload.cc/i1/2021/08/25/ZLUXBr.jpg" fit="contain"
-											style="height: 500px;"></el-image>
-									</div>
-									<div class="col-md-3 mb-4" v-for="item in storeList">
-										<div class="card  p-1">
-											<div>
-												<el-image class="card-img-top img-thumbnail-like rounded" alt=""
-													:src="item.productImgA" :preview-src-list="[item.productImgA]" fit="cover">
-												</el-image>
-												</el-image>
-											</div>
-											<div class="card-block px-1">
-												<div class="mt-3">
-													<p class="card-text fs-6 text-truncate">
-														{{item.productName}}
-													</p>
-												</div>
-												<div>
-													<p class="fs-4 fw-bold text-danger">NT$ {{item.productPrice}}</p>
-													<p>{{item.productCondition}}</p>
-												</div>
-												<div class="d-flex justify-content-between">
-													<i @click="addFavorite(item)" type="button"
-														class="me-auto btn rounded-pill btn-sm bi"
-														:class="item.like ? 'bg-white text-danger bi-heart-fill':'bi-heart' ">
-													</i>
-													<button v-if="userData.userId == sellerId" type="button" @click="toEdit(item)"
-														class="btn bg-white bi bi-pencil-square btn-sm">
-														編輯</button>
-													<a @click="toProduct(item)" type="button"
-														class="btn bg-white btn-sm bi bi-search">
-														詳情</a>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div v-else class="row">
-									<p class="fs-1">評價</p>
-									<div>
-										<div v-if="commList.length == 0" class="row">
-											<div class="col d-flex flex-column">
-												<p class="fs-5 fw-bold text-center">目前沒有評價喔!</p>
-												<p class="fs-6 text-center">找到你的想要賣的商品，開始建立你的拍賣清單吧！</p>
-											</div>
-											<el-image src="https://upload.cc/i1/2021/08/25/ZLUXBr.jpg" fit="contain"
-												style="height: 500px;"></el-image>
-										</div>
-										<table v-else class="table table-hover table-borderless">
-											<thead>
-												<tr>
-													<th width="110" scope="col">日期</th>
-													<th width="200" class="" scope="col">買家</th>
-													<th scope="col">購買商品</th>
-													<th width="150" scope="col">評等</th>
-													<th width="150" scope="col">評價</th>
-												</tr>
-											</thead>
-											<tbody v-for="item in commList">
-												<tr>
-													<th class="align-middle" scope="row">{{item.commTime}}</th>
-													<td><img :src="item.buyerImg" class="rounded-circle" height="50" width="50">
-														{{item.buyerName}}
-													</td>
-													<td class="text-truncate" style="max-width: 150px;">{{item.productName}}</td>
-													<td>
-														<el-rate v-model="item.commLevel" disabled show-score text-color="#ff9900">
-														</el-rate>
-													</td>
-													<td class="text-truncate" style="max-width: 150px;">{{item.commContent}}</td>
-												</tr>
-											</tbody>
-										</table>
-
-									</div>
-
-								</div>
+							<div class="mb-3" style="min-height: 50px;">
+								<p class="">{{sellerData.userIntroduce}}</p>
+							</div>
+							<div class="card-footer bg-secondary">
+								<button type="button" data-bs-toggle="modal" data-bs-target="#addModal"
+									class="btn btn-danger btn-block card-btn rounded-pill px-4 fs-6">
+									追蹤
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
+				<!-------------------- 右功能----------------------->
+				<div class="col-md-9">
+					<div>
+						<button class="btn btn-secondary mx-2" @click='this.visibility = "productPage"'>商品</button>
+						<button class="btn btn-secondary mx-2" @click='this.visibility = "commPage"'>評價</button>
+						<button v-if="userData.userId == sellerId" class="btn btn-secondary mx-2"
+							@click='orderLoad'>交易紀錄</button>
+					</div>
+					<hr class="bg-dark border-4 border-top border-dark">
+					<div>
+						<!-------------------- 商品頁----------------------->
+						<div v-if="visibility === 'productPage'" class="row">
+							<!-- v-for -->
+							<p class="h3">商品</p>
+							<div v-if="storeList.length == 0" class="row">
+								<div class="col d-flex flex-column">
+									<p class="fs-5 fw-bold text-center">歡迎加入跳躍拍賣!</p>
+									<p class="fs-6 text-center">找到你的想要賣的商品，開始建立你的拍賣清單吧！</p>
+								</div>
+								<el-image src="https://upload.cc/i1/2021/08/25/ZLUXBr.jpg" fit="contain" style="height: 500px;">
+								</el-image>
+							</div>
+							<div class="col-md-3 mb-4" v-for="item in storeList">
+								<div class="card  p-1">
+									<div type="button" @click="toProduct(item)">
+										<el-image class="card-img-top img-thumbnail-like rounded" alt="" :src="item.productImgA"
+											:preview-src-list="[item.productImgA]" fit="cover">
+										</el-image>
+									</div>
+									<div class="card-block px-1">
+										<div class="mt-3">
+											<p class="card-text fs-6 text-truncate">
+												{{item.productName}}
+											</p>
+										</div>
+										<div>
+											<p class="fs-4 fw-bold text-danger">NT$ {{item.productPrice}}</p>
+											<p>{{item.productCondition}}</p>
+										</div>
+										<div class="d-flex justify-content-between">
+											<i @click="addFavorite(item)" type="button" class="me-auto btn rounded-pill btn-sm bi"
+												:class="item.like ? 'bg-white text-danger bi-heart-fill':'bi-heart' ">
+											</i>
+											<button v-if="userData.userId == sellerId" type="button" @click="toEdit(item)"
+												class="btn bg-white bi bi-pencil-square btn-sm">
+												編輯</button>
+											<a @click="toProduct(item)" type="button" class="btn bg-white btn-sm bi bi-search">
+												詳情</a>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-------------------- 評價頁----------------------->
+						<div v-else-if="visibility === 'commPage'" class="row">
+							<p class="h3">評價</p>
+							<div>
+								<div v-if="commList.length == 0" class="row">
+									<div class="col d-flex flex-column">
+										<p class="fs-5 fw-bold text-center">目前沒有評價喔!</p>
+										<p class="fs-6 text-center">找到你的想要賣的商品，開始建立你的拍賣清單吧！</p>
+									</div>
+									<el-image src="https://upload.cc/i1/2021/08/25/ZLUXBr.jpg" fit="contain"
+										style="height: 500px;"></el-image>
+								</div>
+								<table v-else class="table table-hover table-borderless">
+									<thead>
+										<tr>
+											<th width="110" scope="col">日期</th>
+											<th width="200" class="" scope="col">買家</th>
+											<th scope="col">購買商品</th>
+											<th width="150" scope="col">評等</th>
+											<th width="150" scope="col">評價</th>
+										</tr>
+									</thead>
+									<tbody v-for="item in commList">
+										<tr>
+											<th class="align-middle" scope="row">{{item.commTime}}</th>
+											<td><img :src="item.buyerImg" class="rounded-circle" height="50" width="50">
+												{{item.buyerName}}
+											</td>
+											<td class="text-truncate" style="max-width: 150px;">{{item.productName}}</td>
+											<td>
+												<el-rate v-model="item.commLevel" disabled show-score text-color="#ff9900">
+												</el-rate>
+											</td>
+											<td class="text-truncate" style="max-width: 150px;">{{item.commContent}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-------------------- 交易紀錄----------------------->
+						<div v-else class="row">
+							<div class="mb-3">
+								<p class="h3">購買紀錄</p>
+								<el-table :data="orderData" border style="width: 100%" stripe 
+									:cell-style="{padding:'0px'}" :default-sort="{prop: 'orderId', order: 'descending'}">
+									<el-table-column prop="orderId" label="訂單編號" sortable>
+									</el-table-column>
+									<el-table-column prop="sellerName" label="賣家名稱" sortable>
+									</el-table-column>
+									<el-table-column label="封面">
+										<template #default="scope">
+											<el-image style="width: 50px; height: 50px" :src="scope.row.productImgA">
+											</el-image>
+										</template>
+									</el-table-column>
+									<el-table-column prop="productName" label="商品名稱">
+									</el-table-column>
+									<el-table-column prop="productPrice" label="成交價格">
+									</el-table-column>
+									<el-table-column prop="orderTime" label="建立時間" sortable>
+									</el-table-column>
+									<el-table-column prop="orderStatus" label="訂單狀態" sortable>
+									</el-table-column>
+									<el-table-column label="操作">
+										<template #default="scope">
+											<el-popconfirm v-if="scope.row.orderStatus == '已出貨' " title="確定收貨嗎？"
+												@confirm="orderControl(scope.row.orderId,scope.row.orderStatus)">
+												<template #reference>
+													<el-button type="success" size="mini">收貨、評價</el-button>
+												</template>
+											</el-popconfirm>
+										</template>
+									</el-table-column>
+								</el-table>
+							</div>
+							<div>
+								<p class="h3">出售紀錄</p>
+								<!-- <el-table :data="orderData" border style="width: 100%" stripe v-loading="loading"
+									:default-sort="{prop: 'orderId', order: 'descending'}">
+									<el-table-column prop="orderId" label="訂單編號" sortable>
+									</el-table-column>
+									<el-table-column prop="sellerId" label="買家Id" sortable>
+									</el-table-column>
+									<el-table-column prop="productId" label="商品Id">
+									</el-table-column>
+									<el-table-column prop="productPrice" label="成交價格">
+									</el-table-column>
+									<el-table-column prop="orderTime" label="建立時間" sortable>
+									</el-table-column>
+									<el-table-column prop="orderStatus" label="訂單狀態" sortable>
+									</el-table-column>
+									<el-table-column label="操作">
+										<template #default="scope">
+											<el-popconfirm v-if="scope.row.orderStatus == '處理中' " title="確定出貨嗎？"
+												@confirm="orderControl(scope.row.orderId,scope.row.orderStatus)">
+												<template #reference>
+													<el-button type="danger" size="mini">出貨</el-button>
+												</template>
+											</el-popconfirm>
+											<el-popconfirm v-else-if="scope.row.orderStatus == '已出貨' " title="確定收貨嗎？"
+												@confirm="orderControl(scope.row.orderId,scope.row.orderStatus)">
+												<template #reference>
+													<el-button type="success" size="mini">收貨、評價</el-button>
+												</template>
+											</el-popconfirm>
+										</template>
+									</el-table-column>
+								</el-table> -->
+							</div>
+						</div>
+
+					</div>
+				</div>
 			</div>
+
+
 		</div>
 		<!-------------------- END APP----------------------->
 	</div>
@@ -278,21 +345,19 @@
 		const app = Vue.createApp({
 			data() {
 				return {
-					visibility: 'productPage',
+					baseUrl: 'http://localhost:9090',
+					visibility: 'other',
 					sellerId: '',
 					sellerData: [],
 					storeList: [],
 					commList: [],
 					favoriteList: [],
-					baseUrl: 'http://localhost:9090',
+					orderData: [],
 					userData: [],
 					search: '',
 				}
 			},
 			methods: {
-				// 頁面跳轉
-				toProductPage() { this.visibility = 'productPage'; },
-				toEvaluation() { this.visibility = 'evaluationPage'; },
 				// 讀取賣場ID
 				sellerIdLoad() {
 					this.sellerId = JSON.parse(sessionStorage.getItem('store')) || [];
@@ -319,22 +384,33 @@
 				commLoad() {
 					axios.get(`${this.baseUrl}/comm`, {
 						params: {
-							sellerId: this.sellerId
+							sellerId: this.userData.userId
 						}
 					}).then(res => {
-						// console.log(res.data.data.records);
 						this.commList = res.data.data.records;
 					}).catch(err => console.log(err));
 				},
+				// 讀取訂單資料
+				orderLoad() {
+					this.visibility = "tradePage"
+					axios.get(`${this.baseUrl}/order/trader`, {
+						params: {
+							buyerId: this.sellerId
+						}
+					}).then(res => {
+						console.log(res.data);
+						this.orderData = res.data.data;
+					}).catch(err => console.log(err));
+				},
+
+
 				// 加入最愛
 				addFavorite(item) {
 					// 先看清單中 是否有該商品
 					const index = this.favoriteList.find(obj => obj.productId === item.productId)
 					item.like = true;
-					console.log(item.like);
 					if (index) {
-						Swal.fire('已經加到最愛囉!')
-						return
+						return Swal.fire('已經加到最愛囉!')
 					}
 					this.favoriteList.push(item);
 					Swal.fire({
@@ -355,16 +431,16 @@
 					sessionStorage.setItem('編輯', JSON.stringify(item))
 					window.location.href = "user_edit.html"
 				},
-				// 登出
+				// 使用者登出
 				logout() {
 					this.userData = [];
-					window.location.href = "home.html"
+					Swal.fire('已登出')
+					setTimeout(() => { window.location.href = "home.html" }, 1000)
 				},
 				// 出售跳轉
 				toUserAdd() {
 					if (this.userData.userId != null) {
-						window.location.href = "user_add.html"
-						return;
+						return window.location.href = "user_add.html"
 					}
 					Swal.fire('請先登入', '', 'info')
 				},
@@ -379,6 +455,22 @@
 					window.location.href = "search.html"
 				}
 			},
+
+			computed: {
+				// 評價計算
+				sellerRate() {
+					let total = 0;
+					this.commList.forEach(item => { total += item.commLevel });
+					let rate = (total / this.commList.length).toFixed(1);
+					if (rate >= 5) {
+						return 5
+					} else if (isNaN(rate)) {
+						return 0
+					}
+					return rate
+				},
+			},
+
 			mounted() {
 				this.userData = JSON.parse(sessionStorage.getItem('user')) || [];
 				this.favoriteList = JSON.parse(localStorage.getItem('最愛清單')) || [];
@@ -386,6 +478,7 @@
 				this.sellerDataLoad();
 				this.storeLoad();
 				this.commLoad();
+				this.orderLoad();
 			},
 			// 監聽 favoriteList
 			watch: {

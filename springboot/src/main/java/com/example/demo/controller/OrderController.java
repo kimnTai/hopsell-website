@@ -6,11 +6,13 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.common.Result;
 import com.example.demo.entity.OrderTable;
+import com.example.demo.entity.Product;
 import com.example.demo.mapper.OrderMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 // 定義返回 JSON Controller
 @RestController
@@ -66,6 +68,26 @@ public class OrderController {
     @GetMapping("/all")
     public Result<?> findAll() {
         return Result.success(orderMapper.selectList(null));
+    }
+
+
+    // 買家 賣家查詢
+    @GetMapping("/trader")
+    public Result<?> findTest(@RequestParam(defaultValue = "") String buyerId,
+                               @RequestParam(defaultValue = "") String sellerId) {
+        LambdaQueryWrapper<OrderTable> wrapper = Wrappers.<OrderTable>lambdaQuery();
+
+        if (StrUtil.isNotBlank(buyerId)) {
+            wrapper.eq(OrderTable::getBuyerId, buyerId);
+        }
+        if (StrUtil.isNotBlank(sellerId)) {
+            wrapper.eq(OrderTable::getSellerId, sellerId);
+        }
+
+        List<OrderTable> res = orderMapper.selectList(wrapper);
+
+
+        return Result.success(res);
     }
 
 

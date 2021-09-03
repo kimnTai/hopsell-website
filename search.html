@@ -185,7 +185,7 @@
 										<span class="p-2">{{item.createTime}}</span>
 									</div>
 								</div>
-								<div>
+								<div type="button" @click="toProduct(item)">
 									<el-image class="card-img-top img-thumbnail-like px-1" :src="item.productImgA" fit="cover">
 									</el-image>
 								</div>
@@ -309,7 +309,6 @@
 				},
 				// 加入最愛
 				addFavorite(item) {
-					// 先看清單中 是否有該商品
 					const index = this.favoriteList.find(obj => obj.productId === item.productId)
 					item.like = true;
 					console.log(item.like);
@@ -328,8 +327,10 @@
 				// 使用者登出
 				logout() {
 					this.userData = [];
-					window.location.href = "home.html"
-				},// 出售跳轉
+					Swal.fire('已登出')
+					setTimeout(() => { window.location.href = "home.html" }, 1000)
+				},
+				// 出售跳轉
 				toUserAdd() {
 					if (this.userData.userId != null) {
 						window.location.href = "user_add.html"

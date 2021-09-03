@@ -195,7 +195,7 @@
 						</div>
 						<div class="text-end d-flex justify-content-between">
 							<div>
-								<button type="button" class="btn btn-secondary" @click="addList">DEMO</button>
+								<a type="button" class="" @click="addList">.</a>
 							</div>
 							<button type="button" class="btn btn-secondary" @click="addProduct">立即刊登</button>
 						</div>
@@ -352,9 +352,11 @@
 					};
 					this.form = list;
 				},
-				// 登出
+				// 使用者登出
 				logout() {
 					this.userData = [];
+					Swal.fire('已登出')
+					setTimeout(() => { window.location.href = "home.html" }, 1000)
 				},
 				// 出售跳轉
 				toUserAdd() {

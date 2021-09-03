@@ -16,13 +16,13 @@
 
 <body>
    <div id="app">
-      <div class="d-flex align-items-center justify-content-between bg-secondary" style="min-height: 8vh">
-         <div class="px-3">
+      <div class="d-flex align-items-center justify-content-between bg-secondary " style="min-height: 8vh">
+         <div class="px-3 ">
             <h3 class="text-light bi bi-speedometer"> 跳跳市集-後台管理</h3>
          </div>
          <div class="d-flex lign-items-center mx-5">
             <img class="rounded-circle" src="images/icon_1.png" alt="hopsellIcon" width="38" height="38">
-            <button class="btn btn-secondary">登出</button>
+            <button @click="adminLogout" class="btn btn-secondary">登出</button>
          </div>
       </div>
       <div class="d-flex align-items-start" style="background-color: #EEEEEE;">
@@ -73,6 +73,7 @@
                            <span v-if="scope.row.productStatus === 1" class="btn btn-success btn-sm">正常</span>
                            <span v-else-if="scope.row.productStatus === 0"
                               class="btn btn btn-secondary btn-sm">下架</span>
+                           <span v-else-if="scope.row.productStatus === 2" class="btn btn-primary btn-sm">交易中</span>
                            <span v-else class="btn btn-danger btn-sm">已刪除</span>
                         </template>
                      </el-table-column>
@@ -184,6 +185,7 @@
                               <span v-if="scope.row.productStatus === 1" class="btn btn-success btn-sm">正常</span>
                               <span v-else-if="scope.row.productStatus === 0"
                                  class="btn btn btn-secondary btn-sm">下架</span>
+                              <span v-else-if="scope.row.productStatus === 2" class="btn btn-primary btn-sm">交易中</span>
                               <span v-else class="btn btn-danger btn-sm">已刪除</span>
                            </template>
                         </el-table-column>
@@ -230,9 +232,11 @@
                      </el-table-column>
                      <el-table-column prop="buyerId" label="買家Id" sortable>
                      </el-table-column>
+                     <el-table-column prop="sellerId" label="賣家Id" sortable>
+                     </el-table-column>
                      <el-table-column prop="productId" label="商品Id">
                      </el-table-column>
-                     <el-table-column prop="category" label="商品分類">
+                     <el-table-column prop="categoryId" label="商品分類">
                      </el-table-column>
                      <el-table-column prop="productPrice" label="成交價格">
                      </el-table-column>
@@ -458,8 +462,12 @@
                setTimeout(() => { this.loadReport() }, 1000)
             },
 
-
-
+            // 管理員登出
+            adminLogout() {
+               sessionStorage.setItem('user', []);
+               Swal.fire('已登出')
+               setTimeout(() => { window.location.href = "home.html" }, 1000)
+            },
          },
 
 

@@ -11103,4 +11103,8 @@ textarea.form-control-lg {
 
 .img-thumbnail-like {
   height: 200px;
+}
+
+.card .el-rate__text {
+  font-size: large;
 }/*# sourceMappingURL=all.css.map */

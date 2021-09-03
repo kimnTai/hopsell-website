@@ -113,9 +113,11 @@
 							</div>
 						</div>
 						<!-- 卡片圖 -->
-						<el-image class="card-img-top mx-auto" :src="item.productImgA" fit="cover"
-							style="height: 300px;width: 300px;">
-						</el-image>
+						<div type="button" @click="toProduct(item)">
+							<el-image class="card-img-top mx-auto" :src="item.productImgA" fit="cover"
+								style="height: 300px;width: 300px;">
+							</el-image>
+						</div>
 						<!-- 卡片尾 -->
 						<div class="card-body">
 							<h4 class="card-title text-truncate">{{item.productName}}</h4>
@@ -244,10 +246,11 @@
 					sessionStorage.setItem('store', id)
 					window.location.href = "user_store.html"
 				},
-				// 登出
+				// 使用者登出
 				logout() {
 					this.userData = [];
-					window.location.href = "home.html"
+					Swal.fire('已登出')
+					setTimeout(() => { window.location.href = "home.html" }, 1000)
 				},
 				// 出售跳轉
 				toUserAdd() {

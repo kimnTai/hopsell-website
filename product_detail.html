@@ -176,10 +176,9 @@
 									<p class="card-title fs-3">
 										{{data.sellerName}}
 									</p>
-									<div class="mt-3">
-										<p class="card-text">
-											<i class="bi bi-star-fill fs-5">尚無評價</i>
-										</p>
+									<div class="mt-1">
+										<el-rate v-model="sellerRate" disabled show-score text-color="#ff9900">
+										</el-rate>
 									</div>
 									<div class="p-2">
 										<i class="bi bi-chat-dots-fill m-2 fs-5">很常回覆</i>
@@ -254,7 +253,7 @@
 									<!-- v-for -->
 									<div v-for="item in storeList" class="col-md-3 mb-3">
 										<div class="card pt-1">
-											<div class="card-title d-flex ">
+											<div class="card-title d-flex">
 												<el-image class="rounded-circle m-2" :src="item.sellerImg"
 													style="height: 32px; min-width: 32px;" fit="cover"></el-image>
 												<div type="button" class="flex-column" @click="toSellerStore(item.sellerId)">
@@ -262,10 +261,10 @@
 													<span class="p-2">{{item.createTime}}</span>
 												</div>
 											</div>
-											<div>
+											<a href="#top" type="button" @click="toProduct(item)">
 												<el-image class="card-img-top img-thumbnail-like px-1" :src="item.productImgA"
 													fit="cover"></el-image>
-											</div>
+											</a>
 											<div class="card-block">
 												<div class="px-2">
 													<p class="card-text fs-6 text-truncate">
@@ -302,6 +301,7 @@
 		</div>
 		<!-------------------- END APP----------------------->
 	</div>
+
 
 
 
@@ -400,10 +400,7 @@
 				},
 				// 購買商品
 				tobuyProduct() {
-					if (this.userData.length == 0) {
-						Swal.fire('請先登入', '', 'info')
-						return
-					}
+					if (this.userData.length == 0) return Swal.fire('請先登入', '', 'info')
 					Swal.fire({
 						title: '確定要購買嗎',
 						showCancelButton: true,
@@ -412,20 +409,14 @@
 						cancelButtonText: '取消',
 					}).then((result) => {
 						if (result.isConfirmed) {
-							axios.post(`${this.baseUrl}/order`, {
+							let purchase = { ...this.data };
+							purchase["buyerId"] = this.userData.userId;
+							axios.post(`${this.baseUrl}/order`, purchase)
+							axios.put(`${this.baseUrl}/product`, {
 								productId: this.data.productId,
-								buyerId: this.userData.userId
-							})
-								.then((res) => {
-									Swal.fire('購買成功', '', 'success')
-								})
-								.catch((err) => {
-									console.log(err);
-									Swal.fire('失敗', '', 'info')
-								});
-							setTimeout(() => {
-								window.location.href = "user_store.html"
-							}, 2000)
+								productStatus: 2,
+							}).then(res => { Swal.fire('購買成功', '', 'success') });
+							setTimeout(() => { window.location.href = "user_store.html" }, 2000)
 						}
 					})
 				},
@@ -519,6 +510,22 @@
 				}
 
 			},
+
+			computed: {
+				// 評價計算
+				sellerRate() {
+					let total = 0;
+					this.commList.forEach(item => { total += item.commLevel });
+					let rate = (total / this.commList.length).toFixed(1);
+					if (rate >= 5) {
+						return 5
+					} else if (isNaN(rate)) {
+						return 0
+					}
+					return parseFloat(rate)
+				},
+			},
+
 			mounted() {
 				this.productId = sessionStorage.getItem('詳情') || 10;
 				this.sellerId = sessionStorage.getItem('sellerId') || 1;

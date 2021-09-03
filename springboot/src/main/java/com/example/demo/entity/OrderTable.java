@@ -15,10 +15,13 @@ public class OrderTable {
     @TableId(type = IdType.AUTO)       // 資料庫 table 名稱不同的話 要補 value
     private Integer orderId;
     private Integer productId;
-    private String category;
+    private String productName;
+    private String productImgA;
+    private String categoryId;
     private Integer productPrice;
+    private Integer sellerId;
+    private String sellerName;
     private Integer buyerId;
-    private String commId;
     private String orderStatus;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")      // 時間
     private Date orderTime;

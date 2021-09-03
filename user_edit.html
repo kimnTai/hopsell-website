@@ -352,10 +352,11 @@
 					sessionStorage.setItem("upload", JSON.stringify(res.data))  // 緩存用戶資料
 					this.form.productImgA = res.data
 				},
-				// 登出
+				// 使用者登出
 				logout() {
 					this.userData = [];
-					window.location.href = "home.html"
+					Swal.fire('已登出')
+					setTimeout(() => { window.location.href = "home.html" }, 1000)
 				},
 				// 出售跳轉
 				toUserAdd() {

@@ -54,7 +54,8 @@
 								<label class="text-muted" style="font-size: 1rem;">Email</label>
 								<el-input placeholder="請輸入信箱" prefix-icon="el-icon-message" v-model="form.userEmail"></el-input>
 							</el-form-item>
-							<el-form-item class="text-end mt-4">
+							<el-form-item class="text-end">
+								<a class="px-3" type="button" @click="demoRegister">.</a>
 								<el-button style="background-color: #2C2C2D;color: #fff;" @click="register">註冊</el-button>
 							</el-form-item>
 						</div>
@@ -111,6 +112,13 @@
 							{ required: true, message: '請輸入Email', trigger: 'blur' },
 							{ type: 'email', message: '請輸入正確的Email', trigger: ['blur', 'change'] }
 						],
+					},
+					demoData: {
+						confirm: "123456",
+						password: "123456",
+						userAccount: "bruce",
+						userAddress: "中彰投",
+						userEmail: "bruce.alvarez@example.com",
 					}
 				};
 			},
@@ -130,6 +138,7 @@
 								return
 							}
 							Swal.fire('註冊成功', '', 'success')
+							setTimeout(() => { window.location.href = "login.html" }, 2000)
 						})
 					})
 				},
@@ -142,6 +151,9 @@
 						}
 						Swal.fire('可以註冊', '', 'success')
 					})
+				},
+				demoRegister() {
+					this.form = this.demoData;
 				}
 			},
 
