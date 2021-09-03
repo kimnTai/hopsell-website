@@ -89,7 +89,7 @@
 		<div class="container pt-4">
 			<div class="row align-items-center">
 				<div class="col-md-3">
-					<h1 class="display-5">我按過的讚</h1>
+					<p class="h2 pt-2 fw-bold">我按過的讚</p>
 				</div>
 				<div class="col-md-2 ">
 					<button class="btn btn-outline-danger" @click='removeAllList'>清除所有讚</button>
@@ -124,7 +124,7 @@
 							<h6>{{item.productCondition}}</h6>
 							<div class="d-flex justify-content-between">
 								<!-- 愛心 -->
-								<i @click="addFavorite(item)" type="button" class="btn rounded-pill btn-sm bi "
+								<i @click="removeFavorite(item)" type="button" class="btn rounded-pill btn-sm bi "
 									:class="item.like ? 'bg-white text-danger bi-heart-fill':'bi-heart' "></i>
 								<a @click="toProduct(item)" type="button" class="btn bg-white btn-sm bi bi-search">
 									詳情</a>
@@ -150,7 +150,7 @@
 
 
 	<!-- 置底 -->
-	<footer class="bg-secondary text-light fixed-bottom">
+	<footer class="bg-secondary text-light">
 		<div class="container">
 			<div class="d-flex flex-wrap justify-content-between align-items-center py-3  border-top ">
 				<p class="col-md-4 mb-0 text-reset">© 2021 Company, Inc</p>

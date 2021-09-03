@@ -101,6 +101,18 @@ public class UserController {
         return Result.success();
     }
 
+    // 檢查密碼
+    @PostMapping("/checkPassword")
+    public Result<?> checkPassword(@RequestBody User user) {
+        User res = userMapper.selectOne(
+                Wrappers.<User>lambdaQuery()
+                        .eq(User::getUserId, user.getUserId())
+                        .eq(User::getPassword, user.getPassword()));
+        if (res == null) {
+            return Result.error("-1", "目前密碼錯誤");
+        }
+        return Result.success();
+    }
 
 
     // 修改

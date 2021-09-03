@@ -14,155 +14,190 @@
 	<title>用戶設定</title>
 </head>
 
-<body>
-	<header class="bg-secondary text-white">
-		<div class="container">
-			<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+<body class="mt-5">
+	<div id="app">
+
+
+
+		<!-- 導覽列 -->
+		<header class="bg-secondary text-white fixed-top">
+			<div class="container">
+				<div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+					<!--LOGO-->
+					<a class="navbar-brand" href="home.html">
+						<img class="bi me-2" src="images/icon_1.png" alt="hopsellIcon" width="30" height="30">
+					</a>
+					<!--商品分類-->
+					<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+						<li><a href="#" class="nav-link px-2 text-white">時尚衣裝</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">精品配件</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">3C家電</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">書籍雜誌</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">娛樂休閒</a></li>
+						<li><a href="#" class="nav-link px-2 text-white">居家生活</a></li>
+					</ul>
+					<!-- 登出按鈕 -->
+					<div class="text-end" v-if="userData.userId != null">
+						<i href="" class="">
+							<el-image class="rounded-circle" :src="userData.userImg" alt="Icon"
+								style="height: 30px;height: 30px; top: 9px; right: 5px;">
+							</el-image>
+						</i>
+						<span class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton2"
+								data-bs-toggle="dropdown" aria-expanded="false">
+								{{userData.userAccount}}
+							</button>
+							<ul class="dropdown-menu dropdown-menu" aria-labelledby="dropdownMenuButton2">
+								<li><a class="dropdown-item" href="user_settings.html"><i class="bi bi-gear pe-2"></i>用戶設定</a>
+								</li>
+								<li>
+									<button class="dropdown-item" type="button" @click="logout">
+										<i class="bi bi-box-arrow-right pe-2"></i>登出</button>
+								</li>
+							</ul>
+						</span>
+						<a type="button" class="btn btn-secondary bi bi-shop" @click="toUserStore"></a>
+						<a href="user_favorite.html" class="btn btn-secondary"><i class="bi bi-heart"></i></a>
+					</div>
+
+					<!--登入按鈕-->
+					<div class="text-end" v-else>
+						<a href="login.html" type="button" class="btn btn-secondary ">登入</a>
+						<a href="register.html" type="button" class="btn btn-secondary">註冊</a>
+					</div>
+				</div>
+			</div>
+		</header>
+		<!-- 搜尋列 -->
+		<div class="navbar ">
+			<div class="container">
 				<!--LOGO-->
-				<a class="navbar-brand" href="home.html">
-					<img class="bi me-2" src="images/icon_1.png" alt="hopsellIcon" width="30" height="30">
-				</a>
-				<!--商品分類-->
-				<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-					<li><a href="#" class="nav-link px-2 text-white">時尚衣裝</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">精品配件</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">3C家電</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">書籍雜誌</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">娛樂休閒</a></li>
-					<li><a href="#" class="nav-link px-2 text-white">居家生活</a></li>
-				</ul>
-				<!--登出按鈕-->
-				<div class="text-end">
-					<a href="home.html" type="button" class="btn btn-secondary ">登出</a>
-					<a href="register.html" type="button" class="btn btn-secondary">註冊</a>
-				</div>
-			</div>
-		</div>
-	</header>
-	<!-- 搜尋列 -->
-	<div class="navbar ">
-		<div class="container">
-			<!--LOGO-->
-			<a href="home.html"><img src="https://upload.cc/i1/2021/08/13/xDSmVg.png" alt="hopsellIcon" height="32"></a>
-			<!--搜尋-->
-			<div>
-				<div class="container-fluid">
-					<div class="d-flex">
-						<input class="form-control" type="search" placeholder="搜尋商品" aria-label="Search">
-						<button class="bi bi-search bg-white border-0" type="submit"></button>
+				<a href="home.html"><img src="https://upload.cc/i1/2021/08/13/xDSmVg.png" alt="hopsellIcon" height="32"></a>
+				<!--搜尋-->
+				<div>
+					<div class="container-fluid">
+						<div class="d-flex">
+							<input v-model="search" @keyup.enter="toSearch" class="form-control" placeholder="搜尋商品"
+								style="width: 30rem;">
+							<button @click="toSearch" class="bi bi-search bg-white border-0 ms-1"></button>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="d-flex">
-				<a href="user_add.html" class="btn fw-bold btn-danger px-4 me-2">出售</a>
+				<div class="d-flex">
+					<a type="button" class="btn fw-bold btn-danger px-4 me-2" @click="toUserAdd">出售</a>
+				</div>
 			</div>
 		</div>
+
+		<!-- 網頁內容 -->
+
+		<div class="container pt-4">
+			<div class="row d-flex justify-content-center">
+				<!--左邊選項-->
+				<div class="col-md-4 mt-4 px-5">
+					<div class="list-group sticky-top mb-3 d-none d-sm-block shadow" style="top: 82px;">
+						<a href="#top" type="button" @click='toChangeInfo' class="list-group-item list-group-item-action"
+							:class="visibility === 'changeInfo' ? 'active':''   ">編輯檔案</a>
+						<a href="#top" type="button" @click='toChangePassword' class="list-group-item list-group-item-action"
+							:class="visibility === 'changePassword' ? 'active':''   ">更改密碼</a>
+
+					</div>
+				</div>
+				<!--------右邊表單-------->
+				<div v-if="visibility === 'changeInfo'" class="col-md-6 border pt-4 pb-4 shadow rounded">
+					<hr class="d-block d-md-none my-6 my-md-0">
+					<h2 class="h3 fw-bold mb-4 mb-md-6">編輯檔案</h2>
+					<hr>
+					<!--form-->
+					<el-form class="" ref="form" :rules="rules" :model="form">
+						<div class="p-2 px-3">
+							<div class="d-flex align-items-end">
+								<el-image class="img-thumbnail px-1" :src="form.userImg" lazy fit="cover"
+									style="height: 150px;width: 150px;">
+								</el-image>
+								<div class="mx-5">
+									<el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccess">
+										<el-button type="info" style="background-color: #2C2C2D;">點擊上傳</el-button>
+									</el-upload>
+								</div>
+							</div>
+							<el-form-item class="mb-3" prop="userAccount">
+								<label class="text-muted" style="font-size: 1rem;">使用者名稱</label>
+								<el-input prefix-icon="el-icon-user-solid" placeholder="請輸入使用者名稱" v-model="form.userAccount"
+									class="input-with-select">
+									<template #append>
+										<el-button icon="el-icon-search" @click="check"></el-button>
+									</template>
+								</el-input>
+							</el-form-item>
+							<el-form-item class="mb-3" prop="userAddress">
+								<label class="text-muted px-2" style="font-size: 1rem;">選擇地區</label>
+								<el-select v-model="form.userAddress" placeholder="選擇地區" style="width: 602px;">
+									<el-option label="中彰投" value="中彰投"></el-option>
+									<el-option label="北北基" value="北北基"></el-option>
+									<el-option label="外島" value="外島"></el-option>
+									<el-option label="宜花東" value="宜花東"></el-option>
+									<el-option label="桃竹苗" value="桃竹苗"></el-option>
+									<el-option label="雲嘉南" value="雲嘉南"></el-option>
+									<el-option label="高屏" value="高屏"></el-option>
+								</el-select>
+							</el-form-item>
+							<el-form-item class="mb-3 d-flex" prop="userEmail">
+								<label class="text-muted" style="font-size: 1rem;">Email</label>
+								<el-input placeholder="請輸入信箱" prefix-icon="el-icon-message" v-model="form.userEmail">
+								</el-input>
+							</el-form-item>
+							<el-form-item class="mb-3" prop="userName">
+								<label class="text-muted" style="font-size: 1rem;">使用者姓名</label>
+								<el-input prefix-icon="el-icon-user-solid" placeholder="請輸入使用者姓名" v-model="form.userName">
+								</el-input>
+							</el-form-item>
+							<el-form-item class="mb-3">
+								<label class="text-muted" style="font-size: 1rem;">個人簡介</label>
+								<textarea v-model="form.userIntroduce" class="form-control" style="height: 120px"
+									placeholder="請輸入個人簡介"></textarea>
+								</el-input>
+							</el-form-item>
+							<el-form-item class="text-end mt-4">
+								<el-button style="background-color: #2C2C2D;color: #fff;" @click="changeUserInfo">
+									儲存更改 </el-button>
+							</el-form-item>
+						</div>
+					</el-form>
+
+				</div>
+				<!-------- 更改密碼頁面 -------->
+				<div v-else class="col-md-6 border pt-4 pb-4 shadow" style="min-height: 800px;">
+					<hr class="d-block d-md-none my-6 my-md-0">
+					<h2 class="h3 fw-bold mb-4 mb-md-6">更改密碼</h2>
+					<hr>
+					<el-form ref="formPs" :rules="rules" :model="formPs">
+						<el-form-item class="mb-3" prop="oldPassword">
+							<label class="text-muted" style="font-size: 1rem;">目前密碼</label>
+							<el-input prefix-icon="el-icon-lock" v-model="formPs.oldPassword" show-password></el-input>
+						</el-form-item>
+						<el-form-item class="mb-3" prop="password">
+							<label class="text-muted" style="font-size: 1rem;">新密碼</label>
+							<el-input prefix-icon="el-icon-lock" v-model="formPs.password" show-password></el-input>
+						</el-form-item>
+						<el-form-item class="mb-3" prop="confirm">
+							<label class="text-muted" style="font-size: 1rem;">確認新密碼</label>
+							<el-input prefix-icon="el-icon-lock" v-model="formPs.confirm" show-password></el-input>
+						</el-form-item>
+						<el-form-item class="text-end mt-4">
+							<el-button style="background-color: #2C2C2D;color: #fff;" @click="changePassword">儲存更改</el-button>
+						</el-form-item>
+					</el-form>
+
+
+
+
+				</div>
+			</div>
+		</div>
+
 	</div>
-
-	<!-- 網頁內容 -->
-
-	<div class="container pt-4">
-		<div class="row d-flex justify-content-center" id="userPage">
-			<!--左邊選項-->
-			<div class="col-md-4 mt-4 px-5">
-				<div class="list-group sticky-top mb-3 d-none d-sm-block shadow" style="top: 82px;">
-					<a href="#top" type="button" @click='toChangeInfo' class="list-group-item list-group-item-action"
-						:class="visibility === 'changeInfo' ? 'active':''   ">編輯檔案</a>
-					<a href="#top" type="button" @click='toChangePassword' class="list-group-item list-group-item-action"
-						:class="visibility === 'changePassword' ? 'active':''   ">更改密碼</a>
-
-				</div>
-			</div>
-			<!--右邊表單-->
-			<div v-if="visibility === 'changeInfo'" class="col-md-6 border pt-4 pb-4 shadow rounded">
-				<hr class="d-block d-md-none my-6 my-md-0">
-				<h2 class="h1 fw-bold mb-4 mb-md-6">編輯檔案</h2>
-				<hr>
-				<!--form-->
-				<form novalidate="">
-					<div class="mb-3">
-						<img class="rounded-circle px-4 mb-4"
-							src="https://media.karousell.com/media/photos/profiles/2021/07/21/chaclaire_1626880624.jpg" alt="">
-						<label for="formFileLg" class="form-label fs-4">個人頭像</label>
-						<input class="form-control form-control-lg" id="formFileLg" type="file">
-						<!---->
-					</div>
-					<h2 class="h3 fw-bold mb-4 mb-md-6">個人資料</h2>
-					<div class="mb-3">
-						<label for="name" class="form-label h6 text-secondary"> 使用者名稱 <span class="text-danger ms-1">*</span>
-						</label>
-						<input id="" type="text" class="form-control" placeholder="使用者名稱" name="使用者名稱">
-						<!---->
-					</div>
-					<div class="mb-3">
-						<label for="name" class="form-label h6 text-secondary"> 姓名 <span class="text-danger ms-1">*</span>
-						</label>
-						<input id="" type="text" class="form-control" placeholder="姓名" name="姓名">
-						<!---->
-					</div>
-					<div class="mb-3">
-						<label for="name" class="form-label h6 text-secondary"> Email <span class="text-danger ms-1">*</span>
-						</label>
-						<input id="" type="email" class="form-control" placeholder="Email" name="Email">
-						<div id="emailHelp" class="form-text">除非獲得您的明確許可，否則我們不會與其他用戶共享這些信息。</div>
-						<!---->
-					</div>
-					<div class="mb-3">
-						<label for="" class="form-label  h6 text-secondary">位置<span class="text-danger ms-1">*</span>
-						</label>
-						<select id="" required="required" class="form-select" name="位置">
-							<option value disabled="disabled">位置</option>
-							<option>中彰投</option>
-							<option>北北基</option>
-							<option>外島</option>
-							<option>宜花東</option>
-							<option>桃竹苗</option>
-							<option>雲嘉南</option>
-							<option>高屏</option>
-						</select>
-						<!---->
-					</div>
-					<div class="mb-3 ">
-						<label for="message" class="form-label h6 text-secondary">個人簡介</label>
-						<!--textarea 不能換行-->
-						<textarea name="" id="message" class="form-control" style="height: 200px" placeholder="個人簡介"></textarea>
-					</div>
-					<div class="text-end">
-						<button type="submit" class="btn btn-secondary">儲存更改</button>
-					</div>
-				</form>
-			</div>
-			<!-- 更改密碼頁面 -->
-			<div v-else class="col-md-6 border pt-4 pb-4 shadow" style="height: 700px;">
-				<hr class="d-block d-md-none my-6 my-md-0">
-				<h2 class="h1 fw-bold mb-4 mb-md-6">更改密碼</h2>
-				<hr>
-				<div class="mb-3">
-					<label for="name" class="form-label h6 text-secondary"> 目前密碼 <span class="text-danger ms-1">*</span>
-					</label>
-					<input id="" type="password" class="form-control" placeholder="目前密碼" name="目前密碼">
-					<!---->
-				</div>
-				<div class="mb-3">
-					<label for="name" class="form-label h6 text-secondary"> 新密碼 <span class="text-danger ms-1">*</span>
-					</label>
-					<input id="" type="password" class="form-control" placeholder="新密碼" name="新密碼">
-					<!---->
-				</div>
-				<div class="mb-3">
-					<label for="name" class="form-label h6 text-secondary"> 確認新密碼 <span class="text-danger ms-1">*</span>
-					</label>
-					<input id="" type="password" class="form-control" placeholder="確認新密碼" name="確認新密碼">
-					<!---->
-				</div>
-				<div class="text-end">
-					<button type="submit" class="btn btn-secondary">儲存更改</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
 
 
 
@@ -201,28 +236,158 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"></script>
-	<!-- Vue CDN -->
 	<script src="https://unpkg.com/vue@next"></script>
-	<script src="./js/data.js"></script>
+	<!-- Vue CDN -->
 	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<!-- axios -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
+		integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
+		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<!-- 引入樣式 -->
+	<link rel="stylesheet" href="https://unpkg.com/element-plus@1.0.2-beta.71/lib/theme-chalk/index.css">
+	<!-- 引入組件庫 -->
+	<script src="https://unpkg.com/element-plus@1.0.2-beta.71/lib/index.full.js"></script>
+	<!-- sweetalert2 -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+	<!-- Vue APP -->
 	<script>
-		Vue.createApp({
+		const app = Vue.createApp({
 			data() {
 				return {
+					baseUrl: 'http://localhost:9090',
 					visibility: 'changeInfo',
+					userData: [],
 					search: '',
-
+					form: {},
+					formPs: {},
+					// 驗證內容
+					rules: {
+						userAccount: [{ required: true, message: '請輸入使用者名稱', trigger: 'blur' }],
+						userAddress: [{ required: true, message: '請選擇地區', trigger: 'change' }],
+						userEmail: [
+							{ required: true, message: '請輸入Email', trigger: 'blur' },
+							{ type: 'email', message: '請輸入正確的Email', trigger: ['blur', 'change'] }
+						],
+						// 變更密碼驗證
+						password: [{ required: true, message: '請輸目前密碼', trigger: 'blur' }],
+						newPassword: [{ required: true, message: '請輸新入密碼', trigger: 'blur' }],
+						confirm: [{ required: true, message: '請確認密碼', trigger: 'blur' }],
+					}
 				}
 			},
 			methods: {
+				// 編輯檔案 - 圖片上傳
+				filesUploadSuccess(res) {
+					console.log(res.data)
+					this.form.userImg = res.data
+				},
+				// 檢查用戶名是否重複
+				check() {
+					axios.post(`${this.baseUrl}/user/check`, this.form).then(res => {
+						if (res.data.code !== '0') {
+							Swal.fire(res.data.msg, '', 'error')
+							return
+						}
+						Swal.fire('可以變更', '', 'success')
+					})
+				},
+				// 修改用戶檔案
+				changeUserInfo() {
+					this.$refs['form'].validate((valid) => {
+						if (!valid) { return }
+						axios.put(`${this.baseUrl}/user`, this.form).then(res => {
+							if (res.data.code !== '0') {
+								Swal.fire(res.data.msg, '', 'error')
+								return
+							}
+							Swal.fire('修改成功', '', 'success')
+							setTimeout(() => { this.updateUserInfo(); }, 1000)
+							setTimeout(() => { window.location.href = "user_store.html" }, 2000)
+						})
+					})
+				},
+				// 更新用戶資料
+				updateUserInfo() {
+					axios.get(`${this.baseUrl}/user/${this.userData.userId}`).then(res => {
+						this.userData = res.data.data;
+						this.form = { ...this.userData };
+					}).catch(err => console.log(err));
+				},
+
+				// 更改密碼 - 修改密碼
+				changePassword() {
+					this.$refs['formPs'].validate((valid) => {
+						if (!valid) { return }
+						if (this.formPs.password !== this.formPs.confirm) {
+							Swal.fire("兩次密碼輸入不一致", '', 'error')
+							return
+						};
+						// 先向後端驗證密碼
+						axios.post(`${this.baseUrl}/user/checkPassword`,
+							{ userId: this.userData.userId, password: this.formPs.oldPassword })
+							.then(res => {
+								if (res.data.code !== '0') {
+									Swal.fire(res.data.msg, '', 'error')
+									return
+								}
+								// 如果皆正確
+								this.formPs.userId = this.userData.userId;
+								axios.put(`${this.baseUrl}/user`, this.formPs).then(res => {
+									Swal.fire('修改成功', '', 'success')
+									this.formPs = {};
+								})
+							})
+					})
+				},
+
+				// 左側 - 頁面更換
 				toChangeInfo() {
 					this.visibility = 'changeInfo';
 				},
 				toChangePassword() {
 					this.visibility = 'changePassword';
+				},
+				// 頭部 - 登出
+				logout() {
+					this.userData = [];
+					window.location.href = "home.html"
+				},
+				// 頭部 - 出售跳轉
+				toUserAdd() {
+					if (this.userData.userId != null) {
+						window.location.href = "user_add.html"
+						return;
+					}
+					Swal.fire('請先登入', '', 'info')
+				},
+				// 頭部 - 用戶賣場跳轉
+				toUserStore() {
+					sessionStorage.setItem('store', this.userData.userId);
+					window.location.href = "user_store.html"
+				},
+				// 頭部 - 搜尋頁面跳轉
+				toSearch() {
+					sessionStorage.setItem('search', this.search);
+					window.location.href = "search.html"
 				}
 			},
-		}).mount('#userPage')
+			mounted() {
+				this.userData = JSON.parse(sessionStorage.getItem('user')) || [];
+				this.form = { ...this.userData };
+			},
+			// 監聽 userData
+			watch: {
+				userData: {
+					handler() {
+						sessionStorage.setItem('user', JSON.stringify(this.userData));
+					},
+					deep: true,
+				}
+			}
+		})
+		app.use(ElementPlus);
+		app.mount('#app')
 	</script>
 
 
