@@ -173,9 +173,9 @@
 							<div class="card  text-center shadow">
 								<el-image :src="data.sellerImg" class="card-img-top img-thumbnail p-1 " fit="cover"></el-image>
 								<div class="card-block mt-2 p-2">
-									<p class="card-title fs-3">
-										{{data.sellerName}}
-									</p>
+									<div type="button" @click="toSellerStore(data.sellerId)">
+										<p class="card-title fs-3"> {{data.sellerName}} </p>
+									</div>
 									<div class="mt-1">
 										<el-rate v-model="sellerRate" disabled show-score text-color="#ff9900">
 										</el-rate>
@@ -191,7 +191,7 @@
 									</div>
 									<div class="card-footer bg-secondary">
 										<button type="button" data-bs-toggle="modal" data-bs-target="#addModal"
-											class="btn btn-danger btn-block card-btn rounded-pill px-4 fs-6">
+											class="btn btn-danger btn-block card-btn px-4 fs-6">
 											與我聯絡
 										</button>
 									</div>
@@ -409,13 +409,20 @@
 						cancelButtonText: '取消',
 					}).then((result) => {
 						if (result.isConfirmed) {
-							let purchase = { ...this.data };
-							purchase["buyerId"] = this.userData.userId;
-							axios.post(`${this.baseUrl}/order`, purchase)
-							axios.put(`${this.baseUrl}/product`, {
+							// 先看商品能不能買
+							axios.put(`${this.baseUrl}/product/tobuy`, {
 								productId: this.data.productId,
 								productStatus: 2,
-							}).then(res => { Swal.fire('購買成功', '', 'success') });
+							}).then(res => {
+								// res錯誤
+								if (res.data.code !== '0') return Swal.fire(res.data.msg, '', 'error')
+								// res 成功 --> 產生訂單
+								let purchase = { ...this.data };
+								purchase["buyerId"] = this.userData.userId;
+								purchase["buyerName"] = this.userData.userAccount;
+								axios.post(`${this.baseUrl}/order`, purchase).then(res => { Swal.fire('購買成功', '', 'success') })
+							});
+							sessionStorage.setItem('store', this.userData.userId);
 							setTimeout(() => { window.location.href = "user_store.html" }, 2000)
 						}
 					})
@@ -453,7 +460,7 @@
 					sessionStorage.setItem('store', id)
 					window.location.href = "user_store.html"
 				},
-				// 讀取商品地區
+				// 讀取商品地區 
 				addressLoad(sellerId) {
 					console.log(sellerId)
 					// axios.get(`${this.baseUrl}/user/${sellerId}`).then(res => {

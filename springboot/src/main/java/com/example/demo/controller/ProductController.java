@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.common.Result;
 import com.example.demo.entity.Product;
+import com.example.demo.entity.User;
 import com.example.demo.mapper.ProductMapper;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,6 +44,22 @@ public class ProductController {
     // 修改
     @PutMapping
     public Result<?> update(@RequestBody Product product) {
+        product.setUpdateTime(new Date());
+        productMapper.updateById(product);
+        return Result.success();
+
+    }
+
+    // 購買
+    @PutMapping("/tobuy")
+    public Result<?> toBuy(@RequestBody Product product) {
+        Product resStatus = productMapper.selectOne(
+                Wrappers.<Product>lambdaQuery()
+                        .eq(Product::getProductId, product.getProductId())
+                        .ne(Product::getProductStatus, 1));
+        if (resStatus != null) {
+            return Result.error("-1", "此商品已下架");
+        }
         product.setUpdateTime(new Date());
         productMapper.updateById(product);
         return Result.success();

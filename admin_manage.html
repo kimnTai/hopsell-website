@@ -46,7 +46,7 @@
                   <h3>商品管理</h3>
                   <hr>
                   <el-table :data="productData" border style="width: 100%" stripe v-loading="loading" height="750"
-                     :default-sort="{prop: 'productId', order: 'descending'}">
+                     :cell-style="{padding:'0px'}" :default-sort="{prop: 'productId', order: 'descending'}">
                      <el-table-column prop="productId" label="商品 Id" sortable>
                      </el-table-column>
                      <el-table-column prop="productName" label="名稱">
@@ -71,10 +71,10 @@
                      <el-table-column prop="productStatus" label="狀態" sortable>
                         <template #default="scope">
                            <span v-if="scope.row.productStatus === 1" class="btn btn-success btn-sm">正常</span>
-                           <span v-else-if="scope.row.productStatus === 0"
-                              class="btn btn btn-secondary btn-sm">下架</span>
-                           <span v-else-if="scope.row.productStatus === 2" class="btn btn-primary btn-sm">交易中</span>
-                           <span v-else class="btn btn-danger btn-sm">已刪除</span>
+                           <span v-else-if="scope.row.productStatus === 0" class="btn btn btn-danger btn-sm">下架</span>
+                           <span v-else-if="scope.row.productStatus === 2" class="btn btn-warning btn-sm">交易中</span>
+                           <span v-else-if="scope.row.productStatus === 3" class="btn btn-primary btn-sm">已完成</span>
+                           <span v-else class="btn btn-secondary btn-sm">已刪除</span>
                         </template>
                      </el-table-column>
                      <el-table-column label="操作">
@@ -160,7 +160,8 @@
 
                   <!--用戶商品詳情-->
                   <el-dialog title="商品詳情" v-model="visUserProduct">
-                     <el-table border :data="userProductData" height="450">
+                     <el-table border :data="userProductData" height="450"
+                        :default-sort="{prop: 'productId', order: 'descending'}">
                         <el-table-column prop="productId" label="Id" sortable>
                         </el-table-column>
                         <el-table-column prop="productName" label="名稱" style="height: 85px;">
@@ -184,9 +185,10 @@
                            <template #default="scope">
                               <span v-if="scope.row.productStatus === 1" class="btn btn-success btn-sm">正常</span>
                               <span v-else-if="scope.row.productStatus === 0"
-                                 class="btn btn btn-secondary btn-sm">下架</span>
-                              <span v-else-if="scope.row.productStatus === 2" class="btn btn-primary btn-sm">交易中</span>
-                              <span v-else class="btn btn-danger btn-sm">已刪除</span>
+                                 class="btn btn btn-danger btn-sm">下架</span>
+                              <span v-else-if="scope.row.productStatus === 2" class="btn btn-warning btn-sm">交易中</span>
+                              <span v-else-if="scope.row.productStatus === 3" class="btn btn-primary btn-sm">已完成</span>
+                              <span v-else class="btn btn-secondary btn-sm">已刪除</span>
                            </template>
                         </el-table-column>
                      </el-table>
@@ -277,7 +279,7 @@
                   <h3>檢舉清單</h3>
                   <hr>
                   <el-table :data="reportData" border style="width: 100%" stripe v-loading="loading"
-                     :default-sort="{prop: 'reportId', order: 'descending'}">
+                     :cell-style="{padding:'0px'}" :default-sort="{prop: 'reportId', order: 'descending'}">
                      <el-table-column prop="reportId" label="檢舉編號" sortable>
                      </el-table-column>
                      <el-table-column prop="productId" label="商品編號">
@@ -378,7 +380,7 @@
                }).catch(err => console.log(err));
                this.loading = false;
             },
-            // 商品控制，(1上、0處理中、負刪除、2已完成)
+            // 商品控制，(-1刪除、0處理中、1上、2交易中、3已完成)
             productControl(id, status) {
                if (status == 1) {
                   axios.put(`${this.baseUrl}/product`, { productId: id, productStatus: 0 })

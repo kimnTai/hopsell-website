@@ -88,15 +88,12 @@
 						if (!valid) { return }
 						axios.post(`${this.baseUrl}/user/login`, this.form).then(res => {
 							// res錯誤
-							if (res.data.code !== '0') {
-								Swal.fire(res.data.msg, '', 'error')
-								return
-							}
+							if (res.data.code !== '0') return Swal.fire(res.data.msg, '', 'error')
 							// res成功
 							Swal.fire('登入成功', '', 'success')
 							// 緩存用戶資料 
 							sessionStorage.setItem("user", JSON.stringify(res.data.data))
-							if (this.form.userAccount == "admin") {			
+							if (this.form.userAccount == "admin") {
 								// 如果是管理員，跳轉後台
 								setTimeout(() => { window.location.href = "admin_manage.html" }, 2000)
 							} else {
