@@ -254,7 +254,7 @@
 									<div v-for="item in storeList" class="col-md-3 mb-3">
 										<div class="card pt-1">
 											<div class="card-title d-flex">
-												<el-image class="rounded-circle m-2" :src="item.sellerImg"
+												<el-image class="rounded-circle m-2" :src="item.sellerImg" lazy
 													style="height: 32px; min-width: 32px;" fit="cover"></el-image>
 												<div type="button" class="flex-column" @click="toSellerStore(item.sellerId)">
 													<span class="">@{{item.sellerName}}</span><br>
@@ -262,7 +262,7 @@
 												</div>
 											</div>
 											<a href="#top" type="button" @click="toProduct(item)">
-												<el-image class="card-img-top img-thumbnail-like px-1" :src="item.productImgA"
+												<el-image class="card-img-top img-thumbnail-like px-1" :src="item.productImgA" lazy
 													fit="cover"></el-image>
 											</a>
 											<div class="card-block">

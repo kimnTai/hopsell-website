@@ -105,7 +105,7 @@
 					<!-- 卡片頭 -->
 					<div class="card">
 						<div class="m-3 d-flex align-items-start">
-							<el-image class="rounded-circle mr-2" :src="item.sellerImg" style="height: 40px; width: 40px;"
+							<el-image class="rounded-circle mr-2" :src="item.sellerImg" style="height: 40px; width: 40px;" lazy
 								fit="cover"></el-image>
 							<div type="button" class="flex-column" @click="toSellerStore(item.sellerId)">
 								<span class="m-3">@{{item.sellerName}}</span><br>
