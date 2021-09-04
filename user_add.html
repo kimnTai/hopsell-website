@@ -107,21 +107,22 @@
 				<div class="col-md-4 mb-4 px-3">
 					<div class="mx-5">
 						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片A</label>
-						<el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccess">
+						<!-- <el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccess">
 							<el-button type="info" style="background-color: #2C2C2D;">點擊上傳</el-button>
-						</el-upload>
+						</el-upload> -->
+						<input v-model="form.productImgA" type="text" class="form-control" placeholder="請輸入圖片url">
 						<el-image class="pt-2" style="height: 200px;width: 312px;" fit="cover" :src="form.productImgA"
 							:preview-src-list="[form.productImgA]"></el-image>
 					</div>
 					<div class="mx-5">
 						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片B</label>
-						<input v-model="form.productImgB" type="text" class="form-control" placeholder="請輸入圖片url" name="價格">
+						<input v-model="form.productImgB" type="text" class="form-control" placeholder="請輸入圖片url">
 						<el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgB"
 							:preview-src-list="[form.productImgB]" fit="cover"></el-image>
 					</div>
 					<div class="mx-5">
 						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片C</label>
-						<input v-model="form.productImgC" type="text" class="form-control" placeholder="請輸入圖片url" name="價格">
+						<input v-model="form.productImgC" type="text" class="form-control" placeholder="請輸入圖片url">
 						<el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgC"
 							:preview-src-list="[form.productImgC]" fit="cover"></el-image>
 					</div>
@@ -195,7 +196,7 @@
 						</div>
 						<div class="text-end d-flex justify-content-between">
 							<div>
-								<a type="button" class="" @click="addList">.</a>
+								<a type="button" class="" @click="addList">DEMO</a>
 							</div>
 							<button type="button" class="btn btn-secondary" @click="addProduct">立即刊登</button>
 						</div>
@@ -276,7 +277,7 @@
 				return {
 					image: '',
 					form: {},
-					baseUrl: 'http://localhost:9090/product',
+					baseUrl: 'https://fa5c-111-246-240-220.ngrok.io/product',
 					userData: [],
 					search: '',
 				}
