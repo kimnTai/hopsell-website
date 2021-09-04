@@ -29,13 +29,13 @@
          <!-------------------- 左側選單-------------------- -->
          <div class="nav flex-column nav-pills me-3 " id="v-pills-tab" role="tablist"
             style="width: 280px; min-height: 100vh;background-color: #444444;">
-            <button class="nav-link active text-light bi bi-box-seam" id="v-pills-product-tab" data-bs-toggle="pill"
-               data-bs-target="#v-pills-product" type="button" role="tab"> 商品管理</button>
-            <button class="nav-link text-light bi bi-people-fill" id="v-pills-user-tab" data-bs-toggle="pill"
+            <button class="nav-link active text-light bi bi-box-seam fs-4 mt-3" id="v-pills-product-tab"
+               data-bs-toggle="pill" data-bs-target="#v-pills-product" type="button" role="tab"> 商品管理</button>
+            <button class="nav-link text-light bi bi-people-fill fs-4" id="v-pills-user-tab" data-bs-toggle="pill"
                data-bs-target="#v-pills-user" type="button" role="tab"> 用戶管理</button>
-            <button class="nav-link text-light bi bi-layout-text-sidebar" id="v-pills-order-tab" data-bs-toggle="pill"
-               data-bs-target="#v-pills-order" type="button" role="tab"> 訂單管理</button>
-            <button class="nav-link text-light bi bi-exclamation-circle-fill" id="v-pills-report-tab"
+            <button class="nav-link text-light bi bi-layout-text-sidebar fs-4" id="v-pills-order-tab"
+               data-bs-toggle="pill" data-bs-target="#v-pills-order" type="button" role="tab"> 訂單管理</button>
+            <button class="nav-link text-light bi bi-exclamation-circle-fill fs-4" id="v-pills-report-tab"
                data-bs-toggle="pill" data-bs-target="#v-pills-report" type="button" role="tab"> 檢舉清單</button>
          </div>
 
@@ -45,7 +45,7 @@
                <div class="px-5 pt-3">
                   <h3>商品管理</h3>
                   <hr>
-                  <el-table :data="productData" border style="width: 100%" stripe v-loading="loading" height="750"
+                  <el-table :data="productData" border style="width: 100%" stripe v-loading="loading" height="650"
                      :cell-style="{padding:'0px'}" :default-sort="{prop: 'productId', order: 'descending'}">
                      <el-table-column prop="productId" label="商品 Id" sortable>
                      </el-table-column>

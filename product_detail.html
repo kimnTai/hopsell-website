@@ -379,24 +379,14 @@
 			methods: {
 				// 讀取當前商品資料
 				productLoad() {
-					axios.get(`${this.baseUrl}/product/${this.productId}`).then(res => {
-						this.data = res.data.data;
-					}).catch(err => {
-						console.log(err);
-					});
+					axios.get(`${this.baseUrl}/product/${this.productId}`)
+						.then(res => { this.data = res.data.data; })
 					// this.addressLoad(res.data.data.sellerId)
 				},
 				// 讀取評價資料
 				commLoad() {
-					axios.get(`${this.baseUrl}/comm`, {
-						params: {
-							sellerId: this.sellerId
-						}
-					}).then(res => {
-						this.commList = res.data.data.records;
-					}).catch(err => {
-						console.log(err);
-					});
+					axios.get(`${this.baseUrl}/comm`, { params: { sellerId: this.sellerId } })
+						.then(res => { this.commList = res.data.data.records.reverse(); })
 				},
 				// 購買商品
 				tobuyProduct() {

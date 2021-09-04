@@ -127,8 +127,9 @@
 					<div>
 						<button class="btn btn-secondary mx-2" @click='this.visibility = "productPage"'>商品</button>
 						<button class="btn btn-secondary mx-2" @click='this.visibility = "commPage"'>評價</button>
-						<button v-if="userData.userId == sellerId" class="btn btn-secondary mx-2"
-							@click='orderLoad'>交易紀錄</button>
+						<button class="btn btn-secondary mx-2" @click='orderLoad'>交易紀錄</button>
+						<!---------只能看到自己的交易紀錄，為了測試方便先拿掉--------->
+						<!-- v-if="userData.userId == sellerId" -->
 					</div>
 					<hr class="bg-dark border-4 border-top border-dark">
 					<div>
@@ -218,10 +219,9 @@
 						<div v-else class="row">
 							<div class="mb-3">
 								<p class="h3">購買紀錄</p>
-								<el-table :data="orderData" border style="width: 100%" stripe :cell-style="{padding:'0px'}"
-									v-loading="loading" empty-text="尚無購買紀錄"
-									:default-sort="{prop: 'orderId', order: 'descending'}">
-									<el-table-column prop="orderId" label="訂單編號">
+								<el-table :data="orderData" border style="width: 100%" stripe v-loading="loading" height="400"
+									empty-text="尚無購買紀錄" :default-sort="{prop: 'orderId', order: 'descending'}">
+									<el-table-column prop="orderId" label="訂單編號" width="80">
 									</el-table-column>
 									<el-table-column prop="sellerName" label="賣家名稱">
 									</el-table-column>
@@ -239,21 +239,60 @@
 									</el-table-column>
 									<el-table-column prop="orderStatus" label="訂單狀態" sortable>
 									</el-table-column>
-									<el-table-column label="操作">
+									<el-table-column label="操作 / 完成時間">
 										<template #default="scope">
 											<el-popconfirm v-if="scope.row.orderStatus == '已出貨' " title="確定收貨嗎？"
 												@confirm="orderControl(scope.row.orderId,scope.row.orderStatus,scope.row.productId)">
 												<template #reference>
-													<el-button type="success" size="mini">收貨、評價</el-button>
+													<button class="btn btn-success btn-sm">收貨</button>
 												</template>
 											</el-popconfirm>
+											<span v-if="scope.row.completeTime !== '' ">{{scope.row.completeTime}}</span>
+											<button v-if="scope.row.isComm == 0 && scope.row.orderStatus == '已完成' "
+												class="btn btn-danger btn-sm" @click="commDialog(scope.row)">評價
+											</button>
 										</template>
 									</el-table-column>
 								</el-table>
+								<!---------------評價彈窗--------------->
+								<el-dialog title="商品評價" v-model="dialogVisible" width="30%">
+									<el-form :model="commForm" label-width="120px">
+										<el-form-item label="名稱">
+											<span>{{commForm.productName}}</span>
+										</el-form-item>
+										<el-form-item label="商品封面">
+											<el-image style="width: 100px; height: 100px" :src="commForm.productImgA">
+											</el-image>
+										</el-form-item>
+										<el-form-item class="d-flex align-items-center" label="評等">
+											<el-rate v-model="commForm.commLevel">
+											</el-rate>
+										</el-form-item>
+										<el-form-item label="內容">
+											<el-input rows="4" type="textarea" v-model="commForm.commContent	"
+												style="width: 80% ;">
+											</el-input>
+										</el-form-item>
+										<el-form-item label="附圖">
+											<el-upload action="http://localhost:9090/files/upload"
+												:on-success="filesUploadSuccess">
+												<el-button style="background-color: #2C2C2D;color: #fff;">點擊上傳
+												</el-button>
+											</el-upload>
+										</el-form-item>
+									</el-form>
+									<template #footer>
+										<span class="dialog-footer">
+											<el-button @click="dialogVisible = false">取 消</el-button>
+											<el-button style="background-color: #2C2C2D;color: #fff;" @click="sendComm">確 認
+											</el-button>
+										</span>
+									</template>
+								</el-dialog>
 							</div>
 							<div>
 								<p class="h3">出售紀錄</p>
-								<el-table :data="sellData" border stripe v-loading="loading" :cell-style="{padding:'0px'}"
+								<el-table :data="sellData" border stripe v-loading="loading" :cell-style="{padding:'0px'}" height="400"
 									empty-text="尚無出售紀錄" :default-sort="{prop: 'orderId', order: 'descending'}">
 									<el-table-column prop="orderId" label="訂單編號">
 									</el-table-column>
@@ -273,18 +312,21 @@
 									</el-table-column>
 									<el-table-column prop="orderStatus" label="訂單狀態" sortable>
 									</el-table-column>
-									<el-table-column label="操作">
+									<el-table-column label="操作 / 完成時間">
 										<template #default="scope">
 											<el-popconfirm v-if="scope.row.orderStatus == '處理中' " title="確定出貨嗎？"
 												@confirm="orderControl(scope.row.orderId,scope.row.orderStatus,scope.row.productId)">
 												<template #reference>
-													<el-button type="danger" size="mini">出貨</el-button>
+													<button class="btn btn-danger btn-sm">出貨</button>
 												</template>
 											</el-popconfirm>
+											<span v-if="scope.row.orderStatus == '已出貨' ">等待收貨</span>
+											<span v-if="scope.row.completeTime !== '' ">{{scope.row.completeTime}}</span>
 										</template>
 									</el-table-column>
 								</el-table>
 							</div>
+
 						</div>
 
 					</div>
@@ -347,12 +389,14 @@
 			data() {
 				return {
 					baseUrl: 'http://localhost:9090',
-					visibility: 'other',
+					visibility: 'productPage',
+					dialogVisible: false,
 					loading: true,
 					sellerId: '',
 					sellerData: [],
 					storeList: [],
 					commList: [],
+					commForm: {},
 					favoriteList: [],
 					orderData: [],
 					sellData: [],
@@ -380,7 +424,7 @@
 					}).then(res => {
 						// 過濾 刪除 & 下架
 						const arr = res.data.data.records.filter(item => item.productStatus == 1)
-						this.storeList = arr;
+						this.storeList = arr.reverse();
 					}).catch(err => console.log(err));
 				},
 				// 讀取評價資料
@@ -390,7 +434,7 @@
 							sellerId: this.sellerId
 						}
 					}).then(res => {
-						this.commList = res.data.data.records;
+						this.commList = res.data.data.records.reverse();
 					}).catch(err => console.log(err));
 				},
 				// 讀取訂單資料
@@ -416,9 +460,32 @@
 						axios.put(`${this.baseUrl}/product`, { productId: productId, productStatus: 3 })
 					}
 					this.loading = true;
-					this.orderLoad()
+					setTimeout(() => { this.orderLoad() }, 500)
+					
 				},
-
+				// 評價彈窗
+				commDialog(item) {
+					console.log(item)
+					this.dialogVisible = true
+					this.commForm = {}
+					this.commForm = { ...item }
+				},
+				// 評價附圖 - 圖片上傳
+				filesUploadSuccess(res) {
+					console.log(res.data)
+					this.commForm.commImg = res.data
+				},
+				// 送出評價
+				sendComm() {
+					this.commForm["buyerImg"] = this.userData.userImg;
+					axios.put(`${this.baseUrl}/order`, { orderId: this.commForm.orderId, isComm: 1 })
+					axios.post(`${this.baseUrl}/comm`, this.commForm)
+						.then(res => {
+							this.dialogVisible = false;
+							Swal.fire('評價成功', '', 'success');
+							this.orderLoad();
+						})
+				},
 				// 加入最愛
 				addFavorite(item) {
 					// 先看清單中 是否有該商品
@@ -494,6 +561,7 @@
 				this.storeLoad();
 				this.commLoad();
 				this.orderLoad();
+				this.visibility = 'productPage';
 			},
 			// 監聽 favoriteList
 			watch: {

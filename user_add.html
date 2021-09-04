@@ -306,10 +306,10 @@
 							this.form.sellerImg = this.userData.userImg
 
 							axios.post(this.baseUrl, this.form)
-								.then((res) => {
+								.then(res => {
 									Swal.fire('商品已刊登', '', 'success')
 								})
-								.catch((err) => {
+								.catch(err => {
 									console.log(err);
 									Swal.fire('失敗', '', 'info')
 								});

@@ -57,6 +57,7 @@ public class ProductController {
                 Wrappers.<Product>lambdaQuery()
                         .eq(Product::getProductId, product.getProductId())
                         .ne(Product::getProductStatus, 1));
+        // 如果商品狀態不正常 => 不能買
         if (resStatus != null) {
             return Result.error("-1", "此商品已下架");
         }

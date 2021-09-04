@@ -24,6 +24,7 @@ public class OrderTable {
     private Integer buyerId;
     private String buyerName;
     private String orderStatus;
+    private String isComm;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")      // 時間
     private Date orderTime;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")      // 時間
