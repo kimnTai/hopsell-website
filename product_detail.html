@@ -35,7 +35,7 @@
 					<!-- 登出按鈕 -->
 					<div class="text-end" v-if="userData.userId != null">
 						<i href="" class="">
-							<el-image class="rounded-circle" :src="userData.userImg" alt="Icon"
+							<el-image class="rounded-circle" :src="userData.userImg" alt="Icon" lazy
 								style="height: 30px;height: 30px; top: 9px; right: 5px;">
 							</el-image>
 						</i>
@@ -171,7 +171,7 @@
 						<!-- 右功能 -->
 						<div class="col-md-4 px-5">
 							<div class="card  text-center shadow">
-								<el-image :src="data.sellerImg" class="card-img-top img-thumbnail p-1 " fit="cover"></el-image>
+								<el-image :src="data.sellerImg" class="card-img-top img-thumbnail p-1 " fit="cover" lazy></el-image>
 								<div class="card-block mt-2 p-2">
 									<div type="button" @click="toSellerStore(data.sellerId)">
 										<p class="card-title fs-3"> {{data.sellerName}} </p>

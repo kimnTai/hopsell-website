@@ -34,7 +34,7 @@
 					<!-- 登出按鈕 -->
 					<div class="text-end" v-if="userData.userId != null">
 						<i href="" class="">
-							<el-image class="rounded-circle" :src="userData.userImg" alt="Icon"
+							<el-image class="rounded-circle" :src="userData.userImg" alt="Icon" lazy
 								style="height: 30px;height: 30px; top: 9px; right: 5px;">
 							</el-image>
 						</i>
@@ -148,7 +148,7 @@
 							<div class="col-md-3 mb-4" v-for="item in storeList">
 								<div class="card  p-1">
 									<div type="button" @click="toProduct(item)">
-										<el-image class="card-img-top img-thumbnail-like rounded" alt="" :src="item.productImgA"
+										<el-image class="card-img-top img-thumbnail-like rounded" alt="" :src="item.productImgA" lazy
 											:preview-src-list="[item.productImgA]" fit="cover">
 										</el-image>
 									</div>
@@ -185,7 +185,7 @@
 										<p class="fs-5 fw-bold text-center">目前沒有評價喔!</p>
 										<p class="fs-6 text-center">找到你的想要賣的商品，開始建立你的拍賣清單吧！</p>
 									</div>
-									<el-image src="https://upload.cc/i1/2021/08/25/ZLUXBr.jpg" fit="contain"
+									<el-image src="https://upload.cc/i1/2021/08/25/ZLUXBr.jpg" fit="contain" lazy
 										style="height: 500px;"></el-image>
 								</div>
 								<table v-else class="table table-hover table-borderless">
@@ -227,7 +227,7 @@
 									</el-table-column>
 									<el-table-column label="商品封面">
 										<template #default="scope">
-											<el-image style="width: 50px; height: 50px" :src="scope.row.productImgA">
+											<el-image style="width: 50px; height: 50px" :src="scope.row.productImgA" lazy>
 											</el-image>
 										</template>
 									</el-table-column>
@@ -261,7 +261,7 @@
 											<span>{{commForm.productName}}</span>
 										</el-form-item>
 										<el-form-item label="商品封面">
-											<el-image style="width: 100px; height: 100px" :src="commForm.productImgA">
+											<el-image style="width: 100px; height: 100px" :src="commForm.productImgA" lazy>
 											</el-image>
 										</el-form-item>
 										<el-form-item class="d-flex align-items-center" label="評等">
@@ -298,7 +298,7 @@
 									</el-table-column>
 									<el-table-column label="商品封面">
 										<template #default="scope">
-											<el-image style="width: 50px; height: 50px" :src="scope.row.productImgA">
+											<el-image style="width: 50px; height: 50px" :src="scope.row.productImgA" lazy>
 											</el-image>
 										</template>
 									</el-table-column>

@@ -35,7 +35,7 @@
 					<!-- 登出按鈕 -->
 					<div class="text-end" v-if="userData.userId != null">
 						<i href="" class="">
-							<el-image class="rounded-circle" :src="userData.userImg" alt="Icon"
+							<el-image class="rounded-circle" :src="userData.userImg" alt="Icon" lazy
 								style="height: 30px;height: 30px; top: 9px; right: 5px;">
 							</el-image>
 						</i>
@@ -111,19 +111,19 @@
 							<el-button type="info" style="background-color: #2C2C2D;">點擊上傳</el-button>
 						</el-upload> -->
 						<input v-model="form.productImgA" type="text" class="form-control" placeholder="請輸入圖片url">
-						<el-image class="pt-2" style="height: 200px;width: 312px;" fit="cover" :src="form.productImgA"
+						<el-image class="pt-2" style="height: 200px;width: 312px;" fit="cover" :src="form.productImgA" lazy
 							:preview-src-list="[form.productImgA]"></el-image>
 					</div>
 					<div class="mx-5">
 						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片B</label>
 						<input v-model="form.productImgB" type="text" class="form-control" placeholder="請輸入圖片url">
-						<el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgB"
+						<el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgB" lazy
 							:preview-src-list="[form.productImgB]" fit="cover"></el-image>
 					</div>
 					<div class="mx-5">
 						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片C</label>
 						<input v-model="form.productImgC" type="text" class="form-control" placeholder="請輸入圖片url">
-						<el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgC"
+						<el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgC" lazy
 							:preview-src-list="[form.productImgC]" fit="cover"></el-image>
 					</div>
 				</div>
