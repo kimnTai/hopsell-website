@@ -114,9 +114,9 @@
 								<p class="">{{sellerData.userIntroduce}}</p>
 							</div>
 							<div class="card-footer bg-secondary">
-								<button type="button" data-bs-toggle="modal" data-bs-target="#addModal"
+								<button type="button" data-bs-toggle="modal" data-bs-target="#addModal" @click="toChatSeller"
 									class="btn btn-danger btn-block card-btn px-4 fs-6">
-									追蹤
+									與我聯絡
 								</button>
 							</div>
 						</div>
@@ -535,7 +535,12 @@
 				toSearch() {
 					sessionStorage.setItem('search', this.search);
 					window.location.href = "search.html"
-				}
+				},
+				// 聯絡賣家
+				toChatSeller() {
+					if (this.userData.length == 0) return Swal.fire('請先登入', '', 'info')
+					window.location.href = "chatroom.html"
+				},
 			},
 
 			computed: {

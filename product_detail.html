@@ -185,13 +185,12 @@
 										<i class="bi bi-envelope-fill m-2 fs-5">已驗證</i>
 									</div>
 									<div class="mb-3">
-										<label for="exampleFormControlTextarea1" class="form-label"></label>
-										<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+										<textarea v-model="message" class="form-control" rows="3"
 											placeholder="留下給賣家的訊息"></textarea>
 									</div>
 									<div class="card-footer bg-secondary">
 										<button type="button" data-bs-toggle="modal" data-bs-target="#addModal"
-											class="btn btn-danger btn-block card-btn px-4 fs-6">
+											@click="toChatSeller" class="btn btn-danger btn-block card-btn px-4 fs-6">
 											與我聯絡
 										</button>
 									</div>
@@ -374,6 +373,7 @@
 					productId: '',
 					sellerId: '',
 					search: '',
+					message: '',
 				}
 			},
 			methods: {
@@ -381,7 +381,6 @@
 				productLoad() {
 					axios.get(`${this.baseUrl}/product/${this.productId}`)
 						.then(res => { this.data = res.data.data; })
-					// this.addressLoad(res.data.data.sellerId)
 				},
 				// 讀取評價資料
 				commLoad() {
@@ -417,6 +416,12 @@
 						}
 					})
 				},
+				// 聯絡賣家
+				toChatSeller() {
+					if (this.userData.length == 0) return Swal.fire('請先登入', '', 'info')
+					sessionStorage.setItem('message', this.message);
+					window.location.href = "chatroom.html"
+				},
 				// 檢舉商品
 				reportProduct() {
 					if (Object.keys(this.reportList).length === 0) {
@@ -449,13 +454,6 @@
 				toSellerStore(id) {
 					sessionStorage.setItem('store', id)
 					window.location.href = "user_store.html"
-				},
-				// 讀取商品地區 
-				addressLoad(sellerId) {
-					console.log(sellerId)
-					// axios.get(`${this.baseUrl}/user/${sellerId}`).then(res => {
-					// 	console.log(res)
-					// })
 				},
 				// 加入最愛
 				addFavorite(item) {
