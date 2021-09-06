@@ -104,7 +104,7 @@
 
 		<div class="container">
 			<div class="row d-flex justify-content-center">
-				<div class="col-md-4 mb-4 px-3">
+				<!-- <div class="col-md-4 mb-4 px-3">
 					<div class="mx-5">
 						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片A</label>
 						<el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccess">
@@ -113,93 +113,64 @@
 						<el-image class="pt-2" style="height: 200px;width: 312px;" fit="cover" :src="form.productImgA"
 							:preview-src-list="[form.productImgA]"></el-image>
 					</div>
-					<div class="mx-5">
-						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片B</label>
-						<input v-model="form.productImgB" type="text" class="form-control" placeholder="請輸入圖片url" name="價格">
-						<el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgB"
-							:preview-src-list="[form.productImgB]" fit="cover"></el-image>
-					</div>
-					<div class="mx-5">
-						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片C</label>
-						<input v-model="form.productImgC" type="text" class="form-control" placeholder="請輸入圖片url" name="價格">
-						<el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgC"
-							:preview-src-list="[form.productImgC]" fit="cover"></el-image>
-					</div>
-				</div>
-				<div class="col-md-6 ">
+				</div> -->
+
+				<div class="col-md-7">
 					<hr class="d-block d-md-none my-6 my-md-0">
-					<h2 class="h4 fw-bold mb-4 mb-md-6">商品內容</h2>
-					<!--form-->
-					<div novalidate="">
-						<div class="mb-3">
-							<label for="" class="form-label  h6 text-secondary">選擇交易方式<span class="text-danger ms-1">*</span>
-							</label>
-							<select v-model="form.productTrade" class="form-select" name="分類">
-								<option disabled="">選擇交易方式</option>
-								<option value="7-Eleven 取貨付款">7-Eleven 取貨付款</option>
-								<option value="郵寄及宅配">郵寄及宅配</option>
-								<option value="面交">面交</option>
-							</select>
-							<!---->
+					<h2 class="h4 fw-bold mb-4 mb-md-6">商品資訊</h2>
+					<!---------form--------->
+					<el-form class="" ref="form" :model="form" label-position="left" label-width="110px">
+						<div class="p-2">
+							<el-form-item label="商品圖片">
+								<el-upload action="http://localhost:9090/files/upload" list-type="picture-card"
+									:on-remove="handleRemove" :on-success="filesUploadSuccess">
+									<i class="el-icon-plus"></i>
+								</el-upload>
+							</el-form-item>
+							<el-form-item label="商品名稱" class="mb-4" prop="productName">
+								<el-input prefix-icon="" placeholder="請輸入商品名稱" v-model="form.productName">
+								</el-input>
+							</el-form-item>
+							<el-form-item label="選擇分類" class="mb-4" prop="categoryId">
+								<el-select v-model="form.categoryId" placeholder="選擇分類" style="width: 614px;">
+									<el-option label="時尚衣裝" value="時尚衣裝"></el-option>
+									<el-option label="精品配件" value="精品配件"></el-option>
+									<el-option label="3C家電" value="3C家電"></el-option>
+									<el-option label="書籍雜誌" value="書籍雜誌"></el-option>
+									<el-option label="娛樂休閒" value="娛樂休閒"></el-option>
+									<el-option label="居家生活" value="居家生活"></el-option>
+								</el-select>
+							</el-form-item>
+							<el-form-item label="選擇新舊程度" class="mb-4" prop="productCondition">
+								<el-radio-group v-model="form.productCondition">
+									<el-radio label="全新" value="全新"></el-radio>
+									<el-radio label="幾乎全新" value="幾乎全新"></el-radio>
+									<el-radio label="狀況良好" value="狀況良好"></el-radio>
+									<el-radio label="狀況尚可" value="狀況尚可"></el-radio>
+								</el-radio-group>
+							</el-form-item>
+							<el-form-item label="選擇交易方式" class="mb-4" prop="productTrade">
+								<el-radio-group v-model="form.productTrade">
+									<el-radio label="7-Eleven 取貨付款" value="7-Eleven 取貨付款"></el-radio>
+									<el-radio label="郵寄及宅配" value="郵寄及宅配"></el-radio>
+									<el-radio label="面交" value="面交"></el-radio>
+								</el-radio-group>
+							</el-form-item>
+							<el-form-item label="選擇交易方式" class="mb-4 d-flex" prop="productPrice">
+								<el-input placeholder="NT$ 設定價位" prefix-icon="" v-model="form.productPrice" type="number">
+								</el-input>
+							</el-form-item>
+							<el-form-item label="商品描述" class="mb-4">
+								<el-input style="font-size: 1rem;" rows="7" type="textarea" v-model="form.productContent"
+									placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！">
+								</el-input>
+							</el-form-item>
+							<el-form-item class="text-end mt-4">
+								<a type="button" @click="addList" style="margin-right: 50px;">DEMO</a>
+								<el-button @click="addProduct" style="background-color: #2C2C2D;color: #fff;">立即刊登</el-button>
+							</el-form-item>
 						</div>
-						<div class="mb-3">
-							<label for="" class="form-label  h6 text-secondary">選擇分類<span class="text-danger ms-1">*</span>
-							</label>
-							<select v-model="form.categoryId" class="form-select" name="分類">
-								<option disabled="">選擇分類</option>
-								<option value="時尚衣裝">時尚衣裝</option>
-								<option value="精品配件">精品配件</option>
-								<option value="3C家電">3C家電</option>
-								<option value="書籍雜誌">書籍雜誌</option>
-								<option value="娛樂休閒">娛樂休閒</option>
-								<option value="居家生活">居家生活</option>
-							</select>
-							<!---->
-						</div>
-						<v-form @submit="onSubmit" v-slot="{errors}" class="mb-3">
-							<label for="" class="form-label h6 text-secondary">商品名稱 <span class="text-danger ms-1">*</span>
-							</label>
-							<v-field v-model="form.productName" type="text" class="form-control" placeholder="請輸入商品名稱"
-								name="商品名稱" :rules="isRequired">
-							</v-field>
-							<!---->
-							<error-message name="商品名稱"></error-message>
-						</v-form>
-						<h2 class="h4 fw-bold mb-4 mb-md-6">關於此商品</h2>
-						<div class="mb-3">
-							<label for="name" class="form-label h6 text-secondary"> 新舊程度 <span
-									class="text-danger ms-1">*</span>
-							</label>
-							<select v-model="form.productCondition" class="form-select" name="新舊程度">
-								<option disabled="">選擇分類</option>
-								<option value="全新">全新</option>
-								<option value="幾乎全新">幾乎全新</option>
-								<option value="狀況良好">狀況良好</option>
-								<option value="狀況尚可">狀況尚可</option>
-							</select>
-							<!---->
-						</div>
-						<div class="mb-3">
-							<label for="" class="form-label h6 text-secondary">
-								價格<span class="text-danger ms-1">*</span>
-							</label>
-							<input v-model="form.productPrice" type="number" class="form-control" placeholder="NT$ 設定價位"
-								name="價格">
-							<!---->
-						</div>
-						<div class="mb-3 ">
-							<label for="message" class="form-label h6 text-secondary">商品描述</label>
-							<!--textarea 不能換行-->
-							<textarea v-model="form.productContent" name="" id="message" class="form-control"
-								style="height: 200px" placeholder="描述您所銷售的產品，並包含買家可能感興趣的任何細節。用戶們喜歡有故事的產品！"></textarea>
-						</div>
-						<div class="text-end d-flex justify-content-between">
-							<div>
-								<a type="button" class="" @click="addList">.</a>
-							</div>
-							<button type="button" class="btn btn-secondary" @click="addProduct">立即刊登</button>
-						</div>
-					</div>
+					</el-form>
 				</div>
 				<!-------------------- END APP----------------------->
 			</div>
@@ -247,8 +218,6 @@
 		crossorigin="anonymous"></script>
 	<!-- Vue CDN -->
 	<script src="https://unpkg.com/vue@next"></script>
-	<!-- VeeValidate CDN -->
-	<script src="https://unpkg.com/vee-validate@next"></script>
 	<!-- axios -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
 		integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
@@ -262,16 +231,7 @@
 
 
 	<script type="module">
-		console.log(VeeValidate);
 		const app = Vue.createApp({
-
-			// 驗證套件
-			components: {
-				VForm: VeeValidate.Form,
-				VField: VeeValidate.Field,
-				ErrorMessage: VeeValidate.ErrorMessage,
-			},
-
 			data() {
 				return {
 					image: '',
@@ -279,6 +239,8 @@
 					baseUrl: 'http://localhost:9090/product',
 					userData: [],
 					search: '',
+					dialogImageUrl: '',
+					dialogVisible: false,
 				}
 			},
 			methods: {
@@ -314,6 +276,7 @@
 									Swal.fire('失敗', '', 'info')
 								});
 							this.form = {};
+							sessionStorage.setItem('store', this.userData.userId);
 							setTimeout(() => {
 								window.location.href = "user_store.html"
 							}, 2000)
@@ -322,10 +285,25 @@
 				},
 				// 存圖片url
 				filesUploadSuccess(res) {
-					console.log(res.data)
-					sessionStorage.setItem("upload", JSON.stringify(res.data))  // 緩存用戶資料
-					this.form.productImgA = res.data
+					if (!this.form.productImgA) {
+						this.form.productImgA = res.data;
+						return
+					} else if (!this.form.productImgB) {
+						this.form.productImgB = res.data;
+						return
+					} else if (!this.form.productImgC) {
+						this.form.productImgC = res.data;
+						return
+					}
+
 				},
+
+				// ElementPlus 刪除圖片
+				handleRemove(file, fileList) {
+
+
+				},
+
 				addList() {
 					const list = {
 						sellerId: this.userData.userId,
@@ -373,8 +351,8 @@
 				}
 			},
 			mounted() {
-				let url = sessionStorage.getItem("upload") || "{}"
-				this.form.productImgA = JSON.parse(url)
+				// let url = sessionStorage.getItem("upload") || "{}"
+				// this.form.productImgA = JSON.parse(url)
 				this.userData = JSON.parse(sessionStorage.getItem('user')) || [];
 			},
 			// 監聽 favoriteList

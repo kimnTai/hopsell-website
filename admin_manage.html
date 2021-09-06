@@ -108,7 +108,7 @@
                <div class="px-5 pt-3">
                   <h3>用戶管理</h3>
                   <hr>
-                  <el-table :data="userData" border style="width: 100%" stripe v-loading="loading"
+                  <el-table :data="userData" border style="width: 100%" stripe v-loading="loading" height="650"
                      :default-sort="{prop: 'userId', order: 'descending'}">
                      <el-table-column prop="userId" label="用戶 Id" sortable>
                      </el-table-column>
@@ -466,7 +466,7 @@
 
             // 管理員登出
             adminLogout() {
-               sessionStorage.setItem('user', []);
+               sessionStorage.removeItem('user');
                Swal.fire('已登出')
                setTimeout(() => { window.location.href = "home.html" }, 1000)
             },
