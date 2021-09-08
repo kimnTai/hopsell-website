@@ -232,11 +232,11 @@
                      :default-sort="{prop: 'orderId', order: 'descending'}">
                      <el-table-column prop="orderId" label="訂單編號" sortable>
                      </el-table-column>
-                     <el-table-column prop="buyerId" label="買家Id" sortable>
+                     <el-table-column prop="buyerName" label="買家名稱" sortable>
                      </el-table-column>
-                     <el-table-column prop="sellerId" label="賣家Id" sortable>
+                     <el-table-column prop="sellerName" label="賣家名稱" sortable>
                      </el-table-column>
-                     <el-table-column prop="productId" label="商品Id">
+                     <el-table-column prop="productName" label="商品名稱">
                      </el-table-column>
                      <el-table-column prop="categoryId" label="商品分類">
                      </el-table-column>
@@ -253,7 +253,7 @@
                            <el-popconfirm v-if="scope.row.orderStatus == '處理中' " title="確定出貨嗎？"
                               @confirm="orderControl(scope.row.orderId,scope.row.orderStatus)">
                               <template #reference>
-                                 <el-button type="danger" size="mini">出貨</el-button>
+                                 <el-button type="danger" size="mini">暫停</el-button>
                               </template>
                            </el-popconfirm>
                            <el-popconfirm v-else-if="scope.row.orderStatus == '已出貨' " title="確定收貨嗎？"

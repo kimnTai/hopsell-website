@@ -305,30 +305,20 @@
 				},
 
 				addList() {
-					const list = {
-						sellerId: this.userData.userId,
-						sellerName: this.userData.userAccount,
-						sellerImg: this.userData.userImg,
-						productName: "實拍現貨~高貴華爾緞短款修身顯瘦襯衫女氣質套裝裙高級感兩件套",
-						productPrice: "860",
-						productCondition: "全新",
-						categoryId: "時尚衣裝",
-						productTrade: "郵寄及宅配",
-						productImgA: "https://upload.cc/i1/2021/08/13/IlYc4K.jpg",
-						productImgB: "https://upload.cc/i1/2021/08/13/V7zYiM.jpg",
-						productImgC: "https://upload.cc/i1/2021/08/13/gWvoPQ.jpg",
-						productContent: `商品定價：代購約2500-3000
-                                    商品尺寸：S號 版型偏大
-                                    肩寬48胸寬56衣長72cm
-                                    商品狀況：95%
-                                    台灣沒有發售這個配色
-                                    商品照片皆為本人實體拍攝
-                                    提供商品實體測量數據參考
-                                    購買前可先詢問 或 參考賣場簡介✔️✔️✔️
-                                    喜歡的各位可點選本賣場首頁《追蹤》
-                                    才不會遺漏最新上架的商品`,
-					};
-					this.form = list;
+
+					this.form.sellerId = this.userData.userId
+					this.form.sellerName = this.userData.userAccount
+					this.form.sellerImg = this.userData.userImg
+					this.form.productName = "Men’s Tshirt 男薄T恤(M size)"
+					this.form.productPrice = "860"
+					this.form.productCondition = "全新"
+					this.form.categoryId = "時尚衣裝"
+					this.form.productTrade = "郵寄及宅配"
+					this.form.productContent = `Proman復古針織毛衣外套/法國當地帶回。
+												尺寸：長77/肩55
+												古著並非新品 吹毛求疵者 請慎重考慮。
+												❗️商品售出後，不做退換。`
+
 				},
 				// 使用者登出
 				logout() {
