@@ -53,7 +53,7 @@
                      </el-table-column>
                      <el-table-column label="封面">
                         <template #default="scope">
-                           <el-image style="width: 50px; height: 50px" :src="scope.row.productImgA" lazy
+                           <el-image style="width: 50px; height: 50px" :src="scope.row.productImgA"
                               :preview-src-list="[scope.row.productImgA]">
                            </el-image>
                         </template>
@@ -108,7 +108,7 @@
                <div class="px-5 pt-3">
                   <h3>用戶管理</h3>
                   <hr>
-                  <el-table :data="userData" border style="width: 100%" stripe v-loading="loading"
+                  <el-table :data="userData" border style="width: 100%" stripe v-loading="loading" height="650"
                      :default-sort="{prop: 'userId', order: 'descending'}">
                      <el-table-column prop="userId" label="用戶 Id" sortable>
                      </el-table-column>
@@ -116,7 +116,7 @@
                      </el-table-column>
                      <el-table-column label="頭像">
                         <template #default="scope">
-                           <el-image style="width: 50px; height: 50px" :src="scope.row.userImg" lazy
+                           <el-image style="width: 50px; height: 50px" :src="scope.row.userImg"
                               :preview-src-list="[scope.row.userImg]">
                            </el-image>
                         </template>
@@ -168,7 +168,7 @@
                         </el-table-column>
                         <el-table-column label="封面">
                            <template #default="scope">
-                              <el-image style="width: 50px; height: 50px" :src="scope.row.productImgA" lazy
+                              <el-image style="width: 50px; height: 50px" :src="scope.row.productImgA"
                                  :preview-src-list="[scope.row.productImgA]">
                               </el-image>
                            </template>
@@ -200,7 +200,7 @@
                         </el-table-column>
                         <el-table-column label="封面">
                            <template #default="scope">
-                              <el-image style="width: 50px; height: 50px" :src="scope.row.buyerImg" lazy
+                              <el-image style="width: 50px; height: 50px" :src="scope.row.buyerImg"
                                  :preview-src-list="[scope.row.buyerImg]">
                               </el-image>
                            </template>
@@ -232,11 +232,11 @@
                      :default-sort="{prop: 'orderId', order: 'descending'}">
                      <el-table-column prop="orderId" label="訂單編號" sortable>
                      </el-table-column>
-                     <el-table-column prop="buyerId" label="買家Id" sortable>
+                     <el-table-column prop="buyerName" label="買家名稱" sortable>
                      </el-table-column>
-                     <el-table-column prop="sellerId" label="賣家Id" sortable>
+                     <el-table-column prop="sellerName" label="賣家名稱" sortable>
                      </el-table-column>
-                     <el-table-column prop="productId" label="商品Id">
+                     <el-table-column prop="productName" label="商品名稱">
                      </el-table-column>
                      <el-table-column prop="categoryId" label="商品分類">
                      </el-table-column>
@@ -253,7 +253,7 @@
                            <el-popconfirm v-if="scope.row.orderStatus == '處理中' " title="確定出貨嗎？"
                               @confirm="orderControl(scope.row.orderId,scope.row.orderStatus)">
                               <template #reference>
-                                 <el-button type="danger" size="mini">出貨</el-button>
+                                 <el-button type="danger" size="mini">暫停</el-button>
                               </template>
                            </el-popconfirm>
                            <el-popconfirm v-else-if="scope.row.orderStatus == '已出貨' " title="確定收貨嗎？"
@@ -358,7 +358,7 @@
          data() {
             return {
                test: '測試',
-               baseUrl: 'https://fa5c-111-246-240-220.ngrok.io',
+               baseUrl: 'https://a7cf-111-246-241-209.ngrok.io',
                productData: [],
                productDetailsData: [],
                userData: [],
@@ -466,7 +466,7 @@
 
             // 管理員登出
             adminLogout() {
-               sessionStorage.setItem('user', []);
+               sessionStorage.removeItem('user');
                Swal.fire('已登出')
                setTimeout(() => { window.location.href = "home.html" }, 1000)
             },
@@ -474,11 +474,11 @@
 
 
          mounted() {
-            setTimeout(() => { this.loadProduct(); }, 1000)
-            setTimeout(() => { this.loadUser(); }, 2000)
-            setTimeout(() => { this.loadOrder(); }, 3000)
-            setTimeout(() => { this.loadReport(); }, 4000)
-            
+            this.loadProduct();
+            this.loadUser();
+            this.loadOrder();
+            this.loadReport();
+
          }
       });
       app.use(ElementPlus);

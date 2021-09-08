@@ -35,7 +35,7 @@
 					<!-- 登出按鈕 -->
 					<div class="text-end" v-if="userData.userId != null">
 						<i href="" class="">
-							<el-image class="rounded-circle" :src="userData.userImg" alt="Icon" lazy
+							<el-image class="rounded-circle" :src="userData.userImg" alt="Icon"
 								style="height: 30px;height: 30px; top: 9px; right: 5px;">
 							</el-image>
 						</i>
@@ -98,11 +98,11 @@
 								style="height: 440px; width: 100%;" fit="cover"></el-image>
 						</div>
 						<div class="col-md-4">
-							<el-image :src="data.productImgB" :preview-src-list="[data.productImgA]" lazy
+							<el-image :src="data.productImgB" :preview-src-list="[data.productImgB]" lazy
 								style="height: 440px; width: 100%;" fit="cover"></el-image>
 						</div>
 						<div class="col-md-4">
-							<el-image :src="data.productImgC" :preview-src-list="[data.productImgA]" lazy
+							<el-image :src="data.productImgC" :preview-src-list="[data.productImgC]" lazy
 								style="height: 440px; width: 100%;" fit="cover"></el-image>
 						</div>
 					</div>
@@ -119,16 +119,16 @@
 						<div class="col-md-8 ">
 							<!-- 商品訊息 -->
 							<div>
-								<h3>{{data.productName}}</h3>
+								<h3><b>{{data.productName}}</b></h3>
 								<p class="fs-1 text-danger">NT${{data.productPrice}}</p>
-								<i class="bi bi-emoji-sunglasses fs-3 m-3"> {{data.productCondition}}</i>
-								<i class="bi bi-people-fill fs-3 m-3">{{data.productTrade}}</i>
-								<i class="bi bi-geo-alt-fill fs-3 m-3">中彰投</i>
+								<span class="fs-4 me-3"><i class="bi bi-emoji-sunglasses fs-4 my-3 me-2"></i>{{data.productCondition}}</span>
+								<span class="fs-4 me-3"><i class="bi bi-people-fill fs-4 m-2"></i>{{data.productTrade}}</span>
+								<span class="fs-4 me-3"><i class="bi bi-geo-alt-fill fs-4"></i>中彰投</span>
+								<span class="fs-4 me-3"><i class="bi bi-calendar-event-fill fs-4 m-2"></i>發布日期: {{data.createTime}}</span>
 								<hr class="bg-dark border-4 border-top border-dark">
-								<i class="bi bi-calendar-event-fill fs-3 m-3">發布日期: {{data.createTime}}</i>
-								<p style="white-space: pre-line;min-height: 200px;" class="mt-3">{{data.productContent}}</p>
+								<p style="white-space: pre-line;min-height: 200px;" class="mt-3 fs-4">{{data.productContent}}</p>
 								<div class="pb-3">
-									<button class="btn btn-danger" @click="tobuyProduct">立即購買</button>
+									<button class="btn btn-danger px-4 fs-5 my-4" @click="tobuyProduct">立即購買</button>
 								</div>
 								<br>
 							</div>
@@ -171,7 +171,7 @@
 						<!-- 右功能 -->
 						<div class="col-md-4 px-5">
 							<div class="card  text-center shadow">
-								<el-image :src="data.sellerImg" class="card-img-top img-thumbnail p-1 " fit="cover" lazy></el-image>
+								<el-image :src="data.sellerImg" class="card-img-top img-thumbnail p-1 " fit="cover"></el-image>
 								<div class="card-block mt-2 p-2">
 									<div type="button" @click="toSellerStore(data.sellerId)">
 										<p class="card-title fs-3"> {{data.sellerName}} </p>
@@ -185,13 +185,12 @@
 										<i class="bi bi-envelope-fill m-2 fs-5">已驗證</i>
 									</div>
 									<div class="mb-3">
-										<label for="exampleFormControlTextarea1" class="form-label"></label>
-										<textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+										<textarea v-model="message" class="form-control" rows="3"
 											placeholder="留下給賣家的訊息"></textarea>
 									</div>
 									<div class="card-footer bg-secondary">
 										<button type="button" data-bs-toggle="modal" data-bs-target="#addModal"
-											class="btn btn-danger btn-block card-btn px-4 fs-6">
+											@click="toChatSeller" class="btn btn-danger btn-block card-btn px-4 fs-6">
 											與我聯絡
 										</button>
 									</div>
@@ -247,14 +246,14 @@
 						<div class="row">
 							<!-- 左內容 商品區 -->
 							<div class="col-md-8">
-								<h3><i class="bi bi-suit-heart-fill">你可能也喜歡</i></h3>
+								<h3>你可能也喜歡</h3>
 								<hr class="bg-dark border-4 border-top border-dark">
 								<div class="row">
 									<!-- v-for -->
 									<div v-for="item in storeList" class="col-md-3 mb-3">
 										<div class="card pt-1">
 											<div class="card-title d-flex">
-												<el-image class="rounded-circle m-2" :src="item.sellerImg" lazy
+												<el-image class="rounded-circle m-2" :src="item.sellerImg"
 													style="height: 32px; min-width: 32px;" fit="cover"></el-image>
 												<div type="button" class="flex-column" @click="toSellerStore(item.sellerId)">
 													<span class="">@{{item.sellerName}}</span><br>
@@ -262,7 +261,7 @@
 												</div>
 											</div>
 											<a href="#top" type="button" @click="toProduct(item)">
-												<el-image class="card-img-top img-thumbnail-like px-1" :src="item.productImgA" lazy
+												<el-image class="card-img-top img-thumbnail-like px-1" :src="item.productImgA"
 													fit="cover"></el-image>
 											</a>
 											<div class="card-block">
@@ -364,7 +363,7 @@
 		const app = Vue.createApp({
 			data() {
 				return {
-					baseUrl: 'https://fa5c-111-246-240-220.ngrok.io',
+					baseUrl: 'https://a7cf-111-246-241-209.ngrok.io',
 					data: {},
 					commList: [],
 					storeList: [],
@@ -374,6 +373,7 @@
 					productId: '',
 					sellerId: '',
 					search: '',
+					message: '',
 				}
 			},
 			methods: {
@@ -381,7 +381,6 @@
 				productLoad() {
 					axios.get(`${this.baseUrl}/product/${this.productId}`)
 						.then(res => { this.data = res.data.data; })
-					// this.addressLoad(res.data.data.sellerId)
 				},
 				// 讀取評價資料
 				commLoad() {
@@ -417,6 +416,12 @@
 						}
 					})
 				},
+				// 聯絡賣家
+				toChatSeller() {
+					if (this.userData.length == 0) return Swal.fire('請先登入', '', 'info')
+					sessionStorage.setItem('message', this.message);
+					window.location.href = "chatroom.html"
+				},
 				// 檢舉商品
 				reportProduct() {
 					if (Object.keys(this.reportList).length === 0) {
@@ -449,13 +454,6 @@
 				toSellerStore(id) {
 					sessionStorage.setItem('store', id)
 					window.location.href = "user_store.html"
-				},
-				// 讀取商品地區 
-				addressLoad(sellerId) {
-					console.log(sellerId)
-					// axios.get(`${this.baseUrl}/user/${sellerId}`).then(res => {
-					// 	console.log(res)
-					// })
 				},
 				// 加入最愛
 				addFavorite(item) {

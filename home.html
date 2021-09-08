@@ -35,7 +35,7 @@
           <!-- 登出按鈕 -->
           <div class="text-end" v-if="userData.userId != null">
             <i href="" class="">
-              <el-image class="rounded-circle" :src="userData.userImg" alt="Icon" lazy
+              <el-image class="rounded-circle" :src="userData.userImg" alt="Icon"
                 style="height: 30px;height: 30px; top: 9px; right: 5px;">
               </el-image>
             </i>
@@ -136,7 +136,7 @@
               <!-- 卡片頭 -->
               <div class="card">
                 <div class="m-3 d-flex align-items-start">
-                  <el-image class="rounded-circle mr-2" :src="item.sellerImg" style="height: 40px; width: 40px;" lazy
+                  <el-image class="rounded-circle mr-2" :src="item.sellerImg" style="height: 40px; width: 40px;"
                     fit="cover"></el-image>
                   <div type="button" class="flex-column" @click="toSellerStore(item.sellerId)">
                     <span class="m-3">@{{item.sellerName}}</span><br>
@@ -145,7 +145,7 @@
                 </div>
                 <!-- 卡片圖 -->
                 <div type="button" @click="toProduct(item)">
-                  <el-image class="card-img-top mx-auto" :src="item.productImgA" fit="cover" lazy
+                  <el-image class="card-img-top mx-auto" :src="item.productImgA" fit="cover"
                     style="height: 300px;width: 300px;">
                   </el-image>
                 </div>
@@ -225,7 +225,7 @@
     const app = Vue.createApp({
       data() {
         return {
-          baseUrl: 'https://fa5c-111-246-240-220.ngrok.io',
+          baseUrl: 'https://a7cf-111-246-241-209.ngrok.io',
           storeList: [],
           userData: [],
           favoriteList: [],

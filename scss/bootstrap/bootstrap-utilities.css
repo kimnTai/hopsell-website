@@ -67,17 +67,17 @@
 }
 
 .link-aero {
-  color: #373c52;
+  color: #EEEEEE;
 }
 .link-aero:hover, .link-aero:focus {
-  color: #2c3042;
+  color: #f1f1f1;
 }
 
 .link-danger_2 {
-  color: #FB0000;
+  color: #EFB7B7;
 }
 .link-danger_2:hover, .link-danger_2:focus {
-  color: #fc3333;
+  color: #f2c5c5;
 }
 
 .ratio {
@@ -460,11 +460,11 @@
 }
 
 .border-aero {
-  border-color: #373c52 !important;
+  border-color: #EEEEEE !important;
 }
 
 .border-danger_2 {
-  border-color: #FB0000 !important;
+  border-color: #EFB7B7 !important;
 }
 
 .border-white {
@@ -1297,11 +1297,11 @@
 }
 
 .text-aero {
-  color: #373c52 !important;
+  color: #EEEEEE !important;
 }
 
 .text-danger_2 {
-  color: #FB0000 !important;
+  color: #EFB7B7 !important;
 }
 
 .text-white {
@@ -1361,11 +1361,11 @@
 }
 
 .bg-aero {
-  background-color: #373c52 !important;
+  background-color: #EEEEEE !important;
 }
 
 .bg-danger_2 {
-  background-color: #FB0000 !important;
+  background-color: #EFB7B7 !important;
 }
 
 .bg-body {

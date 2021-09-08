@@ -117,10 +117,9 @@
 									style="height: 150px;width: 150px;">
 								</el-image>
 								<div class="mx-5">
-									<!-- <el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccess">
+									<el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccess">
 										<el-button type="info" style="background-color: #2C2C2D;">點擊上傳</el-button>
-									</el-upload> -->
-									<input v-model="form.userImg" type="text" class="form-control" placeholder="請輸入圖片url">
+									</el-upload>
 								</div>
 							</div>
 							<el-form-item class="mb-3" prop="userAccount">
@@ -156,8 +155,7 @@
 							</el-form-item>
 							<el-form-item class="mb-3">
 								<label class="text-muted" style="font-size: 1rem;">個人簡介</label>
-								<el-input style="font-size: 1rem;" rows="5" type="textarea" v-model="form.userIntroduce"
-									placeholder="請輸入個人簡介">
+								<el-input style="font-size: 1rem;" rows="5" type="textarea" v-model="form.userIntroduce" placeholder="請輸入個人簡介">
 								</el-input>
 							</el-form-item>
 							<el-form-item class="text-end mt-4">
@@ -256,7 +254,7 @@
 		const app = Vue.createApp({
 			data() {
 				return {
-					baseUrl: 'https://fa5c-111-246-240-220.ngrok.io',
+					baseUrl: 'https://a7cf-111-246-241-209.ngrok.io',
 					visibility: 'changeInfo',
 					userData: [],
 					search: '',
