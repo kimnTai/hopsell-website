@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.demo.common.Result;
 import com.example.demo.entity.User;
 import com.example.demo.mapper.UserMapper;
+import com.example.demo.utils.TokenUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -65,9 +66,11 @@ public class UserController {
         if (res == null) {
             return Result.error("-1", "密碼錯誤");
         }
-
-
+        // 產生token
+        String token = TokenUtils.genToken(res);
+        res.setToken(token);
         res.setLoginTime(new Date());
+
         userMapper.updateById(res);
         return Result.success(res);
     }

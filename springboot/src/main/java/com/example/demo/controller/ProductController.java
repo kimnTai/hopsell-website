@@ -1,6 +1,10 @@
 package com.example.demo.controller;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.io.IoUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,8 +15,14 @@ import com.example.demo.mapper.ProductMapper;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Date;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 // 定義返回 JSON Controller
 @RestController
@@ -132,4 +142,40 @@ public class ProductController {
 
     }
 
+    /**
+     * Excel導出
+     * @param response
+     * @throws IOException
+     */
+    @GetMapping("/export")
+    public void export(HttpServletResponse response) throws IOException {
+
+        List<Map<String, Object>> list = CollUtil.newArrayList();
+
+        List<Product> all = productMapper.selectList(null);
+        for (Product product : all) {
+            Map<String, Object> row1 = new LinkedHashMap<>();
+            row1.put("商品ID", product.getProductId());
+            row1.put("商品名稱", product.getProductName());
+            row1.put("分類", product.getCategoryId());
+            row1.put("價格", product.getProductPrice());
+            row1.put("新舊程度", product.getProductCondition());
+            row1.put("交易方式", product.getProductTrade());
+            row1.put("上架時間", product.getCreateTime());
+            list.add(row1);
+        }
+
+        // 2. 寫 excel
+        ExcelWriter writer = ExcelUtil.getWriter(true);
+        writer.write(list, true);
+
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=utf-8");
+        String fileName = URLEncoder.encode("商品資料", "UTF-8");
+        response.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".xlsx");
+
+        ServletOutputStream out = response.getOutputStream();
+        writer.flush(out, true);
+        writer.close();
+        IoUtil.close(System.out);
+    }
 }

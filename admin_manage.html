@@ -43,7 +43,11 @@
             <!-------------------- 商品管理-------------------- -->
             <div class="tab-pane fade show active" id="v-pills-product" role="tabpanel">
                <div class="px-5 pt-3">
-                  <h3>商品管理</h3>
+                  <div class="d-flex">
+                     <h3>商品管理</h3>
+                     <el-button class="mx-3" size="mini" style="background-color: #2C2C2D;color: #fff;"
+                        @click="exportProduct">匯出 Excel</el-button>
+                  </div>
                   <hr>
                   <el-table :data="productData" border style="width: 100%" stripe v-loading="loading" height="650"
                      :cell-style="{padding:'0px'}" :default-sort="{prop: 'productId', order: 'descending'}">
@@ -226,9 +230,13 @@
             <!-------------------- 訂單管理----------------------->
             <div class="tab-pane fade" id="v-pills-order">
                <div class="px-5 pt-3">
-                  <h3>訂單管理</h3>
+                  <div class="d-flex">
+                     <h3>訂單管理</h3>
+                     <el-button class="mx-3" size="mini" style="background-color: #2C2C2D;color: #fff;">匯出 Excel
+                     </el-button>
+                  </div>
                   <hr>
-                  <el-table :data="orderData" border style="width: 100%" stripe v-loading="loading"
+                  <el-table :data="orderData" border style="width: 100%" stripe v-loading="loading" height="650"
                      :default-sort="{prop: 'orderId', order: 'descending'}">
                      <el-table-column prop="orderId" label="訂單編號" sortable>
                      </el-table-column>
@@ -317,6 +325,8 @@
          </el-dialog> -->
                </div>
             </div>
+
+
          </div>
       </div>
 
@@ -350,6 +360,8 @@
    <script src="https://unpkg.com/element-plus@1.0.2-beta.71/lib/index.full.js"></script>
    <!-- sweetalert2 -->
    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   <!-- echarts -->
+
 
 
    <script type="module">
@@ -470,6 +482,18 @@
                Swal.fire('已登出')
                setTimeout(() => { window.location.href = "home.html" }, 1000)
             },
+            handleUploadSuccess(res) {
+               if (res.code === "0") {
+                  this.$message.success("匯入成功")
+                  this.load()
+               }
+            },
+            // 商品匯出 Excel
+            exportProduct() {
+               location.href = `${this.baseUrl}/product/export`;
+            },
+
+
          },
 
 
@@ -484,7 +508,13 @@
       app.use(ElementPlus);
       app.mount('#app')
 
+
+
+
+
    </script>
+
+
 
 
 
