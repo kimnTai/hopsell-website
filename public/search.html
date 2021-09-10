@@ -55,7 +55,6 @@
 						<a href="user_store.html" class="btn btn-secondary"><i class="bi bi-shop"></i></a>
 						<a href="user_favorite.html" class="btn btn-secondary"><i class="bi bi-heart"></i></a>
 					</div>
-
 					<!--登入按鈕-->
 					<div class="text-end" v-else>
 						<a href="login.html" type="button" class="btn btn-secondary ">登入</a>
@@ -166,12 +165,9 @@
 							郵寄及宅配
 						</label>
 					</div>
-
-
 				</div>
 
 				<!------------- 右側卡片 商品項目 ------------->
-
 				<div class="col-md-9 border border-muted rounded-3" style="min-height: 850px;">
 					<div class="row py-3">
 						<!-------------- v-for ------------->
@@ -215,10 +211,6 @@
 					</div>
 
 				</div>
-
-
-
-
 
 			</div>
 		</div>
@@ -383,13 +375,13 @@
 				}
 			},
 
-
 			mounted() {
 				this.form.search = sessionStorage.getItem('search') || '';
 				this.searchLoad();
 				this.favoriteList = JSON.parse(localStorage.getItem('最愛清單')) || [];
 				this.userData = JSON.parse(sessionStorage.getItem('user')) || [];
 			},
+
 			// 監聽 favoriteList
 			watch: {
 				favoriteList: {
@@ -411,12 +403,9 @@
 					deep: true,
 				}
 			}
-
 		});
 		app.use(ElementPlus);
 		app.mount('#shopitem');
-
-
 
 	</script>
 

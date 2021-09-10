@@ -54,7 +54,6 @@
 						<a type="button" class="btn btn-secondary bi bi-shop" @click="toUserStore"></a>
 						<a href="user_favorite.html" class="btn btn-secondary"><i class="bi bi-heart"></i></a>
 					</div>
-
 					<!--登入按鈕-->
 					<div class="text-end" v-else>
 						<a href="login.html" type="button" class="btn btn-secondary ">登入</a>
@@ -84,18 +83,10 @@
 			</div>
 		</div>
 
-
-		<!-- 內容 圖片 -->
-		<!-- <div class="container bg-image rounded-3" style="background-image: url('https://mweb-cdn.karousell.com/build/profile-bg-1hcJPlrNW6.jpg');
-   height: 128px">
-
-	</div> -->
-
-
 		<div style="min-height: 720px;" class="container mt-3">
 			<div class="row">
 				<!-------------------- 左介紹頁----------------------->
-			<div class="col-md-3 mt-5">
+				<div class="col-md-3 mt-5">
 					<div class="card text-center border-light">
 						<img style="object-fit: cover;" class="card-img-top img-thumbnail p-1" :src=sellerData.userImg />
 						<div class="card-block mt-2 p-2">
@@ -292,8 +283,8 @@
 							</div>
 							<div>
 								<p class="h3">出售紀錄</p>
-								<el-table :data="sellData" border stripe v-loading="loading" :cell-style="{padding:'0px'}" height="400"
-									empty-text="尚無出售紀錄" :default-sort="{prop: 'orderId', order: 'descending'}">
+								<el-table :data="sellData" border stripe v-loading="loading" :cell-style="{padding:'0px'}"
+									height="400" empty-text="尚無出售紀錄" :default-sort="{prop: 'orderId', order: 'descending'}">
 									<el-table-column prop="orderId" label="訂單編號">
 									</el-table-column>
 									<el-table-column label="商品封面">
@@ -333,7 +324,6 @@
 				</div>
 			</div>
 
-
 		</div>
 		<!-------------------- END APP----------------------->
 	</div>
@@ -343,20 +333,12 @@
 		<div class="container">
 			<div class="d-flex flex-wrap justify-content-between align-items-center py-3  border-top ">
 				<p class="col-md-4 mb-0 text-reset">© 2021 Company, Inc</p>
-
 				<a href="/"
 					class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
 					<svg class="bi me-2" width="40" height="32">
 						<use xlink:href="#bootstrap"></use>
 					</svg>
 				</a>
-				<!-- <ul class="nav col-md-4 justify-content-end">
-					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
-					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
-					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Pricing</a></li>
-					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
-					<li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
-				</ul> -->
 			</div>
 		</div>
 	</div>
@@ -461,7 +443,7 @@
 					}
 					this.loading = true;
 					setTimeout(() => { this.orderLoad() }, 500)
-					
+
 				},
 				// 評價彈窗
 				commDialog(item) {

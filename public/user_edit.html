@@ -224,14 +224,6 @@
 						<use xlink:href="#bootstrap"></use>
 					</svg>
 				</a>
-
-				<!-- <ul class="nav col-md-4 justify-content-end">
-               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Home</a></li>
-               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Features</a></li>
-               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">Pricing</a></li>
-               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">FAQs</a></li>
-               <li class="nav-item"><a href="#" class="nav-link px-2 text-reset">About</a></li>
-            </ul> -->
 			</footer>
 		</div>
 	</div>
@@ -264,9 +256,6 @@
 	<script type="module">
 
 		const app = Vue.createApp({
-
-
-
 			data() {
 				return {
 					image: '',
@@ -278,16 +267,6 @@
 				}
 			},
 			methods: {
-				// 驗證測試
-				onSubmit(value) {
-					console.log(value)
-				},
-				isRequired(value) {
-					if (!value) {
-						return '此欄是必填'
-					}
-					return true;
-				},
 				// 更新商品
 				addProduct() {
 					Swal.fire({
@@ -299,18 +278,11 @@
 						if (result.isConfirmed) {
 							if (!this.form.productId) { Swal.fire('失敗', '', 'info'); return }
 							axios.put(this.baseUrl, this.form)
-								.then((res) => {
-									Swal.fire('商品已更新', '', 'success')
-								})
-								.catch((err) => {
-									console.log(err);
-									Swal.fire('失敗', '', 'info')
-								});
+								.then((res) => { Swal.fire('商品已更新', '', 'success') })
+								.catch((err) => { console.log(err); Swal.fire('失敗', '', 'info') });
 							this.form = {};
 							sessionStorage.setItem('store', this.userData.userId);
-							setTimeout(() => {
-								window.location.href = "user_store.html"
-							}, 2000)
+							setTimeout(() => { window.location.href = "user_store.html" }, 2000)
 						}
 					})
 				},
@@ -328,30 +300,17 @@
 							this.deleteForm.productId = this.form.productId
 							console.log(this.deleteForm.productId)
 							axios.put(this.baseUrl, this.deleteForm)
-								.then((res) => {
-									Swal.fire('商品已刪除', '', 'success')
-								})
-								.catch((err) => {
-									console.log(err);
-									Swal.fire('失敗', '', 'info')
-								});
+								.then((res) => { Swal.fire('商品已刪除', '', 'success') })
+								.catch((err) => { console.log(err); Swal.fire('失敗', '', 'info') });
 							this.form = {};
-							setTimeout(() => {
-								window.location.href = "user_store.html"
-							}, 2000)
+							setTimeout(() => { window.location.href = "user_store.html" }, 2000)
 						}
 					})
 				},
 				// 存圖片url
-				filesUploadSuccessA(res) {
-					this.form.productImgA = res.data
-				},
-				filesUploadSuccessB(res) {
-					this.form.productImgB = res.data
-				},
-				filesUploadSuccessC(res) {
-					this.form.productImgC = res.data
-				},
+				filesUploadSuccessA(res) { this.form.productImgA = res.data },
+				filesUploadSuccessB(res) { this.form.productImgB = res.data },
+				filesUploadSuccessC(res) { this.form.productImgC = res.data },
 				// 使用者登出
 				logout() {
 					this.userData = [];

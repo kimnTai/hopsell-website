@@ -236,16 +236,6 @@
 				}
 			},
 			methods: {
-				// 驗證測試
-				onSubmit(value) {
-					console.log(value)
-				},
-				isRequired(value) {
-					if (!value) {
-						return '此欄是必填'
-					}
-					return true;
-				},
 				// 刊登商品
 				addProduct() {
 					Swal.fire({
@@ -260,18 +250,11 @@
 							this.form.sellerImg = this.userData.userImg
 
 							axios.post(this.baseUrl, this.form)
-								.then(res => {
-									Swal.fire('商品已刊登', '', 'success')
-								})
-								.catch(err => {
-									console.log(err);
-									Swal.fire('失敗', '', 'info')
-								});
+								.then(res => { Swal.fire('商品已刊登', '', 'success') })
+								.catch(err => { console.log(err); Swal.fire('失敗', '', 'info') });
 							this.form = {};
 							sessionStorage.setItem('store', this.userData.userId);
-							setTimeout(() => {
-								window.location.href = "user_store.html"
-							}, 2000)
+							setTimeout(() => { window.location.href = "user_store.html" }, 2000)
 						}
 					})
 				},
@@ -287,17 +270,10 @@
 						this.form.productImgC = res.data;
 						return
 					}
-
 				},
-
 				// ElementPlus 刪除圖片
-				handleRemove(file, fileList) {
-
-
-				},
-
+				handleRemove(file, fileList) { },
 				addList() {
-
 					this.form.sellerId = this.userData.userId
 					this.form.sellerName = this.userData.userAccount
 					this.form.sellerImg = this.userData.userImg
@@ -310,7 +286,6 @@
 												尺寸：長77/肩55
 												古著並非新品 吹毛求疵者 請慎重考慮。
 												❗️商品售出後，不做退換。`
-
 				},
 				// 使用者登出
 				logout() {
