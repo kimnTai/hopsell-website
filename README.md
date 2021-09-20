@@ -5,6 +5,14 @@
  * 以衣服為例，在這個快時尚的時代，每週都有新品不斷上市，讓已經穿不到的衣服，能上架給其他人選購。
  * 不僅達到資源有效循環，也減少不必要的浪費。
 
+## Demo
+點擊該網址即可前往 hopsell 跳躍拍賣 : https://kimntai.github.io/hopsell-website/public/home.html
+
+Demo User : Demo</br>
+Password : Demo
+
+亦可在註冊欄位建立自己的帳號使用網站功能
+
 ## 使用技術
 
  * 前端: Vue3.js、AXIOS、Bootstrap5、ElementPlus、SASS
