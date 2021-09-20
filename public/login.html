@@ -15,8 +15,10 @@
 		<div class="container h-100">
 			<div class="row justify-content-sm-center h-100">
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-					<div class="text-center my-5">
-						<img src="images/logo_1.png" alt="logo" width="200">
+					<div class="text-center my-4">
+						<a href="home.html" class="text-center my-3">
+							<img src="images/logo_1.png" alt="logo" width="200">
+						</a>
 					</div>
 					<div class="card shadow-lg">
 						<el-form class="card-body p-5" :rules="rules" ref="form" :model="form">
@@ -32,11 +34,13 @@
 								</el-input>
 							</el-form-item>
 							<el-form-item class="text-end mt-4">
+								<a class="px-3" type="button" @click="demoAdmin">Admin</a>
+								<a class="px-3" type="button" @click="demoLogin">DEMO</a>
 								<el-button @click="login" style="background-color: #2C2C2D;color: #fff;">登入</el-button>
 							</el-form-item>
 						</el-form>
 						<div class="card-footer py-3 border-0">
-							
+
 							<div class="text-center">
 								沒有帳號? <a href="register.html" class="text-dark">註冊一個</a>
 							</div>
@@ -73,12 +77,16 @@
 			data() {
 				return {
 					text: "測試",
-					baseUrl: 'http://localhost:9090',
+					baseUrl: 'https://hopsell-api.herokuapp.com',
 					form: {},
 					// 驗證內容
 					rules: {
 						userAccount: [{ required: true, message: '請輸入使用者名稱', trigger: 'blur' }],
 						password: [{ required: true, message: '請輸入密碼', trigger: 'blur' }],
+					},
+					demoData: {
+						userAccount: "Demo",
+						password: "Demo",
 					}
 				};
 			},
@@ -104,6 +112,13 @@
 							this.form = {};
 						})
 					})
+				},
+				demoLogin() {
+					this.form = this.demoData;
+				},
+				demoAdmin() {
+					this.form.userAccount = "admin";
+					this.form.password = "admin";
 				},
 			},
 		});

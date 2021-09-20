@@ -15,8 +15,10 @@
 		<div class="container h-100">
 			<div class="row justify-content-sm-center h-100">
 				<div class="col-xxl-4 col-xl-5 col-lg-5 col-md-7 col-sm-9">
-					<div class="text-center my-5">
-						<img src="images/logo_1.png" alt="logo" width="200">
+					<div class="text-center my-4">
+						<a href="home.html" class="text-center my-3">
+							<img src="images/logo_1.png" alt="logo" width="200">
+						</a>
 					</div>
 					<el-form class="card shadow-lg" ref="form" :rules="rules" :model="form">
 						<div class="card-body p-5">
@@ -100,7 +102,7 @@
 			data() {
 				return {
 					text: "測試",
-					baseUrl: 'http://localhost:9090',
+					baseUrl: 'https://hopsell-api.herokuapp.com',
 					form: {},
 					// 驗證內容
 					rules: {

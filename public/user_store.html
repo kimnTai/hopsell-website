@@ -140,7 +140,7 @@
 								<div class="card  p-1">
 									<div type="button" @click="toProduct(item)">
 										<el-image class="card-img-top img-thumbnail-like rounded" alt="" :src="item.productImgA"
-											:preview-src-list="[item.productImgA]" fit="cover">
+											fit="cover">
 										</el-image>
 									</div>
 									<div class="card-block px-1">
@@ -370,7 +370,7 @@
 		const app = Vue.createApp({
 			data() {
 				return {
-					baseUrl: 'http://localhost:9090',
+					baseUrl: 'https://hopsell-api.herokuapp.com',
 					visibility: 'productPage',
 					dialogVisible: false,
 					loading: true,

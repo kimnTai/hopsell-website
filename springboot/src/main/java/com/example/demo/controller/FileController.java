@@ -24,7 +24,9 @@ public class FileController {
     @Value("${server.port}")
     private String port;
 
-    private static final String ip = "http://localhost";
+    @Value("${file.ip}")
+    private String ip;
+
     private static String sysPath = "/src/main/resources/files/";
 
     /**
@@ -47,12 +49,12 @@ public class FileController {
 
         FileUtil.writeBytes(file.getBytes(), rootFilePath);     // 透過 hutool 工具類 寫入檔案 (記得 要拋出異常)
 
-        return Result.success(ip + ":" + port + "/files/" + flag);    // 返回結果 url
+        return Result.success("https://" + ip + ":" + port + "/files/" + flag);    // 返回結果 url
 
     }
 
     /**
-     * 富文本文件上传接口
+     * 富文本文件上傳接口
      *
      * @param file
      * @return
@@ -68,7 +70,7 @@ public class FileController {
         FileUtil.writeBytes(file.getBytes(), rootFilePath);     // 透過 hutool 工具類 寫入檔案 (記得 要拋出異常)
 
 
-        String url = ip + ":" + port + "/files/" + flag;
+        String url ="https://" + ip + ":" + port + "/files/" + flag;
         JSONObject json = new JSONObject();
         json.set("errno", 0);
         JSONArray arr = new JSONArray();

@@ -104,29 +104,6 @@
 
 		<div class="container">
 			<div class="row d-flex justify-content-center">
-				<!-- <div class="col-md-4 mb-4 px-3 demo-image__laz">
-					<div class="mx-5">
-						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片A</label>
-						<el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccess">
-							<el-button type="info" style="background-color: #2C2C2D;">點擊上傳</el-button>
-						</el-upload>
-						<el-image class="pt-2" style="height: 200px;width: 312px;" fit="cover" :src="form.productImgA" lazy
-							:preview-src-list="[form.productImgA]"></el-image>
-					</div>
-					<div class="mx-5">
-						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片B</label>
-						<input v-model="form.productImgB" type="text" class="form-control" placeholder="請輸入圖片url" name="價格">
-						<el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgB" lazy
-							:preview-src-list="[form.productImgB]" fit="cover"></el-image>
-					</div>
-					<div class="mx-5">
-						<label for="formFileLg" class="form-label fs-4 fw-bold">選擇照片C</label>
-						<input v-model="form.productImgC" type="text" class="form-control" placeholder="請輸入圖片url" name="價格">
-						<el-image class="pt-2" style="height: 200px;width: 312px;" :src="form.productImgC" lazy
-							:preview-src-list="[form.productImgC]" fit="cover"></el-image>
-					</div>
-				</div> -->
-
 				<div class="col-md-7">
 					<!---------form--------->
 
@@ -134,23 +111,32 @@
 						<div>
 							<el-image class="pt-2" style="height: 200px;width: 200px;" fit="cover" :src="form.productImgA" lazy
 								:preview-src-list="[form.productImgA]"></el-image>
-							<el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccessA">
+							<!-- <el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccessA">
 								<el-button type="info" style="background-color: #2C2C2D;">點擊上傳</el-button>
-							</el-upload>
+							</el-upload> -->
+							<el-input class="mt-2 pe-5" placeholder="請輸圖片連結" prefix-icon="el-icon-picture"
+								v-model="form.productImgA">
+							</el-input>
 						</div>
 						<div>
 							<el-image class="pt-2" style="height: 200px;width: 200px;" :src="form.productImgB" lazy
 								:preview-src-list="[form.productImgB]" fit="cover"></el-image>
-							<el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccessB">
+							<!-- <el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccessB">
 								<el-button type="info" style="background-color: #2C2C2D;">點擊上傳</el-button>
-							</el-upload>
+							</el-upload> -->
+							<el-input class="mt-2 pe-5" placeholder="請輸圖片連結" prefix-icon="el-icon-picture"
+								v-model="form.productImgB">
+							</el-input>
 						</div>
 						<div>
 							<el-image class="pt-2" style="height: 200px;width: 200px;" :src="form.productImgC" lazy
 								:preview-src-list="[form.productImgC]" fit="cover"></el-image>
-							<el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccessC">
+							<!-- <el-upload action="http://localhost:9090/files/upload" :on-success="filesUploadSuccessC">
 								<el-button type="info" style="background-color: #2C2C2D;">點擊上傳</el-button>
-							</el-upload>
+							</el-upload> -->
+							<el-input class="mt-2 pe-5" placeholder="請輸圖片連結" prefix-icon="el-icon-picture"
+								v-model="form.productImgC">
+							</el-input>
 						</div>
 					</div>
 
@@ -261,7 +247,7 @@
 					image: '',
 					form: {},
 					deleteForm: { productStatus: -1, productId: '' },
-					baseUrl: 'http://localhost:9090/product',
+					baseUrl: 'https://hopsell-api.herokuapp.com/product',
 					userData: [],
 					search: '',
 				}
@@ -277,6 +263,9 @@
 					}).then((result) => {
 						if (result.isConfirmed) {
 							if (!this.form.productId) { Swal.fire('失敗', '', 'info'); return }
+							this.form.sellerId = this.userData.userId
+							this.form.sellerName = this.userData.userAccount
+							this.form.sellerImg = this.userData.userImg
 							axios.put(this.baseUrl, this.form)
 								.then((res) => { Swal.fire('商品已更新', '', 'success') })
 								.catch((err) => { console.log(err); Swal.fire('失敗', '', 'info') });
