@@ -22,6 +22,7 @@ Password : admin
  * 後端: SpringBoot、MyBatis-Plus
  * 資料庫:MySQL、Firebase
  * RESTful API架構實踐專案功能
+ * 使用 GitHub Pages、Heroku、db4free進行佈署
 
 ## 技術架構流程圖
 
