@@ -1,4 +1,4 @@
-# hopsell 跳躍拍賣 - C2C購物平台
+# [hopsell 跳躍拍賣](https://kimntai.github.io/hopsell-website/public/home.html) - C2C購物平台
 
  * 本專案是建立二手拍賣的C2C購物平台，讓目標客群擁有買賣自己商品的管道。
  * 跳躍拍賣的目的在於，將自己使用不到的物品轉售給其他更需要的人。
