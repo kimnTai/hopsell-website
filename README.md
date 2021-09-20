@@ -18,6 +18,8 @@
 
   ![image](https://i.imgur.com/pocHGFO.png)
 
+## 功能介紹
+
 ### 首頁瀏覽、商品搜尋、商品詳情
 
  * 滾輪往下滑，可以閱覽所有商品(1次重新列出8筆新商品)
@@ -73,7 +75,7 @@
 
   ![image](https://i.imgur.com/m5pnjCs.png)
 
- * 檢舉清單:前台用戶檢舉、違規商品下架
+ * 檢舉清單:前台用戶檢舉、違規商品下架 
 
   ![image](https://i.imgur.com/OnXQOJJ.png)
 
