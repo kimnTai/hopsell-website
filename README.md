@@ -7,7 +7,7 @@
 
 ## Demo
 點擊該網址即可前往 hopsell 跳躍拍賣 : https://kimntai.github.io/hopsell-website/public/home.html</br>
-P.S.因虛擬機休眠機制，若無畫面請重整或再次訪問。
+P.S.因虛擬機休眠機制，若無畫面請F5重新整理或關閉再次訪問。
 
 Demo User : Demo</br>
 Password : Demo
