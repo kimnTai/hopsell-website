@@ -6,7 +6,7 @@
  * 不僅達到資源有效循環，也減少不必要的浪費。
 
 ## Demo
-點擊該網址即可前往 hopsell 跳躍拍賣 : https://kimntai.github.io/hopsell-website/public/home.html
+點擊該網址即可前往 hopsell 跳躍拍賣 : https://kimntai.github.io/hopsell-website/public/home.html</br>
 P.S.因虛擬機休眠機制，若無畫面請重整或再次訪問。
 
 Demo User : Demo</br>
