@@ -15,7 +15,7 @@ Password : Demo
 Admin User : admin</br>
 Password : admin
 
-亦可在註冊欄位建立自己的帳號使用網站功能
+亦可使用註冊功能，建立自己的帳號使用網站功能。
 
 ## 使用技術
 
