@@ -5,9 +5,8 @@
  * 以衣服為例，在這個快時尚的時代，每週都有新品不斷上市，讓已經穿不到的衣服，能上架給其他人選購。
  * 不僅達到資源有效循環，也減少不必要的浪費。
 
-## Demo
-點擊該網址即可前往 hopsell 跳躍拍賣 : https://kimntai.github.io/hopsell-website/public/home.html</br>
-P.S.因虛擬機休眠機制，若無畫面請 F5 重新整理或關閉再次訪問。
+## [Demo](https://kimntai.github.io/hopsell-website/public/home.html)
+點擊該網址即可前往 hopsell 跳躍拍賣，因虛擬機休眠機制，若無畫面請 F5 重新整理或關閉再次訪問。
 
 Demo User : Demo</br>
 Password : Demo
