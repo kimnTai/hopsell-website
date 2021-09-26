@@ -1,13 +1,13 @@
-# [hopsell 跳躍拍賣](https://kimntai.github.io/hopsell-website/public/home.html) - C2C購物平台
+# [hopsell 跳躍拍賣](https://kimntai.github.io/hopsell-website/public/home.html) - C2C 購物平台
 
- * 本專案是建立二手拍賣的C2C購物平台，讓目標客群擁有買賣自己商品的管道。
+ * 本專案是建立二手拍賣的 C2C 購物平台，讓目標客群擁有買賣自己商品的管道。
  * 跳躍拍賣的目的在於，將自己使用不到的物品轉售給其他更需要的人。
  * 以衣服為例，在這個快時尚的時代，每週都有新品不斷上市，讓已經穿不到的衣服，能上架給其他人選購。
  * 不僅達到資源有效循環，也減少不必要的浪費。
 
 ## Demo
 點擊該網址即可前往 hopsell 跳躍拍賣 : https://kimntai.github.io/hopsell-website/public/home.html</br>
-P.S.因虛擬機休眠機制，若無畫面請F5重新整理或關閉再次訪問。
+P.S.因虛擬機休眠機制，若無畫面請 F5 重新整理或關閉再次訪問。
 
 Demo User : Demo</br>
 Password : Demo
@@ -22,12 +22,12 @@ Password : admin
  * 前端: Vue3.js、AXIOS、Bootstrap5、ElementPlus、SASS
  * 後端: SpringBoot、MyBatis-Plus
  * 資料庫:MySQL、Firebase
- * RESTful API架構實踐專案功能
- * 使用 GitHub Pages、Heroku、db4free進行佈署
+ * RESTful API 架構實踐專案功能
+ * 使用 GitHub Pages、Heroku、db4free 進行佈署
 
 ## 技術架構流程圖
 
- * 前端Vue框架使用axios進行request請求至後端，後端使用Springboo整合開發API的架構，應用MybaitsPlus完成對資料庫的增刪改查。
+ * 前端 Vue 框架使用 axios 進行 request 請求至後端，後端使用 SpringBoot 整合開發 API 的架構，應用 MybaitsPlus 完成對資料庫的增刪改查。
 
   ![image](https://i.imgur.com/pocHGFO.png)
 
@@ -76,7 +76,7 @@ Password : admin
 
 ### 後台管理系統
 
- * 商品管理:查詢以及瀏覽所有商品、總覽匯出Excel格式、下架與上架維護
+ * 商品管理:查詢以及瀏覽所有商品、總覽匯出 Excel 格式、下架與上架維護
 
   ![image](https://i.imgur.com/9baw8ym.png)
 
