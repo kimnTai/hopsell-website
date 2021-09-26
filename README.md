@@ -18,7 +18,7 @@ Password : admin
 
 ## 使用技術
 
- * 前端: Vue3.js、AXIOS、Bootstrap5、ElementPlus、SASS
+ * 前端: Vue3.js、Bootstrap5、ElementPlus、SASS、axios
  * 後端: SpringBoot、MyBatis-Plus
  * 資料庫:MySQL、Firebase
  * RESTful API 架構實踐專案功能
